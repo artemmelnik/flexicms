@@ -1,0 +1,106 @@
+.right-toolbar{
+    width: 200px;
+    text-align: right;
+}
+
+.page-title{
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+}
+.page-title h3{}
+
+.setting-tabs {
+    padding-bottom: 22px;
+}
+
+.heading-setting-section {}
+.heading-setting-section a.btn {
+    float: right;
+}
+
+body.dragging, body.dragging * {
+    cursor: move !important;
+}
+
+.dragged {
+    position: absolute;
+    opacity: 0.5;
+    z-index: 2000;
+}
+
+ol.example li.placeholder {
+    position: relative;
+    /** More li styles **/
+}
+ol.example li.placeholder:before {
+    position: absolute;
+    /** Define arrowhead **/
+}
+.edit-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.edit-menu li {
+    border: 1px solid #ddd;
+    margin-bottom: 8px;
+    padding-left: 12px;
+}
+.edit-menu li input{
+    outline: 0;
+    border: 0;
+    padding: 10px 14px;
+    height: 100%;
+    vertical-align: middle;
+}
+.edit-menu {}
+
+.menu-item-event {
+    display: inline-block;
+    float: right;
+    height: 38px;
+    padding: 5px 12px;
+    vertical-align: middle;
+}
+.menu-item-event i.icon-cursor-move{
+    height: 100%;
+    display: inline-block;
+    vertical-align: top;
+    width: 30px;
+    text-align: center;
+    line-height: 29px;
+    cursor: move;
+}
+.menu-item-event {}
+
+.empty-items {
+    padding: 25px 0px;
+    margin-top: 22px;
+}
+.empty-items p {
+    color: #afaeae;
+}
+
+.menu-list {
+    margin-top: 25px;
+    border: solid #f7f7f9;
+}
+.menu-list li{}
+.menu-list li a{}
+.menu-list li a.active{
+    background: #f7f7f9;
+    color: black;
+}
+
+.add-item-button {}
+.add-item-button:hover{}
+
+.button-remove {
+    background: #ffffff;
+    color: #ff5e5e;
+    border: 0;
+    cursor: pointer;
+}
+.button-remove i{
+    line-height: 28px;
+}
