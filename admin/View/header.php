@@ -9,8 +9,13 @@
 
     <title>Админ-панель</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="/admin/Assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/admin/Assets/semantic/semantic.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/admin/Assets/semantic/components/dropdown.min.css">
+    <link rel="stylesheet" href="/admin/Assets/semantic/components/transition.min.css">
+    <link rel="stylesheet" href="/admin/Assets/semantic/components/icon.min.css">
+    <link rel="stylesheet" href="/admin/Assets/semantic/components/segment.min.css">
+    <link rel="stylesheet" href="/admin/Assets/semantic/components/sidebar.min.css">
+
 
     <!-- Custom styles for this template -->
     <link href="/admin/Assets/css/dashboard.css" rel="stylesheet">
@@ -23,46 +28,31 @@
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-        <div class="container">
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <a class="navbar-brand" href="#">Admin CMS</a>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">
-                            <i class="icon-speedometer icons"></i>
-                            <?= $lang->dashboardMenu['home'] ?>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/pages/">
-                            <i class="icon-doc icons"></i>
-                            <?= $lang->dashboardMenu['pages'] ?>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/posts/">
-                            <i class="icon-pencil icons"></i>
-                            <?= $lang->dashboardMenu['posts'] ?>
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="/admin/settings/general/">
-                            <i class="icon-equalizer icons"></i>
-                            <?= $lang->dashboardMenu['settings'] ?>
-                        </a>
-                    </li>
-                </ul>
+    <div class="ui borderless main menu top-header">
+        <div class="ui container">
+            <div href="/admin/" class="header item logo-item">
+                <img class="logo" src="/admin/Assets/images/logo.png">
             </div>
+            <a href="/admin/" class="item">
+                <i class="icon-speedometer icons"></i>
+                <?= $lang->dashboardMenu['home'] ?>
+            </a>
+            <a href="/admin/pages/" class="item">
+                <i class="icon-doc icons"></i>
+                <?= $lang->dashboardMenu['pages'] ?>
+            </a>
+            <a href="/admin/posts/" class="item">
+                <i class="icon-pencil icons"></i>
+                <?= $lang->dashboardMenu['posts'] ?>
+            </a>
+            <a href="/admin/settings/general/" class="item">
+                <i class="icon-equalizer icons"></i>
+                <?= $lang->dashboardMenu['settings'] ?>
+            </a>
 
-            <div class="right-toolbar">
-                <a href="/admin/logout/">
-                    <i class="icon-logout icons"></i> Logout
-                </a>
-            </div>
+            <a href="/admin/logout/" class="ui right floated item" tabindex="0">
+                <i class="icon-logout icons"></i> Logout
+            </a>
         </div>
-    </nav>
+    </div>
 </header>

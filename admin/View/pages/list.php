@@ -1,17 +1,19 @@
 <?php $this->theme->header(); ?>
 
     <main>
-        <div class="container">
+        <div class="ui container">
             <div class="row">
                 <div class="col page-title">
-                    <h3>
+                    <h2 class="ui header">
                         Pages
-                        <a href="/admin/pages/create/">Create page</a>
-                    </h3>
+                        <a href="/admin/pages/create/" class="ui primary button right floated item">
+                            Create page
+                        </a>
+                    </h2>
                 </div>
             </div>
 
-            <table class="table">
+            <table class="ui very basic table">
                 <thead>
                 <tr>
                     <th>#</th>
