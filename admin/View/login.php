@@ -10,8 +10,10 @@
 
     <title>Login to CMS</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="/admin/Assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/admin/Assets/semantic/semantic.min.css" rel="stylesheet">
+    <link href="/admin/Assets/semantic/components/grid.min.css" rel="stylesheet">
+    <link href="/admin/Assets/semantic/components/form.min.css" rel="stylesheet">
+    <link href="/admin/Assets/semantic/components/checkbox.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="/admin/Assets/css/login.css" rel="stylesheet">
@@ -25,23 +27,38 @@
 
 <body>
 
-<div class="container">
-
-    <form class="form-signin" role="form" method="POST" action="/admin/auth/">
-        <h2 class="form-signin-heading">Login to CMS</h2>
-        <input type="email" name="email" class="form-control" placeholder="Email" required autofocus>
-        <input type="password" name="password" class="form-control" placeholder="Password" required>
-        <label class="checkbox">
-            <input type="checkbox" value="remember-me"> Remember me
-        </label>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-    </form>
-
-</div> <!-- /container -->
-
+    <div class="ui middle aligned center aligned grid">
+        <div class="column">
+            <form class="ui form form-login" method="POST" action="/admin/auth/">
+                <div class="fexi-login-logo">
+                    <img class="ui middle aligned tiny image" src="/admin/Assets/images/logo.png">
+                    <span>ADMIN PANEL</span>
+                </div>
+                <div class="field">
+                    <input type="email" name="email" placeholder="Email" required>
+                </div>
+                <div class="field">
+                    <input type="password" name="password" placeholder="Password" required>
+                </div>
+                <div class="field inline">
+                    <div class="ui checkbox">
+                        <input type="checkbox" tabindex="0">
+                        <label>Remember me</label>
+                    </div>
+                </div>
+                <button class="ui primary button">
+                    Login
+                </button>
+            </form>
+        </div>
+    </div>
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
+<script src="/admin/Assets/js/jquery-2.0.3.min.js"></script>
+<script src="/admin/Assets/semantic/semantic.min.js"></script>
+<script src="/admin/Assets/semantic/components/form.min.js"></script>
+<link href="/admin/Assets/semantic/components/checkbox.min.js" rel="stylesheet">
 </body>
 </html>

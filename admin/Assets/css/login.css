@@ -4,6 +4,26 @@ body {
   background-color: #eee;
 }
 
+body .center.grid {
+  height: 100%;
+}
+
+.form.form-login {
+  min-width: 350px;
+  background: white;
+  padding: 2em 1.8em;
+  display: inline-block;
+  text-align: left;
+}
+
+.fexi-login-logo {
+  padding-bottom: 1.5em;
+}
+
+.fexi-login-logo img {
+  margin-right: 1em;
+}
+
 .form-signin {
   max-width: 330px;
   padding: 15px;
