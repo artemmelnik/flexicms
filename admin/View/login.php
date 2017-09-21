@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="favicon.ico">
 
-    <title>Login to CMS</title>
+    <title>Login to FlexiCMS</title>
 
     <link href="/admin/Assets/semantic/semantic.min.css" rel="stylesheet">
     <link href="/admin/Assets/semantic/components/grid.min.css" rel="stylesheet">
