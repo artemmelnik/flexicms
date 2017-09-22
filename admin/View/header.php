@@ -39,7 +39,7 @@
                     <?= $lang->dashboardMenu[$key] ?>
                 </a>
             <?php endforeach; ?>
-            
+
             <a href="/admin/logout/" class="ui right floated item" tabindex="0">
                 <i class="icon-logout icons"></i> Logout
             </a>

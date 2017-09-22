@@ -4,6 +4,10 @@ namespace Cms\Model\Menu;
 
 use Engine\Model;
 
+/**
+ * Class MenuRepository
+ * @package Cms\Model\Menu
+ */
 class MenuRepository extends Model
 {
     /**
@@ -23,13 +27,15 @@ class MenuRepository extends Model
         return $menuId;
     }
 
+    /**
+     * @return mixed
+     */
     public function getList()
     {
         $query = $this->db->query(
             $this->queryBuilder
                 ->select()
                 ->from('menu')
-                ->orderBy('id', 'DESC')
                 ->sql()
         );
 
