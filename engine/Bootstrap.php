@@ -1,5 +1,4 @@
 <?php
-
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/Function.php';
 
@@ -21,6 +20,8 @@ try{
     // Init services
     foreach ($services as $service) {
         $provider = new $service($di);
+
+        /** @var \Engine\Service\AbstractProvider $provider */
         $provider->init();
     }
 

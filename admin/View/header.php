@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
 
-    <title>Админ-панель</title>
+    <title>Admin panel</title>
 
     <link href="/admin/Assets/semantic/semantic.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/admin/Assets/semantic/components/dropdown.min.css">
@@ -27,7 +27,6 @@
     <link rel="stylesheet" href="/admin/Assets/js/plugins/redactor/redactor.css">
 </head>
 <body>
-<?php print_r(\Engine\Helper\Lang::e()); ?>
 <header>
     <div class="ui borderless main menu top-header">
         <div class="ui container">

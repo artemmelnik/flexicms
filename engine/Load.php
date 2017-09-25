@@ -4,11 +4,14 @@ namespace Engine;
 
 use Engine\DI\DI;
 
+/**
+ * Class Load
+ * @package Engine
+ */
 class Load
 {
     const MASK_MODEL_ENTITY     = '\%s\Model\%s\%s';
     const MASK_MODEL_REPOSITORY = '\%s\Model\%s\%sRepository';
-
     const FILE_MASK_LANGUAGE    = 'Language/%s/%s.ini';
 
     /**
@@ -16,6 +19,10 @@ class Load
      */
     public $di;
 
+    /**
+     * Load constructor.
+     * @param DI $di
+     */
     public function __construct(DI $di)
     {
         $this->di = $di;
@@ -59,9 +66,10 @@ class Load
      */
     public function language($path)
     {
+        $languageCurrent = \Setting::get('language');
         $file = sprintf(
             self::FILE_MASK_LANGUAGE,
-            'english', $path
+            $languageCurrent, $path
         );
 
         $content = parse_ini_file($file, true);
