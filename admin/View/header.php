@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="/admin/Assets/js/plugins/redactor/redactor.css">
 </head>
 <body>
+<?php print_r(\Engine\Helper\Lang::e()); ?>
 <header>
     <div class="ui borderless main menu top-header">
         <div class="ui container">
@@ -36,7 +37,7 @@
             <?php foreach (Customize::getInstance()->getAdminMenuItems() as $key => $item): ?>
                 <a class="item" href="<?= $item['urlPath'] ?>">
                     <i class="<?= $item['classIcon'] ?>"></i>
-                    <?= $lang->dashboardMenu[$key] ?>
+                    <?php Lang::_e('dashboardMenu', $key) ?>
                 </a>
             <?php endforeach; ?>
 

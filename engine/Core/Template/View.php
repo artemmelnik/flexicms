@@ -58,9 +58,6 @@ class View
             );
         }
 
-        // Add language in this template
-        $data['lang'] = $this->di->get('language');
-
         $this->theme->setData($data);
 
         extract($data);

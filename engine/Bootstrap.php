@@ -8,6 +8,7 @@ class_alias('Engine\\Core\\Template\\Theme', 'Theme');
 class_alias('Engine\\Core\\Template\\Setting', 'Setting');
 class_alias('Engine\\Core\\Template\\Menu', 'Menu');
 class_alias('Engine\\Core\\Customize\\Customize', 'Customize');
+class_alias('Engine\\Helper\\Lang', 'Lang');
 
 use Engine\Cms;
 use Engine\DI\DI;
