@@ -1,11 +1,12 @@
 <?php
-
 namespace Admin\Controller;
 
+use Admin\Model\Setting\Setting;
 use Engine\Core\Template\Theme;
 
 /**
  * Class SettingController
+ * @property mixed model
  * @package Admin\Controller
  */
 class SettingController extends AdminController
@@ -30,6 +31,15 @@ class SettingController extends AdminController
         $this->data['editMenu'] = $this->model->menuItem->getItems($this->data['menuId']);
 
         $this->view->render('setting/menus', $this->data);
+    }
+
+    public function themes()
+    {
+        $this->data['activeTheme'] = '';
+        $this->data['themes'] = getThemes();
+        $this->data['activeTheme'] = \Setting::get('active_theme');
+
+        $this->view->render('setting/themes', $this->data);
     }
 
     public function ajaxMenuAdd()
@@ -107,5 +117,14 @@ class SettingController extends AdminController
         $params = $this->request->post;
 
         $this->model->setting->update($params);
+    }
+
+    public function activateTheme()
+    {
+        $params = $this->request->post;
+
+        $this->load->model('Setting');
+
+        $this->model->setting->updateActiveTheme($params['theme']);
     }
 }

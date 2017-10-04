@@ -1,11 +1,14 @@
 <?php
-
 namespace Engine;
 
-use Engine\Core\Config\Config;
 use Engine\Core\Router\DispatchedRoute;
+use Engine\DI\DI;
 use Engine\Helper\Common;
 
+/**
+ * Class Cms
+ * @package Engine
+ */
 class Cms
 {
     /**
@@ -13,10 +16,13 @@ class Cms
      */
     private $di;
 
+    /**
+     * @var Core\Router\Router
+     */
     public $router;
 
     /**
-     * cms constructor.
+     * Cms constructor.
      * @param $di
      */
     public function __construct($di)
@@ -31,7 +37,6 @@ class Cms
     public function run()
     {
         try {
-
             require_once __DIR__ . '/../' . mb_strtolower(ENV) . '/Route.php';
 
             $routerDispatch = $this->router->dispatch(Common::getMethod(), Common::getPathUrl());
@@ -44,9 +49,9 @@ class Cms
 
             $controller = '\\' . ENV . '\\Controller\\' . $class;
             $parameters = $routerDispatch->getParameters();
-            call_user_func_array([new $controller($this->di), $action], $parameters);
-        }catch (\Exception $e){
 
+            call_user_func_array([new $controller($this->di), $action], $parameters);
+        } catch (\Exception $e) {
             echo $e->getMessage();
             exit;
         }

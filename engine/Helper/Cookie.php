@@ -1,24 +1,29 @@
 <?php
-
 namespace Engine\Helper;
 
+/**
+ * Class Cookie
+ * @package Engine\Helper
+ */
 class Cookie {
     /**
      * Add cookies
-     * @param $key
-     * @param $value
+     * @param string $key
+     * @param mixed $value
      * @param int $time
      */
-    public static function set($key, $value, $time = 31536000) {
+    public static function set($key, $value, $time = 31536000)
+    {
         setcookie($key, $value, time() + $time, '/') ;
     }
 
     /**
      * Get cookies by key
-     * @param $key
-     * @return null
+     * @param string $key
+     * @return mixed
      */
-    public static function get($key) {
+    public static function get($key)
+    {
         if (isset($_COOKIE[$key])) {
             return $_COOKIE[$key];
         }
@@ -27,9 +32,10 @@ class Cookie {
 
     /**
      * Delete cookies by key
-     * @param $key
+     * @param string $key
      */
-    public static function delete($key) {
+    public static function delete($key)
+    {
         if (isset($_COOKIE[$key])) {
             self::set($key, '', -3600);
             unset($_COOKIE[$key]);

@@ -12,7 +12,7 @@
             "Engine\\": "engine",
             "Cms\\": "cms",
             "Admin\\": "admin",
-            "Plugins\\": "content/plugins"
+            "Content\\": "content"
         }
     }
 }

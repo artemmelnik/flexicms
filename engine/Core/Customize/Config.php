@@ -32,6 +32,20 @@ class Config
                 'urlPath'   => '/admin/settings/general/',
                 'title'     => 'Settings'
             ]
+        ],
+        'settingMenu' => [
+            'general' => [
+                'urlPath'   => '/admin/settings/general/',
+                'title'     => 'General'
+            ],
+            'themes' => [
+                'urlPath'   => '/admin/settings/appearance/themes/',
+                'title'     => 'Themes'
+            ],
+            'menus' => [
+                'urlPath'   => '/admin/settings/appearance/menus/',
+                'title'     => 'Menus'
+            ]
         ]
     ];
 

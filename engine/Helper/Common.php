@@ -1,5 +1,4 @@
 <?php
-
 namespace Engine\Helper;
 
 class Common
@@ -9,8 +8,7 @@ class Common
      */
     static function isPost()
     {
-        if($_SERVER['REQUEST_METHOD'] == 'POST')
-        {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             return true;
         }
 
@@ -32,11 +30,36 @@ class Common
     {
         $pathUrl = $_SERVER['REQUEST_URI'];
 
-        if($position = strpos($pathUrl, '?'))
-        {
+        if ($position = strpos($pathUrl, '?')) {
             $pathUrl = substr($pathUrl, 0, $position);
         }
 
         return $pathUrl;
+    }
+
+    /**
+     * @param string $string
+     * @param string $find
+     * @return bool
+     */
+    function searchMatchString($string, $find) {
+        if (strripos($string, $find) !== false) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param string $key
+     * @return bool
+     */
+    static function isLinkActive($key)
+    {
+        if (self::searchMatchString($_SERVER['REQUEST_URI'], $key)) {
+            return true;
+        }
+
+        return false;
     }
 }
