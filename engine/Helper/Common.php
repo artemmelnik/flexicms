@@ -42,7 +42,8 @@ class Common
      * @param string $find
      * @return bool
      */
-    function searchMatchString($string, $find) {
+    function searchMatchString($string, $find)
+    {
         if (strripos($string, $find) !== false) {
             return true;
         }

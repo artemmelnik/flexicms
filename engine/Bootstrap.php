@@ -31,6 +31,6 @@ try{
     $cms = new Cms($di);
     $cms->run();
 
-}catch (\ErrorException $e) {
+} catch (\ErrorException $e) {
     echo $e->getMessage();
 }

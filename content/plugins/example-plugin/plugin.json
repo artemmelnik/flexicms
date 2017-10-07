@@ -1,9 +1,0 @@
-{
-  "name": "Example Plugin in FlexiCMS",
-  "description": "Example Plugin in FlexiCMS",
-  "version": "1.0",
-  "author": "Artem Melnik",
-  "options": {
-    "responseFile": "ExamplePlugin"
-  }
-}
