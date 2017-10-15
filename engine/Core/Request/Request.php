@@ -46,4 +46,22 @@ class Request
         $this->files   = $_FILES;
         $this->server  = $_SERVER;
     }
+
+    /**
+     * @param bool|mixed $key
+     * @return array|mixed
+     */
+    public function get($key = false)
+    {
+        return $key ? $this->get[$key] : $this->get;
+    }
+
+    /**
+     * @param bool|mixed $key
+     * @return array|mixed
+     */
+    public function post($key = false)
+    {
+        return $key ? $this->post[$key] : $this->post;
+    }
 }

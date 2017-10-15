@@ -2,6 +2,7 @@
 
 namespace Engine;
 
+use Engine\Core\Request\Request;
 use Engine\DI\DI;
 
 abstract class Controller
@@ -17,9 +18,17 @@ abstract class Controller
 
     protected $config;
 
+    /**
+     * @var Request
+     */
     protected $request;
 
     protected $load;
+
+    /**
+     * @var \Engine\Core\Plugin\Plugin
+     */
+    protected $plugin;
 
     /**
      * Controller constructor.
@@ -60,5 +69,21 @@ abstract class Controller
         }
 
         return $this;
+    }
+
+    /**
+     * @return Request
+     */
+    public function getRequest()
+    {
+        return $this->request;
+    }
+
+    /**
+     * @return Core\Plugin\Plugin
+     */
+    public function getPlugin()
+    {
+        return $this->plugin;
     }
 }

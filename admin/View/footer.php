@@ -13,6 +13,7 @@
 <script src="/admin/Assets/js/post.js"></script>
 <script src="/admin/Assets/js/setting.js"></script>
 <script src="/admin/Assets/js/menu.js"></script>
+<script src="/admin/Assets/js/plugin.js"></script>
 <?php Asset::render('js'); ?>
 </body>
 </html>
