@@ -1,6 +1,9 @@
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
-require_once __DIR__ . '/Function.php';
+
+if (version_compare($ver = PHP_VERSION, $req = FLEXI_PHP_MIN, '<')) {
+    die(sprintf('You are running PHP %s, but Flexi needs at least PHP %s to run.', $ver, $req));
+}
 
 class_alias('Engine\\Core\\Template\\Asset', 'Asset');
 class_alias('Engine\\Core\\Template\\Theme', 'Theme');
