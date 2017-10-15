@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
 
-if (version_compare($ver = PHP_VERSION, $req = PHP_MIN, '<')) {
+if (version_compare($ver = PHP_VERSION, $req = FLEXI_PHP_MIN, '<')) {
     die(sprintf('You are running PHP %s, but Flexi needs at least PHP %s to run.', $ver, $req));
 }
 
