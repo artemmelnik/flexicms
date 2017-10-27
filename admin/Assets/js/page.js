@@ -24,12 +24,16 @@ var page = {
         });
     },
 
-    update: function() {
+    update: function(button) {
         var formData = new FormData();
 
         formData.append('page_id', $('#formPageId').val());
         formData.append('title', $('#formTitle').val());
         formData.append('content', $('.redactor-editor').html());
+        formData.append('status', $('#status').val());
+        formData.append('type', $('#type').val());
+
+        $(button).addClass('loading');
 
         $.ajax({
             url: '/admin/page/update/',
@@ -42,7 +46,7 @@ var page = {
 
             },
             success: function(result){
-                console.log(result);
+                window.location.reload();
             }
         });
     }

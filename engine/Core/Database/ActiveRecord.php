@@ -74,9 +74,6 @@ trait ActiveRecord
                     $this->queryBuilder->values
                 );
             } else {
-                print_r($this->queryBuilder->insert($this->getTable())
-                    ->set($properties)
-                    ->sql());
                 $this->db->execute(
                     $this->queryBuilder->insert($this->getTable())
                         ->set($properties)

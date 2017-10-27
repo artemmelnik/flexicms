@@ -16,6 +16,12 @@ class Page
 
     public $content;
 
+    public $segment;
+
+    public $type;
+
+    public $status;
+
     public $date;
 
     /**
@@ -80,5 +86,53 @@ class Page
     public function setDate($date)
     {
         $this->date = $date;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSegment()
+    {
+        return $this->segment;
+    }
+
+    /**
+     * @param mixed $segment
+     */
+    public function setSegment($segment)
+    {
+        $this->segment = $segment;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param mixed $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param mixed $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
     }
 }

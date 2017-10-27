@@ -150,3 +150,32 @@ function getPlugins()
 
     return $plugins;
 }
+
+/**
+ * @param string $switch
+ * @return array
+ */
+function getTypes($switch = 'page')
+{
+    $themePath = path_content('themes') . '/' . \Setting::get('active_theme');
+    $list      = scandir($themePath);
+    $types     = [];
+
+    if (!empty($list)) {
+        unset($list[0]);
+        unset($list[1]);
+
+        foreach ($list as $name) {
+            if (\Engine\Helper\Common::searchMatchString($name, $switch)) {
+                list($switch, $key) = explode('-', $name, 2);
+
+                if (!empty($key)) {
+                    list($nameType) = explode('.', $key, 2);
+                    $types[$nameType] = ucfirst($nameType);
+                }
+            }
+        }
+    }
+
+    return $types;
+}
