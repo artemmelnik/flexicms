@@ -1,7 +1,9 @@
 <?php
+
 namespace Admin\Model\Setting;
 
 use Engine\Model;
+
 
 class SettingRepository extends Model
 {
@@ -12,13 +14,15 @@ class SettingRepository extends Model
      */
     public function getSettings()
     {
-        $sql = $this->queryBuilder->select()
-            ->from('setting')
-            ->where('section', self::SECTION_GENERAL)
-            ->orderBy('id', 'ASC')
-            ->sql();
+        $sql = $this->queryBuilder
+             ->select()
+             ->from('setting')
+             ->where('section', self::SECTION_GENERAL)
+             ->orderBy('id', 'ASC')
+             ->sql();
+        $values = $this->queryBuilder->getValues();
 
-        return $this->db->query($sql, $this->queryBuilder->values);
+        return $this->db->query($sql, $values);
     }
 
     /**
@@ -27,12 +31,14 @@ class SettingRepository extends Model
      */
     public function getSettingValue($keyField)
     {
-        $sql = $this->queryBuilder->select('value')
-            ->from('setting')
-            ->where('key_field', $keyField)
-            ->sql();
+        $sql = $this->queryBuilder
+             ->select('value')
+             ->from('setting')
+             ->where('key_field', $keyField)
+             ->sql();
+        $values = $this->queryBuilder->getValues();
 
-        $query = $this->db->query($sql, $this->queryBuilder->values);
+        $query = $this->db->query($sql, $values);
 
         return isset($query[0]) ? $query[0]->value : null;
     }
@@ -42,12 +48,13 @@ class SettingRepository extends Model
         if (!empty($params)) {
             foreach ($params as $key => $value) {
                 $sql = $this->queryBuilder
-                    ->update('setting')
-                    ->set(['value' => $value])
-                    ->where('key_field', $key)
-                    ->sql();
-
-                $this->db->execute($sql, $this->queryBuilder->values);
+                     ->update('setting')
+                     ->set(['value' => $value])
+                     ->where('key_field', $key)
+                     ->sql();
+                $values = $this->queryBuilder->getValues();
+                
+                $this->db->execute($sql, $values);
             }
         }
     }
@@ -58,11 +65,12 @@ class SettingRepository extends Model
     public function updateActiveTheme($theme)
     {
         $sql = $this->queryBuilder
-            ->update('setting')
-            ->set(['value' => $theme])
-            ->where('key_field', 'active_theme')
-            ->sql();
-
-        $this->db->execute($sql, $this->queryBuilder->values);
+             ->update('setting')
+             ->set(['value' => $theme])
+             ->where('key_field', 'active_theme')
+             ->sql();
+        $values = $this->queryBuilder->getValues();
+        
+        $this->db->execute($sql, $values);
     }
 }
