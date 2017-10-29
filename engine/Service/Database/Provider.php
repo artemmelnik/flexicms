@@ -1,10 +1,14 @@
 <?php
-
 namespace Engine\Service\Database;
 
+use Engine\Core\Config\Config;
 use Engine\Service\AbstractProvider;
 use Engine\Core\Database\Connection;
 
+/**
+ * Class Provider
+ * @package Engine\Service\Database
+ */
 class Provider extends AbstractProvider
 {
 
@@ -18,8 +22,10 @@ class Provider extends AbstractProvider
      */
     public function init()
     {
-        $db = new Connection();
+        $config = Config::group('database');
 
-        $this->di->set($this->serviceName, $db);
+        $this->di->set($this->serviceName, new Connection($config));
+
+        return $this;
     }
 }

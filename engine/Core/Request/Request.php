@@ -1,7 +1,10 @@
 <?php
-
 namespace Engine\Core\Request;
 
+/**
+ * Class Request
+ * @package Engine\Core\Request
+ */
 class Request
 {
     /**

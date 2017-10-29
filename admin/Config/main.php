@@ -1,6 +1,6 @@
 <?php
 return [
-    'baseUrl'        => 'http://flexi.loc',
+    'baseUrl'        => 'http://' . $_SERVER['HTTP_HOST'],
     'defaultLang'     => 'english',
     'defaultTimezone' => 'America/Chicago'
 ];

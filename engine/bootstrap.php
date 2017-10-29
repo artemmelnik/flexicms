@@ -20,6 +20,7 @@ try{
     $di = new DI();
 
     $services = require __DIR__ . '/Config/Service.php';
+
     // Init services
     foreach ($services as $service) {
         $provider = new $service($di);
