@@ -23,9 +23,9 @@ class Cms
 
     /**
      * Cms constructor.
-     * @param $di
+     * @param DI $di
      */
-    public function __construct($di)
+    public function __construct(DI $di)
     {
         $this->di = $di;
         $this->router = $this->di->get('router');
@@ -65,6 +65,7 @@ class Cms
             $parameters = $routerDispatch->getParameters();
 
             call_user_func_array([new $controller($this->di), $action], $parameters);
+            
         } catch (\Exception $e) {
             echo $e->getMessage();
             exit;
