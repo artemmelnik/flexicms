@@ -32,12 +32,12 @@ class MenuRepository extends Model
      */
     public function getList()
     {
-        $query = $this->db->query(
-            $this->queryBuilder
-                ->select()
-                ->from('menu')
-                ->sql()
-        );
+        $sql = $this->queryBuilder
+             ->select()
+             ->from('menu')
+             ->sql();
+
+        $query = $this->db->query($sql);
 
         return $query;
     }
