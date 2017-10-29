@@ -14,11 +14,10 @@ class PluginRepository extends Model
      */
     public function getPlugins()
     {
-        $sql = $this
-            ->queryBuilder
-            ->select()
-            ->from('plugin')
-            ->sql();
+        $sql = $this->queryBuilder
+             ->select()
+             ->from('plugin')
+             ->sql();
 
         $query = $this->db->query($sql);
 
@@ -30,14 +29,14 @@ class PluginRepository extends Model
      */
     public function getActivePlugins()
     {
-        $sql = $this
-            ->queryBuilder
-            ->select()
-            ->from('plugin')
-            ->where('is_active', 1)
-            ->sql();
-
-        $query = $this->db->query($sql, $this->queryBuilder->values);
+        $sql = $this->queryBuilder
+             ->select()
+             ->from('plugin')
+             ->where('is_active', 1)
+             ->sql();
+        $values = $this->queryBuilder->getValues();
+        
+        $query = $this->db->query($sql, $values);
 
         return $query;
     }
@@ -73,16 +72,15 @@ class PluginRepository extends Model
      */
     public function isInstallPlugin($directory)
     {
-        $query = $this->db->query(
-            $this
-                ->queryBuilder
-                ->select('COUNT(id) as count')
-                ->from('plugin')
-                ->where('directory', $directory)
-                ->limit(1)
-                ->sql(),
-            $this->queryBuilder->values
-        );
+        $sql = $this->queryBuilder
+             ->select('COUNT(id) as count')
+             ->from('plugin')
+             ->where('directory', $directory)
+             ->limit(1)
+             ->sql();
+        $values = $this->queryBuilder->getValues();
+        
+        $query = $this->db->query($sql, $values);
 
         if ($query[0]->count > 0) {
             return true;
@@ -97,17 +95,16 @@ class PluginRepository extends Model
      */
     public function isActivePlugin($directory)
     {
-        $query = $this->db->query(
-            $this
-                ->queryBuilder
-                ->select('COUNT(id) as count')
-                ->from('plugin')
-                ->where('directory', $directory)
-                ->where('is_active', 1)
-                ->limit(1)
-            ->sql(),
-            $this->queryBuilder->values
-        );
+        $sql = $this->queryBuilder
+             ->select('COUNT(id) as count')
+             ->from('plugin')
+             ->where('directory', $directory)
+             ->where('is_active', 1)
+             ->limit(1)
+             ->sql();
+        $values = $this->queryBuilder->getValues();
+        
+        $query = $this->db->query($sql, $values);
 
         if ($query[0]->count > 0) {
             return true;
