@@ -8,10 +8,11 @@ class PageRepository extends Model
 {
     public function getPages()
     {
-        $sql = $this->queryBuilder->select()
-            ->from('page')
-            ->orderBy('id', 'DESC')
-            ->sql();
+        $sql = $this->queryBuilder
+             ->select()
+             ->from('page')
+             ->orderBy('id', 'DESC')
+             ->sql();
 
         return $this->db->query($sql);
     }
@@ -29,16 +30,15 @@ class PageRepository extends Model
      */
     public function getPageBySegment($segment)
     {
-        $sql = $this
-            ->queryBuilder
-            ->select()
-            ->from('page')
-            ->where('segment', $segment)
-            ->limit(1)
-            ->sql()
-        ;
-
-        $result = $this->db->query($sql, $this->queryBuilder->values);
+        $sql = $this->queryBuilder
+             ->select()
+             ->from('page')
+             ->where('segment', $segment)
+             ->limit(1)
+             ->sql();
+        $values = $this->queryBuilder->getValues();
+        
+        $result = $this->db->query($sql, $values);
 
         return isset($result[0]) ? $result[0] : false;
     }
