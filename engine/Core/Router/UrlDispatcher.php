@@ -101,7 +101,7 @@ class UrlDispatcher
     /**
      * @param $method
      * @param $uri
-     * @return DispatchedRoute|void
+     * @return DispatchedRoute
      */
     public function dispatch($method, $uri)
     {
