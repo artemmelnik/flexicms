@@ -17,10 +17,10 @@ class MenuItemRepository extends Model
     public function getAllItems()
     {
         $sql = $this->queryBuilder
-            ->select()
-            ->from('menu_item')
-            ->orderBy('id', 'ASC')
-            ->sql();
+             ->select()
+             ->from('menu_item')
+             ->orderBy('id', 'ASC')
+             ->sql();
 
         return $this->db->query($sql);
     }
@@ -33,13 +33,14 @@ class MenuItemRepository extends Model
     public function getItems($menuId, $params = [])
     {
         $sql = $this->queryBuilder
-            ->select()
-            ->from('menu_item')
-            ->where('menu_id', $menuId)
-            ->orderBy('position', 'ASC')
-            ->sql();
+             ->select()
+             ->from('menu_item')
+             ->where('menu_id', $menuId)
+             ->orderBy('position', 'ASC')
+             ->sql();
+        $values = $this->queryBuilder->getValues();
 
-        return $this->db->query($sql, $this->queryBuilder->values);
+        return $this->db->query($sql, $values);
     }
 
     /**
@@ -90,12 +91,13 @@ class MenuItemRepository extends Model
     public function remove($itemId)
     {
         $sql = $this->queryBuilder
-            ->delete()
-            ->from('menu_item')
-            ->where('id', $itemId)
-            ->sql();
+             ->delete()
+             ->from('menu_item')
+             ->where('id', $itemId)
+             ->sql();
+        $values = $this->queryBuilder->getValues();
 
-        return $this->db->query($sql, $this->queryBuilder->values);
+        return $this->db->query($sql, $values);
     }
 
     /**
@@ -107,14 +109,14 @@ class MenuItemRepository extends Model
 
         if (!empty($items) and isset($items[0])) {
             foreach ($items[0] as $position => $item) {
-                $this->db->execute(
-                    $this->queryBuilder
-                        ->update('menu_item')
-                        ->set(['position' => $position])
-                        ->where('id', $item->id)
-                        ->sql(),
-                    $this->queryBuilder->values
-                );
+                $sql = $this->queryBuilder
+                     ->update('menu_item')
+                     ->set(['position' => $position])
+                     ->where('id', $item->id)
+                     ->sql();
+                $values = $this->queryBuilder->getValues();
+
+                $this->db->execute($sql, $values);
             }
         }
     }
