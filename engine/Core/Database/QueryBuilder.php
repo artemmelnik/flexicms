@@ -111,7 +111,7 @@ class QueryBuilder
      */
     public function set($data = [])
     {
-        $this->sql['set'] .= "SET ";
+        $this->sql['set'] = "SET ";
 
         if(!empty($data)) {
             foreach ($data as $key => $value) {

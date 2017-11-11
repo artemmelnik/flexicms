@@ -11,7 +11,7 @@ $request = new \Engine\Core\Request\Request();
 
 $isInstall = false;
 
-if (is_file($request->server['DOCUMENT_ROOT'] . '/Cms/Config/database.php')) {
+if (is_file($request->server['DOCUMENT_ROOT'] . '/config/database.php')) {
     $isInstall = true;
 }
 
@@ -55,8 +55,7 @@ return [
     'charset'  => '{$config['charset']}'
 ];";
 
-        file_put_contents($request->server['DOCUMENT_ROOT'] . '/Admin/Config/database.php', $codeConfig);
-        file_put_contents($request->server['DOCUMENT_ROOT'] . '/Cms/Config/database.php', $codeConfig);
+        file_put_contents($request->server['DOCUMENT_ROOT'] . '/config/database.php', $codeConfig);
 
         header('Location: /install/');
         exit;
