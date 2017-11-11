@@ -12,7 +12,7 @@ class QueryBuilder
     /**
      * @var array
      */
-    public $values = [];
+    private $values = [];
 
     /**
      * @param string $fields
@@ -159,5 +159,13 @@ class QueryBuilder
     {
         $this->sql    = [];
         $this->values = [];
+    }
+
+    /**
+     * @return array
+     */
+    public function getValues(): array
+    {
+        return $this->values;
     }
 }

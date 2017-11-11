@@ -11,10 +11,11 @@ class PostRepository extends Model
      */
     public function getPosts()
     {
-        $sql = $this->queryBuilder->select()
-            ->from('post')
-            ->orderBy('id', 'DESC')
-            ->sql();
+        $sql = $this->queryBuilder
+             ->select()
+             ->from('post')
+             ->orderBy('id', 'DESC')
+             ->sql();
 
         return $this->db->query($sql);
     }

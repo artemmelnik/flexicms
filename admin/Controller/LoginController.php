@@ -42,14 +42,15 @@ class LoginController extends Controller
         $queryBuilder = new QueryBuilder();
 
         $sql = $queryBuilder
-            ->select()
-            ->from('user')
-            ->where('email', $params['email'])
-            ->where('password', md5($params['password']))
-            ->limit(1)
-            ->sql();
+             ->select()
+             ->from('user')
+             ->where('email', $params['email'])
+             ->where('password', md5($params['password']))
+             ->limit(1)
+             ->sql();
+        $values = $queryBuilder->getValues();
 
-        $query = $this->db->query($sql, $queryBuilder->values);
+        $query = $this->db->query($sql, $values);
 
         if (!empty($query)) {
             $user = $query[0];
@@ -58,11 +59,12 @@ class LoginController extends Controller
                 $hash = md5($user->id . $user->email . $user->password . $this->auth->salt());
 
                 $sql = $queryBuilder
-                    ->update('user')
-                    ->set(['hash' => $hash])
-                    ->where('id', $user->id)->sql();
-
-                $this->db->execute($sql, $queryBuilder->values);
+                     ->update('user')
+                     ->set(['hash' => $hash])
+                     ->where('id', $user->id)->sql();
+                $values = $queryBuilder->getValues();
+                
+                $this->db->execute($sql, $values);
 
                 $this->auth->authorize($hash);
 
