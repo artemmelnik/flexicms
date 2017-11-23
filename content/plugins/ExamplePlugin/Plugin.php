@@ -5,7 +5,7 @@ namespace Plugin\ExamplePlugin;
  * Class Plugin
  * @package Content\Plugins\ExamplePlugin
  */
-class Plugin extends \Engine\Plugin
+class Plugin
 {
     /**
      * @return array

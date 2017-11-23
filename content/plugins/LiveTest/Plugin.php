@@ -5,7 +5,7 @@ namespace Plugin\LiveTest;
  * Class Plugin
  * @package Content\Plugins\ExamplePlugin
  */
-class Plugin extends \Engine\Plugin
+class Plugin
 {
     /**
      * @return array

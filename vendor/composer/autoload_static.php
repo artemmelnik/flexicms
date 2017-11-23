@@ -7,8 +7,8 @@ namespace Composer\Autoload;
 class ComposerStaticInitf18486ed4d0525b56e8fea339bf0d377
 {
     public static $files = array (
-        'f1367ed264bbdd2e4649ac6ee97f4fd2' => __DIR__ . '/../..' . '/engine/defines.php',
-        'fe31fa89cec4e646813e9b108a624660' => __DIR__ . '/../..' . '/engine/function.php',
+        '1bedf084a3e192a3bfbdc7d01137bf5d' => __DIR__ . '/../..' . '/Flexi/Functions/functions.php',
+        'f4f92ab223ee85f05c5f0a55d3ccf88e' => __DIR__ . '/../..' . '/Flexi/Functions/localization.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -16,17 +16,13 @@ class ComposerStaticInitf18486ed4d0525b56e8fea339bf0d377
         array (
             'Plugin\\' => 7,
         ),
-        'E' => 
+        'M' => 
         array (
-            'Engine\\' => 7,
+            'Modules\\' => 8,
         ),
-        'C' => 
+        'F' => 
         array (
-            'Cms\\' => 4,
-        ),
-        'A' => 
-        array (
-            'Admin\\' => 6,
+            'Flexi\\' => 6,
         ),
     );
 
@@ -35,17 +31,13 @@ class ComposerStaticInitf18486ed4d0525b56e8fea339bf0d377
         array (
             0 => __DIR__ . '/../..' . '/content/plugins',
         ),
-        'Engine\\' => 
+        'Modules\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/engine',
+            0 => __DIR__ . '/../..' . '/modules',
         ),
-        'Cms\\' => 
+        'Flexi\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/cms',
-        ),
-        'Admin\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/admin',
+            0 => __DIR__ . '/../..' . '/Flexi',
         ),
     );
 
