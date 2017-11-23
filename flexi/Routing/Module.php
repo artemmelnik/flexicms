@@ -93,7 +93,7 @@ class Module
     public function run()
     {
         // Build the class name.
-        $class = 'Modules\\' . $this->module . '\Controller\\' . $this->controller;
+        $class = '\\Modules\\' . $this->module . '\Controller\\' . $this->controller;
 
         if (in_array($this->module, ['Admin', 'Front'])) {
             $class = '\\Flexi\\Cms\\' . $this->module . '\Controller\\' . $this->controller;

@@ -9,14 +9,13 @@
   "require": {},
   "autoload": {
     "psr-4": {
-      "Engine\\": "engine",
-      "Cms\\": "cms",
-      "Admin\\": "admin",
-      "Plugin\\": "content/plugins"
+      "Flexi\\": "Flexi",
+      "Plugin\\": "content/plugins",
+      "Modules\\": "modules"
     },
     "files": [
-      "engine/defines.php",
-      "engine/function.php"
+      "Flexi/Functions/functions.php",
+      "Flexi/Functions/localization.php"
     ]
   }
 }
