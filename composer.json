@@ -1,18 +1,21 @@
 {
-    "name": "qwib/cms.loc",
-    "authors": [
-        {
-            "name": "Artem Melnik",
-            "email": "zzema666@gmail.com"
-        }
-    ],
-    "require": {},
-    "autoload": {
-        "psr-4": {
-            "Engine\\": "engine",
-            "Cms\\": "cms",
-            "Admin\\": "admin",
-            "Plugins\\": "content/plugins"
-        }
+  "name": "artemmelnik/flexicms",
+  "authors": [
+    {
+      "name": "Artem Melnik",
+      "email": "zzema666@gmail.com"
     }
+  ],
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "Flexi\\": "Flexi",
+      "Plugin\\": "content/plugins",
+      "Modules\\": "modules"
+    },
+    "files": [
+      "Flexi/Functions/functions.php",
+      "Flexi/Functions/localization.php"
+    ]
+  }
 }
