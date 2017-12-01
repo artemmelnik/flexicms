@@ -6,6 +6,7 @@ use Flexi\Http\Redirect;
 use Flexi\Routing\Controller;
 use Flexi\Auth\Auth;
 use Flexi\Template\View;
+use Flexi\Cms;
 
 /**
  * Class LoginController
@@ -28,15 +29,21 @@ class LoginController extends Controller
         }
     }
 
+    /**
+     * @return View
+     */
     public function form()
     {
         return View::make('login');
     }
 
+    /**
+     * Auth in admin panel.
+     */
     public function authAdmin()
     {
         $params    = Input::post();
-        $userModel = new \Flexi\Cms\Admin\Model\User();
+        $userModel = new Cms\Admin\Model\User();
         $user      = $userModel->getUserByParams($params);
 
         if ($user) {
@@ -47,5 +54,6 @@ class LoginController extends Controller
         }
 
         echo 'Incorrect email or password.';
+        exit;
     }
 }

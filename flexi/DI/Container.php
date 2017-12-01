@@ -1,14 +1,16 @@
 <?php
-namespace Flexi;
+namespace Flexi\DI;
 
 /**
- * Dependency Injection Class
- * @package Flexi
+ * Dependency Injection Class.
+ *
+ * Class Container
+ * @package Flexi\DI
  */
-class DI
+class Container
 {
     /**
-     * @var DI
+     * @var Container
      */
     protected static $instance;
 
@@ -56,12 +58,12 @@ class DI
     }
 
     /**
-     * @return DI
+     * @return Container
      */
-    public static function instance(): DI
+    public static function instance(): Container
     {
         if (self::$instance == null) {
-            self::$instance = new DI();
+            self::$instance = new Container();
         }
         return self::$instance;
     }

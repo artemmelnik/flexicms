@@ -1,5 +1,5 @@
 <?php
-namespace  Flexi\Cms\Admin\Model;
+namespace Flexi\Cms\Admin\Model;
 
 use Flexi\Orm\Model;
 use Query;

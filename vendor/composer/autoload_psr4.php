@@ -8,5 +8,5 @@ $baseDir = dirname($vendorDir);
 return array(
     'Plugin\\' => array($baseDir . '/content/plugins'),
     'Modules\\' => array($baseDir . '/modules'),
-    'Flexi\\' => array($baseDir . '/Flexi'),
+    'Flexi\\' => array($baseDir . '/flexi'),
 );

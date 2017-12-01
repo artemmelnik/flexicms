@@ -9,13 +9,13 @@
   "require": {},
   "autoload": {
     "psr-4": {
-      "Flexi\\": "Flexi",
+      "Flexi\\": "flexi",
       "Plugin\\": "content/plugins",
       "Modules\\": "modules"
     },
     "files": [
-      "Flexi/Functions/functions.php",
-      "Flexi/Functions/localization.php"
+      "flexi/Functions/functions.php",
+      "flexi/Functions/localization.php"
     ]
   }
 }

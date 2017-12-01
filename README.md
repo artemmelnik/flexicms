@@ -4,7 +4,7 @@ HMVC Flexible site management system
 # Installation
 1. We clone the repository.
 2. Extract the files to the root directory of the site.
-3. Create a database and import into it dump cms.sql
+3. Create a database and import into it dump flexicms.sql
 4. In the files (/config/database.php) we specify the connection parameters.
 
 Example /config/database.php
@@ -17,4 +17,15 @@ return [
     'password' => '',
     'charset'  => 'utf8'
 ];
+```
+
+Insert admin
+
+Email: admin@admin.com
+Password: 1111
+
+```
+INSERT INTO user
+(email, password, role, hash)
+VALUES ('admin@admin.com', 'b59c67bf196a4758191e42f76670ceba', 'admin', 'new')
 ```

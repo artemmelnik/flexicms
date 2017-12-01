@@ -28,7 +28,7 @@ class Engine
         $module = Router::module();
         $theme = \Setting::value('active_theme', 'theme');
 
-        $directory = sprintf('/content/themes/%s', $theme);
+        $directory = sprintf('/content/themes/%s/', $theme);
 
         if ($module->module == Define::DEFAULT_MODULE['admin']) {
             $directory = '/flexi/Cms/Admin/View/';

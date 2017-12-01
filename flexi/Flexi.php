@@ -29,7 +29,7 @@ class Flexi
         class_alias('\\Flexi\\Template\\Asset', 'Asset');
         class_alias('\\Flexi\\Settings\\Setting', 'Setting');
         class_alias('\\Flexi\\Customize\\Customize', 'Customize');
-        class_alias('\\Flexi\\DI', 'DI');
+        class_alias('\\Flexi\\DI\\Container', 'DI');
 
         // Initialize the URI.
         Uri::initialize();
