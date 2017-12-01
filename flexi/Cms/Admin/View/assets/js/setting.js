@@ -23,7 +23,6 @@ var setting = {
         var button = $(element);
 
         formData.append('theme', theme);
-
         $.ajax({
             url: '/admin/setting/activateTheme/',
             type: this.ajaxMethod,

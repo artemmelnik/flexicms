@@ -41,6 +41,10 @@ class View implements ResponderInterface
      */
     public static function engine(): Engine
     {
+        if (static::$engine == null) {
+            return new Engine();
+        }
+
         return static::$engine;
     }
 

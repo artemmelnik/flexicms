@@ -6,6 +6,7 @@ use Flexi\Localization\I18n;
 use Flexi\Cms\Admin\Model\Setting as SettingModel;
 use Flexi\Cms\Admin\Model\Menu as MenuModel;
 use Flexi\Cms\Admin\Model\MenuItem as MenuItemModel;
+use Flexi\Settings\Setting;
 use \View;
 
 /**
@@ -55,8 +56,22 @@ class SettingController extends AdminController
     {
         return View::make('setting/themes', [
             'themes' => getThemes(),
-            'activeTheme' => 'default'
+            'activeTheme' => Setting::value('active_theme', 'theme')
         ]);
+    }
+
+    public function activateTheme()
+    {
+        $theme = Input::post('theme');
+
+        SettingModel::where('key_field', '=', 'active_theme')
+            ->update([
+                'value' => $theme
+            ])
+            ->run('update')
+        ;
+
+        exit;
     }
 
     public function ajaxMenuAdd()
