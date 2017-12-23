@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` varchar(32) NOT NULL,
   `role` enum('admin','moderator','user','') NOT NULL,
   `hash` varchar(32) NOT NULL,
-  `date_reg` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `date_reg` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
