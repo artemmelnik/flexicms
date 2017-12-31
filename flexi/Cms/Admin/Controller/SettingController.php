@@ -24,7 +24,7 @@ class SettingController extends AdminController
         $settings = $settingModel->getSettings();
         $languages = I18n::instance()->all();
 
-        return View::make('setting/general', [
+        return View::make('settings/general', [
             'settings' => $settings,
             'languages' => $languages
         ]);
@@ -42,7 +42,7 @@ class SettingController extends AdminController
         $menus     = $menuModel->getList();
         $menuItems = $menuItemModel->getItems($menuId);
 
-        return View::make('setting/menus', [
+        return View::make('settings/menus', [
             'menus' => $menus,
             'menuId' => $menuId,
             'editMenu' => $menuItems
@@ -54,7 +54,7 @@ class SettingController extends AdminController
      */
     public function themes()
     {
-        return View::make('setting/themes', [
+        return View::make('settings/themes', [
             'themes' => getThemes(),
             'activeTheme' => Setting::value('active_theme', 'theme')
         ]);
@@ -101,7 +101,7 @@ class SettingController extends AdminController
             $item->name = \Flexi\Cms\Admin\Model\MenuItem::NEW_MENU_ITEM_NAME;
             $item->link = '#';
 
-            echo \Component::get('setting/menu_item', [
+            echo \Component::get('settings/menu_item', [
                 'item' => $item
             ]);
         }

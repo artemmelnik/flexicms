@@ -2,7 +2,7 @@
 
 return [
     'baseUrl'        => 'http://' . $_SERVER['HTTP_HOST'],
-    'defaultLang'     => 'english',
+    'defaultLang'     => 'en',
     'defaultTimezone' => 'America/Chicago',
     'defaultTheme'    => 'default'
 ];

@@ -4,6 +4,7 @@ namespace Flexi\Cms\Admin\Controller;
 use Flexi\Http\Input;
 use Flexi\Http\Uri;
 use Flexi\Cms\Admin\Model\Page as PageModel;
+use Flexi\Localization\I18n;
 use \View;
 
 /**
@@ -17,6 +18,8 @@ class PageController extends AdminController
      */
     public function listing()
     {
+        I18n::instance()->load('pages/list');
+
         $pageModel = new PageModel();
         $pages     = $pageModel->getPages();
 
@@ -30,6 +33,8 @@ class PageController extends AdminController
      */
     public function create()
     {
+        I18n::instance()->load('pages/create');
+
         return View::make('pages/create');
     }
 
@@ -39,6 +44,8 @@ class PageController extends AdminController
      */
     public function edit($id)
     {
+        I18n::instance()->load('pages/edit');
+
         $pageModel = new PageModel();
         $page      = $pageModel->getPage($id);
 

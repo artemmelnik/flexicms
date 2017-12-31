@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="favicon.ico">
 
-    <title>Login to FlexiCMS</title>
+    <title><?php __('dashboard.login.title', [\Flexi\Define::NAME]) ?></title>
 
     <link href="<?php echo Asset::get('assets/semantic/semantic.min.css') ?>" rel="stylesheet">
     <link href="<?php echo Asset::get('assets/semantic/components/grid.min.css') ?>" rel="stylesheet">
@@ -30,22 +30,22 @@
         <form class="ui form form-login" method="POST" action="/admin/auth/">
             <div class="fexi-login-logo">
                 <img class="ui middle aligned tiny image" src="<?php echo Asset::get('assets/images/logo.png') ?>">
-                <span>ADMIN PANEL</span>
+                <span><?php __('dashboard.login.title_form') ?></span>
             </div>
             <div class="field">
-                <input type="email" name="email" placeholder="Email" required>
+                <input type="email" name="email" placeholder="<?php __('dashboard.login.email') ?>" required>
             </div>
             <div class="field">
-                <input type="password" name="password" placeholder="Password" required>
+                <input type="password" name="password" placeholder="<?php __('dashboard.login.password') ?>" required>
             </div>
             <div class="field inline">
                 <div class="ui checkbox">
                     <input type="checkbox" tabindex="0">
-                    <label>Remember me</label>
+                    <label><?php __('dashboard.login.remember') ?></label>
                 </div>
             </div>
             <button class="ui primary button">
-                Login
+                <?php __('dashboard.login.button') ?>
             </button>
         </form>
     </div>

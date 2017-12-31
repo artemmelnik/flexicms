@@ -4,7 +4,7 @@
             <div class="sixteen wide column">
                 <div class="col page-title">
                     <h2 class="ui header">
-                        Create post
+                        <?php __('posts.create.heading') ?>
                     </h2>
                 </div>
             </div>
@@ -13,20 +13,20 @@
             <div class="twelve wide column">
                 <form id="formPage" class="ui form">
                     <div class="field">
-                        <label>Title</label>
-                        <input type="text" name="title" class="form-control" id="formTitle" placeholder="Title post...">
+                        <label><?php __('posts.create.label_title') ?></label>
+                        <input type="text" name="title" class="form-control" id="formTitle" placeholder="<?php __('posts.create.placeholder_title') ?>">
                     </div>
                     <div class="field">
-                        <label>Content</label>
+                        <label><?php __('posts.create.label_content') ?></label>
                         <textarea name="content" id="redactor"></textarea>
                     </div>
                 </form>
             </div>
             <div class="four wide column">
                 <div>
-                    <p>Publish this post</p>
+                    <p><?php __('posts.create.description_form_button') ?></p>
                     <button type="submit" class="ui primary button" onclick="post.add()">
-                        Publish
+                        <?php __('posts.create.form_button') ?>
                     </button>
                 </div>
             </div>

@@ -12,7 +12,7 @@
         <div class="ui grid">
             <div class="sixteen wide column">
                 <div class="setting-tabs">
-                    <?php echo Component::get('setting/tabs') ?>
+                    <?php echo Component::get('settings/tabs') ?>
                 </div>
             </div>
         </div>
@@ -41,7 +41,7 @@
                     <input type="hidden" id="sortMenuId" value="<?php echo $menuId ?>" />
                     <ol id="listItems" class="edit-menu">
                         <?php foreach($editMenu as $item) {
-                            echo \Component::get('setting/menu_item', [
+                            echo \Component::get('settings/menu_item', [
                                 'item' => $item
                             ]);
                         } ?>

@@ -24,7 +24,7 @@ var setting = {
 
         formData.append('theme', theme);
         $.ajax({
-            url: '/admin/setting/activateTheme/',
+            url: '/admin/settings/activateTheme/',
             type: this.ajaxMethod,
             data: formData,
             cache: false,

@@ -14,20 +14,20 @@
                 <form id="formPage" class="ui form">
                     <input type="hidden" name="post_id" id="formPostId" value="<?= $post->id ?>" />
                     <div class="field">
-                        <label>Title</label>
-                        <input type="text" name="title" class="form-control" id="formTitle" value="<?= $post->title ?>" placeholder="Title post...">
+                        <label><?php __('posts.edit.label_title') ?></label>
+                        <input type="text" name="title" class="form-control" id="formTitle" value="<?= $post->title ?>" placeholder="<?php __('posts.edit.placeholder_title') ?>">
                     </div>
                     <div class="field">
-                        <label>Content</label>
+                        <label><?php __('posts.edit.label_content') ?></label>
                         <textarea name="content" id="redactor"><?= $post->content ?></textarea>
                     </div>
                 </form>
             </div>
             <div class="four wide column">
                 <div>
-                    <p>Update this post</p>
+                    <p><?php __('posts.edit.description_form_button') ?></p>
                     <button type="submit" class="ui primary button" onclick="post.update()">
-                        Update
+                        <?php __('posts.edit.form_button') ?>
                     </button>
                 </div>
             </div>

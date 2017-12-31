@@ -7,7 +7,7 @@ namespace Flexi;
  */
 class Define
 {
-    const NAME = 'Flexi CMS';
+    const NAME = 'FlexiCMS';
     const VERSION = '0.0.1';
     const EXEC = true;
     const PHP_MIN = '7.0.0';

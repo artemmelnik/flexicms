@@ -24,7 +24,7 @@ class Component
         $data = array_merge_recursive(Layout::data(), $data);
 
         // Get the component path.
-        $path = View::path() . $name . '.php';
+        $path = View::path() . $name . View::TEMPLATE_EXTENSION;
 
         // Return the loaded component.
         return static::load($path, $data);

@@ -3,9 +3,9 @@
         <div class="row">
             <div class="col page-title">
                 <h2 class="ui header">
-                    Posts
+                    <?php __('posts.list.title') ?>
                     <a href="/admin/posts/create/" class="ui primary button right floated item">
-                        Create post
+                        <?php __('posts.list.create_button') ?>
                     </a>
                 </h2>
             </div>
@@ -15,8 +15,8 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>Title</th>
-                <th>Date</th>
+                <th><?php __('posts.list.table_title') ?></th>
+                <th><?php __('posts.list.table_date') ?></th>
             </tr>
             </thead>
             <tbody>

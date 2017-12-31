@@ -4,7 +4,7 @@
             <div class="sixteen wide column">
                 <div class="col page-title">
                     <h2 class="ui header">
-                        Plugins
+                        <?php __('plugins.list.heading') ?>
                     </h2>
                 </div>
             </div>
@@ -16,8 +16,8 @@
                     <thead class="full-width">
                     <tr>
                         <th></th>
-                        <th>Plugin</th>
-                        <th>Description</th>
+                        <th><?php __('plugins.list.table.plugin') ?></th>
+                        <th><?php __('plugins.list.table.description') ?></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -33,11 +33,11 @@
                                 <?= $plugin['name'] ?><br>
                                 <?php if ($plugin['is_install']): ?>
                                     <span class="disabled" style="color: #909090">
-                                        Installed
+                                        <?php __('plugins.list.table.installed') ?>
                                     </span>
                                 <?php else: ?>
                                     <a href="javascript:void(0)" onclick="plugin.install(this, '<?php echo $directory ?>')">
-                                        Install
+                                        <?php __('plugins.list.table.install') ?>
                                     </a>
                                 <?php endif; ?>
                             </td>
@@ -52,7 +52,7 @@
                         <th></th>
                         <th colspan="4">
                             <div class="ui right floated small primary labeled icon button">
-                                <i class="upload icon"></i> Add Plugin
+                                <i class="upload icon"></i> <?php __('plugins.list.table.add_button') ?>
                             </div>
                         </th>
                     </tr>

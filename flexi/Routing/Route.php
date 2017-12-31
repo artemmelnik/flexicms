@@ -12,7 +12,7 @@ class Route
     private static $prefix = '';
 
     /**
-     * @var string The module we're setting routes for.
+     * @var string The module we're settings routes for.
      */
     public static $module;
 

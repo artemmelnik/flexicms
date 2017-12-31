@@ -25,12 +25,19 @@ class I18n
 
     /**
      * @param string $key
+     * @param array $data
      * @return string
      */
-    public function get(string $key): string
+    public function get(string $key, array $data = []): string
     {
         $lang = \DI::instance()->get('lang');
-        return isset($lang[$key]) ? $lang[$key] : '';
+        $text = isset($lang[$key]) ? $lang[$key] : '';
+
+        if (!empty($data)) {
+            $text = sprintf($text, ...$data);
+        }
+
+        return $text;
     }
 
     /**
@@ -45,7 +52,15 @@ class I18n
         $lang = \DI::instance()->get('lang') ?: [];
 
         foreach ($content as $key => $value) {
-            $lang[str_replace('/', '.', $file) . '.' . $key] = $value;
+            $keyLang = str_replace('/', '.', $file) . '.' . $key;
+
+            if (is_array($value)) {
+                foreach ($value as $k => $v) {
+                    $lang[$keyLang . '.' . $k] = $v;
+                }
+            } else {
+                $lang[$keyLang] = $value;
+            }
         }
 
         \DI::instance()->set('lang', $lang);

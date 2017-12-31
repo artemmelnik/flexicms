@@ -42,7 +42,7 @@ $(function() {
             formData.append('menu_id', $('#sortMenuId').val());
 
             $.ajax({
-                url: '/admin/setting/ajaxMenuSortItems/',
+                url: '/admin/settings/ajaxMenuSortItems/',
                 type: 'POST',
                 data: formData,
                 processData: false,

@@ -17,11 +17,11 @@
                 <form id="formPage" class="ui form">
                     <input type="hidden" name="page_id" id="formPageId" value="<?= $page->id ?>" />
                     <div class="field">
-                        <label>Title</label>
-                        <input type="text" name="title" class="form-control" id="formTitle" value="<?= $page->title ?>" placeholder="Title page...">
+                        <label><?php __('pages.edit.label_title') ?></label>
+                        <input type="text" name="title" class="form-control" id="formTitle" value="<?= $page->title ?>" placeholder="<?php __('page.edit.placeholder_title') ?>">
                     </div>
                     <div class="field">
-                        <label>Content</label>
+                        <label><?php __('pages.edit.label_content') ?></label>
                         <textarea name="content" id="redactor"><?= $page->content ?></textarea>
                     </div>
                 </form>
@@ -29,11 +29,11 @@
             <div class="four wide column">
                 <div class="ui segments">
                     <div class="ui blue segment">
-                        <h4>Update</h4>
+                        <h4><?php __('pages.edit.update_segment_heading') ?></h4>
                     </div>
                     <div class="ui form segment">
                         <div class="field">
-                            <label>Статус</label>
+                            <label><?php __('pages.edit.label_status') ?></label>
                             <select id="status" class="ui search dropdown">
                                 <option value="publish"<?php if ('publish' == $page->status) echo ' selected'; ?>>Опубликовано</option>
                                 <option value="draft"<?php if ('draft' == $page->status) echo ' selected'; ?>>В корзине</option>
@@ -41,20 +41,20 @@
                         </div>
                     </div>
                     <div class="ui secondary segment">
-                        <p>Update this page</p>
+                        <p><?php __('pages.edit.description_form_button') ?></p>
                         <button type="submit" class="ui primary button" onclick="page.update(this)">
-                            Update
+                            <?php __('pages.edit.form_button') ?>
                         </button>
                     </div>
                 </div>
 
                 <div class="ui segments">
                     <div class="ui blue segment">
-                        <h4>Setting</h4>
+                        <h4><?php __('pages.edit.setting_segment.heading') ?></h4>
                     </div>
                     <div class="ui form segment">
                         <div class="field">
-                            <label>Type page</label>
+                            <label><?php __('pages.edit.setting_segment.label_type') ?></label>
                             <select id="type" class="ui search dropdown">
                                 <option value="page">Basic</option>
                             </select>

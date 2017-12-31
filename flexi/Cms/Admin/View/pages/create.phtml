@@ -4,7 +4,7 @@
             <div class="sixteen wide column">
                 <div class="col page-title">
                     <h2 class="ui header">
-                        Create page
+                        <?php __('pages.create.heading') ?>
                     </h2>
                 </div>
             </div>
@@ -13,20 +13,20 @@
             <div class="twelve wide column">
                 <form id="formPage" class="ui form">
                     <div class="field">
-                        <label>Title</label>
-                        <input type="text" name="title" class="form-control" id="formTitle" placeholder="Title page...">
+                        <label><?php __('pages.create.label_title') ?></label>
+                        <input type="text" name="title" class="form-control" id="formTitle" placeholder="<?php __('pages.create.placeholder_title') ?>">
                     </div>
                     <div class="field">
-                        <label>Content</label>
+                        <label><?php __('pages.create.label_content') ?></label>
                         <textarea name="content" id="redactor"></textarea>
                     </div>
                 </form>
             </div>
             <div class="four wide column">
                 <div>
-                    <p>Publish this page</p>
+                    <p><?php __('pages.create.description_form_button') ?></p>
                     <button type="submit" class="ui primary button" onclick="page.add()">
-                        Publish
+                        <?php __('pages.create.form_button') ?>
                     </button>
                 </div>
             </div>

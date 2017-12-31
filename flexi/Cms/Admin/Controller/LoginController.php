@@ -3,6 +3,7 @@ namespace Flexi\Cms\Admin\Controller;
 
 use Flexi\Http\Input;
 use Flexi\Http\Redirect;
+use Flexi\Localization\I18n;
 use Flexi\Routing\Controller;
 use Flexi\Auth\Auth;
 use Flexi\Template\View;
@@ -27,6 +28,11 @@ class LoginController extends Controller
         if (Auth::authorized()) {
             Redirect::go('/admin/');
         }
+
+        I18n::instance()
+            ->load('dashboard/main')
+            ->load('dashboard/login')
+        ;
     }
 
     /**

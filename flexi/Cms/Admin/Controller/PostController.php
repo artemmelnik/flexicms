@@ -4,6 +4,7 @@ namespace Flexi\Cms\Admin\Controller;
 use Flexi\Http\Input;
 use Flexi\Http\Uri;
 use Flexi\Cms\Admin\Model\Post as PostModel;
+use Flexi\Localization\I18n;
 use \View;
 
 /**
@@ -17,6 +18,8 @@ class PostController extends AdminController
      */
     public function listing()
     {
+        I18n::instance()->load('posts/list');
+
         $postModel = new PostModel();
         $posts     = $postModel->getPosts();
 
@@ -30,6 +33,8 @@ class PostController extends AdminController
      */
     public function create()
     {
+        I18n::instance()->load('posts/create');
+
         return View::make('posts/create');
     }
 
@@ -39,6 +44,8 @@ class PostController extends AdminController
      */
     public function edit($id)
     {
+        I18n::instance()->load('posts/edit');
+
         $postModel = new PostModel();
         $post      = $postModel->getPost($id);
 

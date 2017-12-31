@@ -12,6 +12,7 @@ use Flexi\Routing\Router;
  */
 class View implements ResponderInterface
 {
+    const TEMPLATE_EXTENSION = '.phtml';
 
     /**
      * @var string The view file.
@@ -97,7 +98,7 @@ class View implements ResponderInterface
     public function render(): string
     {
         // Get path for the views.
-        $path = static::path() . $this->file . '.php';
+        $path = static::path() . $this->file . self::TEMPLATE_EXTENSION;
 
         // Render the view.
         return Component::load($path, $this->data);
