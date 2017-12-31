@@ -28,7 +28,7 @@
                                 </label>
                                 <select name="<?= $setting->key_field ?>" class="ui search dropdown">
                                     <?php foreach($languages as $language): ?>
-                                        <option value="<?= $language->key ?>">
+                                        <option value="<?= $language->key ?>"<?php if ($language->key == Setting::value('language')) echo ' selected'; ?>>
                                             <?= $language->title ?>
                                         </option>
                                     <?php endforeach; ?>

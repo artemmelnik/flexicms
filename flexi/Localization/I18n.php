@@ -105,11 +105,17 @@ class I18n
      */
     private static function path(): string
     {
+        $activeLanguage = \Setting::value('language');
+
+        if ($activeLanguage == '') {
+            $activeLanguage = Config::item('defaultLang');
+        }
+
         /** @var Module $module */
         $module = \DI::instance()->get('module');
-        $path = path('modules') . sprintf('%s/Language/%s/', $module->module, Config::item('defaultLang'));
+        $path = path('modules') . sprintf('%s/Language/%s/', $module->module, $activeLanguage);
         if (in_array($module->module, ['Admin', 'Front'])) {
-            $path = sprintf('%s/flexi/Cms/%s/Language/%s/', ROOT_DIR, $module->module, Config::item('defaultLang'));
+            $path = sprintf('%s/flexi/Cms/%s/Language/%s/', ROOT_DIR, $module->module, $activeLanguage);
         }
 
         return $path;

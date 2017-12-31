@@ -37,6 +37,7 @@ class Setting extends Model
      */
     public function update(array $params)
     {
+        print_r($params);
         if (!empty($params)) {
             foreach ($params as $key => $value) {
                 Query::table(static::$table, __CLASS__)

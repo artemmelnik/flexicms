@@ -37,7 +37,7 @@
             <?php foreach (Customize::instance()->getAdminMenuItems() as $key => $item): ?>
                 <a class="item" href="<?= $item['urlPath'] ?>">
                     <i class="<?= $item['classIcon'] ?>"></i>
-                    <?= $item['title'] ?>
+                    <?php __('dashboard.menu.' . $key) ?>
                 </a>
             <?php endforeach; ?>
 
@@ -63,7 +63,7 @@
 <script src="<?php echo Asset::get('assets/js/init.js') ?>"></script>
 <script src="<?php echo Asset::get('assets/js/page.js') ?>"></script>
 <script src="<?php echo Asset::get('assets/js/post.js') ?>"></script>
-<script src="<?php echo Asset::get('assets/js/settings.js') ?>"></script>
+<script src="<?php echo Asset::get('assets/js/setting.js') ?>"></script>
 <script src="<?php echo Asset::get('assets/js/menu.js') ?>"></script>
 <script src="<?php echo Asset::get('assets/js/plugin.js') ?>"></script>
 </body>
