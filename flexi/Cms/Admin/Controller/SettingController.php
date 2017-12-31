@@ -20,6 +20,8 @@ class SettingController extends AdminController
      */
     public function general()
     {
+        I18n::instance()->load('settings/general');
+
         $settingModel = new SettingModel();
         $settings = $settingModel->getSettings();
         $languages = I18n::instance()->all();
@@ -35,6 +37,8 @@ class SettingController extends AdminController
      */
     public function menus()
     {
+        I18n::instance()->load('settings/menus');
+
         $menuModel = new MenuModel();
         $menuItemModel = new MenuItemModel();
 
@@ -54,6 +58,8 @@ class SettingController extends AdminController
      */
     public function themes()
     {
+        I18n::instance()->load('settings/themes');
+
         return View::make('settings/themes', [
             'themes' => getThemes(),
             'activeTheme' => Setting::value('active_theme', 'theme')

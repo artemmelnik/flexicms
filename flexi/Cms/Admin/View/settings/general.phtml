@@ -4,7 +4,7 @@
             <div class="sixteen wide column">
                 <div class="col page-title">
                     <h2 class="ui header">
-                        Settings
+                        <?php __('settings.general.heading') ?>
                     </h2>
                 </div>
             </div>
@@ -44,7 +44,7 @@
                         <?php endif; ?>
                     <?php endforeach; ?>
                     <button type="submit" class="ui primary button" onclick="setting.update(this); return false;">
-                        Save changes
+                        <?php __('settings.general.form.button') ?>
                     </button>
                 </form>
             </div>

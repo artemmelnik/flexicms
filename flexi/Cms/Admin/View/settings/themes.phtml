@@ -4,7 +4,7 @@
             <div class="sixteen wide column">
                 <div class="col page-title">
                     <h2 class="ui header">
-                        Themes
+                        <?php __('settings.themes.heading') ?>
                     </h2>
                 </div>
             </div>
@@ -27,7 +27,7 @@
                         <div class="content">
                             <span class="header"><?= $theme->name ?></span>
                             <div class="meta">
-                                <span>Version: <?= $theme->version ?></span>
+                                <span><?php __('settings.themes.theme.version') ?> <?= $theme->version ?></span>
                             </div>
                             <div class="description">
                                 <?= $theme->description ?>
@@ -36,11 +36,11 @@
                         <div class="extra content">
                             <?php if ($activeTheme == $theme->dirTheme): ?>
                                 <button class="ui button" disabled>
-                                    Activated
+                                    <?php __('settings.themes.theme.activated') ?>
                                 </button>
                             <?php else: ?>
                                 <button class="ui primary button" onclick="setting.setActiveTheme(this, '<?= $theme->dirTheme ?>')">
-                                    Activate
+                                    <?php __('settings.themes.theme.activate_button') ?>
                                 </button>
                             <?php endif; ?>
                         </div>

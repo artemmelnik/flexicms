@@ -4,7 +4,7 @@
             <div class="sixteen wide column">
                 <div class="col page-title">
                     <h2 class="ui header">
-                        Menus
+                        <?php __('settings.menus.heading') ?>
                     </h2>
                 </div>
             </div>
@@ -29,11 +29,11 @@
                     </div>
                 <?php else: ?>
                     <div class="empty-items">
-                        <p>You do not have any menu created</p>
+                        <p><?php __('settings.menus.not_have_menu') ?></p>
                     </div>
                 <?php endif; ?>
                 <a href="javascript:void(0)" class="ui primary button btn-create-menu">
-                    Add Menu
+                    <?php __('settings.menus.create_menu_button') ?>
                 </a>
             </div>
             <div class="twelve wide column">
@@ -48,7 +48,7 @@
                     </ol>
                     <button class="ui basic button" onclick="menu.addItem(<?php echo $menuId ?>)">
                         <i class="plus icon"></i>
-                        Add menu item
+                        <?php __('settings.menus.create_menu_item_button') ?>
                     </button>
                 <?php endif; ?>
             </div>
@@ -60,22 +60,22 @@
     <div class="ui standard test modal transition hidden">
         <div class="ui mini test modal transition">
             <div class="header">
-                Create menu
+                <?php __('settings.menus.modal_form.heading') ?>
             </div>
             <div class="content">
                 <div class="ui form">
                     <div class="required field">
-                        <label>Name menu</label>
-                        <input type="text" placeholder="Name menu..." id="menuName">
+                        <label><?php __('settings.menus.modal_form.label_name') ?></label>
+                        <input type="text" placeholder="<?php __('settings.menus.modal_form.placeholder_name') ?>" id="menuName">
                     </div>
                 </div>
             </div>
             <div class="actions">
                 <div class="ui negative button">
-                    Cancel
+                    <?php __('settings.menus.modal_form.cancel_button') ?>
                 </div>
                 <div class="ui positive right labeled icon button" onclick="menu.add();">
-                    Create
+                    <?php __('settings.menus.modal_form.create_button') ?>
                     <i class="checkmark icon"></i>
                 </div>
             </div>
