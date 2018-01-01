@@ -3,9 +3,12 @@ namespace Flexi\Routing;
 
 use \Closure;
 
+/**
+ * Class Route
+ * @package Flexi\Routing
+ */
 class Route
 {
-
     /**
      * @var string Route prefix.
      */
@@ -20,7 +23,7 @@ class Route
      * Sets a GET route.
      *
      * @param  string  $uri      The URI to route.
-     * @param  string  $options  The route options.
+     * @param  array   $options  The route options.
      * @return bool
      */
     public static function get(string $uri, array $options): bool
@@ -32,7 +35,7 @@ class Route
      * Sets a POST route.
      *
      * @param  string  $uri      The URI to route.
-     * @param  string  $options  The route options.
+     * @param  array   $options  The route options.
      * @return bool
      */
     public static function post(string $uri, array $options): bool
@@ -64,7 +67,7 @@ class Route
      *
      * @param  string  $method   The route method,
      * @param  string  $uri      The URI to route.
-     * @param  string  $options  The route options.
+     * @param  array  $options  The route options.
      * @return bool
      */
     public static function add(string $method, string $uri, array $options): bool
@@ -94,7 +97,6 @@ class Route
 
         // Prepend prefix if its set.
         if (static::$prefix !== '') {
-
             $uri = trim(static::$prefix, '/') . '/' . $uri;
         }
 
@@ -111,5 +113,4 @@ class Route
     {
         return isset($options['controller'], $options['action']);
     }
-
 }

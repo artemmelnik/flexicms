@@ -57,6 +57,11 @@
                             <label><?php __('pages.edit.setting_segment.label_type') ?></label>
                             <select id="type" class="ui search dropdown">
                                 <option value="page">Basic</option>
+                                <?php foreach ($pageTypes as $key => $type): ?>
+                                    <option value="<?php echo $key ?>"<?php if ($key == $page->type) echo ' selected'; ?>>
+                                        <?php echo $type ?>
+                                    </option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                     </div>
