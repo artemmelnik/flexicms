@@ -347,6 +347,11 @@ class Query
     public static function table(string $table, string $model = '')
     {
         $class = get_called_class();
+
+        if ($model == '') {
+            $model = $class;
+        }
+
         return new $class($table, $model);
     }
 }

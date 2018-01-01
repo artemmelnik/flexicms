@@ -112,21 +112,23 @@ function getPlugins()
  */
 function getTypes($switch = 'page')
 {
-    $themePath = path_content('themes') . '/' . \Setting::get('active_theme');
+    $themePath = path_content('themes') . '/' . \Setting::value('active_theme', 'theme');
     $list      = scandir($themePath);
     $types     = [];
 
     if (!empty($list)) {
-        unset($list[0]);
-        unset($list[1]);
-
         foreach ($list as $name) {
+            // Ignore hidden directories.
+            if ($name === '.' || $name === '..') continue;
+
             if (\Flexi\Helper\Common::searchMatchString($name, $switch)) {
-                list($switch, $key) = explode('-', $name, 2);
+                list($switch, $key, $extension) = explode('.', $name, 3);
+
+                // Ignore files.
+                if ($key === $switch || $key === 'layout') continue;
 
                 if (!empty($key)) {
-                    list($nameType) = explode('.', $key, 2);
-                    $types[$nameType] = ucfirst($nameType);
+                    $types[$key] = ucfirst($key);
                 }
             }
         }

@@ -51,7 +51,8 @@ class PageController extends AdminController
 
         return View::make('pages/edit', [
             'baseUrl' => Uri::base(),
-            'page' => $page
+            'page' => $page,
+            'pageTypes' => getTypes()
         ]);
     }
 

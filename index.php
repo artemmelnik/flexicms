@@ -11,13 +11,12 @@ if (!is_file(ROOT_DIR . '/config/database.php')) {
 }
 
 // Checking the recommended version PHP
-$version_compare = version_compare($version = \Flexi\Define::PHP_MIN, $required = \Flexi\Define::PHP_MIN, '<');
+$version_compare = version_compare($version = phpversion(), $required = \Flexi\Define::PHP_MIN, '<');
 if ($version_compare) {
     exit(sprintf('You are running PHP %s, but Flexi needs at least PHP %s to run.', $version, $required));
 }
 
 try{
-    // Initialize.
     \Flexi\Routing\Router::initialize();
 } catch (\ErrorException $e) {
     echo $e->getMessage();

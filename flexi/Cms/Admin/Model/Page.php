@@ -33,7 +33,7 @@ class Page extends Model
      * @param int $id
      * @return bool|Model
      */
-    public function getPage($id)
+    public function getPage(int $id)
     {
         return Query::table(static::$table, __CLASS__)
             ->select()
