@@ -1,20 +1,21 @@
 <?php
 namespace Flexi\Template;
 
+use Flexi;
+
 /**
  * Class Layout
  * @package Flexi\Template
  */
 class Layout
 {
-
     /**
      * @var array Layout view data.
      */
     protected static $data = [];
 
     /**
-     * @var \Flexi\Template\View The layout view object.
+     * @var Flexi\Template\View The layout view object.
      */
     protected static $view;
 
@@ -62,10 +63,10 @@ class Layout
     /**
      * Add main view to the layout.
      *
-     * @param  \Flexi\Template\View  $view
+     * @param  Flexi\Template\View  $view
      * @return void
      */
-    public static function view(\Flexi\Template\View $view)
+    public static function view(Flexi\Template\View $view)
     {
         foreach ($view->data() as $key => $value) {
             static::set($key, $value);
@@ -87,5 +88,4 @@ class Layout
             return '';
         }
     }
-
 }

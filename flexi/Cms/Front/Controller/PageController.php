@@ -13,9 +13,12 @@ class PageController extends FrontController
     const DEFAULT_TEMPLATE = 'page';
     const MASK_TEMPLATE = 'page.%s';
 
+    /**
+     * PageController constructor.
+     */
     public function __construct()
     {
-        $this->setLayout('page');
+        parent::__construct();
     }
 
     public function show($segment)

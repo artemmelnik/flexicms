@@ -52,7 +52,7 @@ class Module
     /**
      * Constructor.
      *
-     * @return void
+     * @param array $config
      */
     public function __construct(array $config = [])
     {
@@ -138,6 +138,9 @@ class Module
         return $modules;
     }
 
+    /**
+     * @return mixed|null
+     */
     public function current()
     {
         $path   = path('modules') . $this->module . '/module.php';
