@@ -9,7 +9,6 @@ use Flexi\Database\Statement;
  */
 class Schema
 {
-
     /**
      * Creates a new database schema.
      *

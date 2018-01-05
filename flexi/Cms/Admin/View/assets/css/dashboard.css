@@ -1,3 +1,10 @@
+.empty-list-text {
+    padding: 4em 0em;
+    text-align: center;
+}
+.empty-list-text p {}
+.empty-list-text > div {}
+
 .right-toolbar{
     width: 200px;
     text-align: right;

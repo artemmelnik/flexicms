@@ -10,7 +10,7 @@
                 </h2>
             </div>
         </div>
-
+        <?php if (!empty($posts)): ?>
         <table class="ui very basic table">
             <thead>
             <tr>
@@ -37,5 +37,16 @@
             <?php endforeach; ?>
             </tbody>
         </table>
+        <?php else: ?>
+            <div class="row">
+                <div class="col">
+                    <div class="empty-list-text">
+                        <div class="ui basic segment">
+                            <p><?php __('posts.list.empty_list_text') ?></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
     </div>
 </main>
