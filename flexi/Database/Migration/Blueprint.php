@@ -1,6 +1,8 @@
 <?php
 namespace Flexi\Database\Migration;
 
+use Flexi;
+
 /**
  * Class Blueprint
  * @package Flexi\Database\Migration
@@ -25,7 +27,6 @@ class Blueprint
 
     /**
      * @param  string  $table  The table name.
-     * @return void
      */
     public function __construct(string $table)
     {
@@ -37,7 +38,7 @@ class Blueprint
      * Creates a new auto increment integer.
      *
      * @param  string  $name  The column name.
-     * @return \Flexi\Database\Column
+     * @return Column
      */
     public function increments($name): Column
     {
@@ -64,7 +65,7 @@ class Blueprint
      *
      * @param  string  $name    The column name.
      * @param  int     $length  The column length.
-     * @return \Flexi\Database\Column
+     * @return Column
      */
     public function integer($name, $length = 11): Column
     {
@@ -87,7 +88,7 @@ class Blueprint
      *
      * @param  string  $name    The column name.
      * @param  int     $length  The column length.
-     * @return \Flexi\Database\Column
+     * @return Column
      */
     public function string($name, $length = 200): Column
     {
@@ -109,7 +110,7 @@ class Blueprint
      * Creates a boolean column.
      *
      * @param  string  $name  The column name.
-     * @return \Flexi\Database\Column
+     * @return Column
      */
     public function boolean($name): Column
     {
@@ -132,7 +133,7 @@ class Blueprint
      * Creates a text column.
      *
      * @param  string  $name  The column name.
-     * @return \Flexi\Database\Column
+     * @return Column
      */
     public function text($name): Column
     {
@@ -143,7 +144,7 @@ class Blueprint
      * Creates a datetime column.
      *
      * @param  string  $name  The column name.
-     * @return \Flexi\Database\Column
+     * @return Column
      */
     public function datetime($name): Column
     {
@@ -166,7 +167,7 @@ class Blueprint
      *
      * @param  string  $name  The column name.
      * @param  string  $type  The column type.
-     * @return \Flexi\Database\Column
+     * @return Column
      */
     private function add($name, $type): Column
     {
