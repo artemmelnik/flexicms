@@ -113,6 +113,26 @@ class Builder
         return $clause;
     }
 
+    public static function orderBy(array $orderBy)
+    {
+        // Return nothing if $where is empty.
+        if (empty($orderBy)) {
+            return '';
+        } else {
+            $clause = ' ORDER BY ';
+
+            foreach ($orderBy as $key => $order) {
+                if (array_key_exists($key + 1, $orderBy)) {
+                    $clause .= $order['column'] . ' ' . $order['direction'] . ', ';
+                } else {
+                    $clause .= $order['column'] . ' ' . $order['direction'];
+                }
+            }
+        }
+
+        return $clause;
+    }
+
     /**
      * Builds the DESCRIBE clause.
      *

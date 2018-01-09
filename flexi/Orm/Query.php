@@ -192,6 +192,7 @@ class Query
                 $this->sql .= Builder::select($this->select);
                 $this->sql .= Builder::from($this->table);
                 $this->sql .= Builder::where($this->where);
+                $this->sql .= Builder::orderBy($this->orderBy);
                 break;
             case 'create':
                 $this->sql .= Builder::insert($this->table, $this->insert);
@@ -208,7 +209,7 @@ class Query
                 $this->sql .= Builder::describe($this->table);
                 break;
         }
-
+        
         // Instantiate the statement.
         $this->stmt = new Statement($this->sql);
 
