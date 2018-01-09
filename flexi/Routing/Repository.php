@@ -7,7 +7,6 @@ namespace Flexi\Routing;
  */
 class Repository
 {
-
     /**
      * @var array Stored routes.
      */
@@ -49,7 +48,7 @@ class Repository
     public static function retrieve(string $method, string $uri): array
     {
         if (strpos($uri, '?')) {
-            $uri = str_replace('/?' . $_SERVER['QUERY_STRING'], '', $uri);
+            $uri = Route::prefixed(stristr($uri, '?', true));
         }
 
         return static::$stored[$method][$uri] ?? [];

@@ -8,4 +8,5 @@ $baseDir = dirname($vendorDir);
 return array(
     '36389227dc6e38db545088f4ae2c20ef' => $baseDir . '/flexi/Functions/functions.php',
     '4961e09f281be4ed056047a0e2eb4be3' => $baseDir . '/flexi/Functions/localization.php',
+    '7cf5543fc386d3540044060a7884d222' => $baseDir . '/flexi/Functions/menus.php',
 );

@@ -14,17 +14,48 @@
         </div>
         <div class="ui grid">
             <div class="twelve wide column">
-                <form id="formPage" class="ui form">
-                    <input type="hidden" name="page_id" id="formPageId" value="<?= $page->id ?>" />
-                    <div class="field">
-                        <label><?php __('pages.edit.label_title') ?></label>
-                        <input type="text" name="title" class="form-control" id="formTitle" value="<?= $page->title ?>" placeholder="<?php __('page.edit.placeholder_title') ?>">
+                <div class="ui secondary menu">
+                    <a class="item active" data-tab="content">Content</a>
+                    <?php if (!empty($customFields)): ?>
+                    <a class="item" data-tab="custom_fields">Custom fields</a>
+                    <?php endif; ?>
+                </div>
+                <div class="ui bottom attached tab active" data-tab="content">
+                    <form id="formPage" class="ui form">
+                        <input type="hidden" name="page_id" id="formPageId" value="<?= $page->id ?>" />
+                        <div class="field">
+                            <label><?php __('pages.edit.label_title') ?></label>
+                            <input type="text" name="title" class="form-control" id="formTitle" value="<?= $page->title ?>" placeholder="<?php __('page.edit.placeholder_title') ?>">
+                        </div>
+                        <div class="field">
+                            <label><?php __('pages.edit.label_content') ?></label>
+                            <textarea name="content" id="redactor"><?= $page->content ?></textarea>
+                        </div>
+                    </form>
+                </div>
+                <?php if (!empty($customFields)): ?>
+                <div class="ui bottom attached tab" data-tab="custom_fields">
+                    <div class="ui styled fluid accordion">
+                        <form id="customFieldsForm" class="ui form">
+                        <?php foreach ($customFields as $group): ?>
+                            <div class="title">
+                                <i class="dropdown icon"></i>
+                                <?php echo $group['group']->title ?>
+                            </div>
+                            <div class="content">
+                                <?php if (isset($group['fields'])) {
+                                    foreach ($group['fields'] as $field) {
+                                        echo $field->html;
+                                    }
+                                } else {
+                                    echo '<p>There are no fields in this group.</p>';
+                                } ?>
+                            </div>
+                            <?php endforeach; ?>
+                        </form>
                     </div>
-                    <div class="field">
-                        <label><?php __('pages.edit.label_content') ?></label>
-                        <textarea name="content" id="redactor"><?= $page->content ?></textarea>
-                    </div>
-                </form>
+                </div>
+                <?php endif; ?>
             </div>
             <div class="four wide column">
                 <div class="ui segments">
@@ -51,6 +82,19 @@
                 <div class="ui segments">
                     <div class="ui blue segment">
                         <h4><?php __('pages.edit.setting_segment.heading') ?></h4>
+                    </div>
+                    <div class="ui form segment">
+                        <div class="field">
+                            <label>Layout</label>
+                            <select id="layout" class="ui search dropdown">
+                                <option value="main">Main</option>
+                                <?php foreach ($layouts as $key => $layout): ?>
+                                    <option value="<?php echo $key ?>"<?php if ($key == $page->layout) echo ' selected'; ?>>
+                                        <?php echo $layout ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
                     </div>
                     <div class="ui form segment">
                         <div class="field">

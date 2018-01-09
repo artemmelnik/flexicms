@@ -168,6 +168,7 @@ class Query
      * Runs the query
      *
      * @param  string  $method  The query method.
+     * @throws Exception
      * @return Query
      */
     public function run(string $method = 'read'): Query
@@ -229,6 +230,19 @@ class Query
 
         // Return object.
         return $this;
+    }
+
+    /**
+     * @param string $sql
+     * @return array
+     */
+    public static function result(string $sql)
+    {
+        // Instantiate the statement.
+        $stmt = new Statement($sql);
+        $stmt->execute();
+
+        return $stmt->all();
     }
 
     /**

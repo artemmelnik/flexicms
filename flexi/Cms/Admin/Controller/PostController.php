@@ -1,6 +1,8 @@
 <?php
 namespace Flexi\Cms\Admin\Controller;
 
+use Flexi;
+use Flexi\Helper\ImageUploader;
 use Flexi\Http\Input;
 use Flexi\Http\Uri;
 use Flexi\Cms\Admin\Model\Post as PostModel;
@@ -47,11 +49,20 @@ class PostController extends AdminController
         I18n::instance()->load('posts/edit');
 
         $postModel = new PostModel();
-        $post      = $postModel->getPost($id);
+        $fileModel = new Flexi\Cms\Admin\Model\File();
+
+        $post = $postModel->getPost($id);
+
+        $image = false;
+        if ($post->getAttribute('thumbnail')) {
+            $image = $fileModel->getFile($post->getAttribute('thumbnail'));
+        }
 
         return View::make('posts/edit', [
-            'baseUrl' => Uri::base(),
-            'post'    => $post
+            'baseUrl'   => Uri::base(),
+            'post'      => $post,
+            'pageTypes' => getTypes('post'),
+            'image'     => $image
         ]);
     }
 
@@ -60,9 +71,10 @@ class PostController extends AdminController
         $params = Input::post();
 
         if (isset($params['title'])) {
-            $post = new \Flexi\Cms\Admin\Model\Post;
+            $post = new Flexi\Cms\Admin\Model\Post;
             $post->setAttribute('title', $params['title']);
             $post->setAttribute('content', $params['content']);
+            $post->setAttribute('segment', Flexi\Helper\Text::transliteration($params['title']));
             $post->save();
 
             echo $post->getAttribute('id');
@@ -73,12 +85,49 @@ class PostController extends AdminController
     public function update()
     {
         $params = Input::post();
+        $files = Input::files();
+
+        $fileId = 0;
+        if (!empty($files)) {
+            $fileModel = new Flexi\Cms\Admin\Model\File;
+
+            $uploadFile = $files[0];
+            $uploadsDir = path_content('uploads') . '/' . date('Y-m') . '/';
+            $name       = 'image-' . time();
+
+            if (!file_exists($uploadsDir)) {
+                mkdir($uploadsDir);
+            }
+
+            $file = new ImageUploader($uploadFile);
+            $file->sendTo = $uploadsDir;
+            $file->imageName = $name;
+
+            $upload = $file->uploadImage();
+
+            if ($upload->isUploaded) {
+                $params['image'] = $upload->uploadedName;
+
+                $fileId = $fileModel->addFile([
+                    'name' => $upload->uploadedName,
+                    'link' => '/content/uploads/' . date('Y-m') . '/' . $upload->uploadedName,
+                    'type' => $uploadFile['type']
+                ]);
+            }
+        }
 
         if (isset($params['title'])) {
-            $post = new \Flexi\Cms\Admin\Model\Post;
+            $post = new Flexi\Cms\Admin\Model\Post;
             $post->setAttribute('id', $params['post_id']);
             $post->setAttribute('title', $params['title']);
             $post->setAttribute('content', $params['content']);
+
+            if ($fileId) {
+                $post->setAttribute('thumbnail', $fileId);
+            }
+
+            $post->setAttribute('status', $params['status']);
+            $post->setAttribute('type', $params['type']);
             $post->save();
 
             echo $post->getAttribute('id');

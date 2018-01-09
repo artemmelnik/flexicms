@@ -1,0 +1,62 @@
+<?php
+$fieldId = uniqid();
+$label = 'New field';
+$name = '';
+$type = '';
+$description = '';
+$required = 0;
+
+if (isset($field)) {
+    $fieldId = $field->id;
+    $label = $field->label;
+    $name = $field->name;
+    $type = $field->type;
+    $description = $field->description;
+    $required = $field->required;
+}
+?>
+<div class="title">
+    <div class="ui small header">
+        <i class="dropdown icon"></i> <?php echo $label ?>
+    </div>
+</div>
+<div class="content">
+    <div class="ui form">
+        <div class="three fields">
+            <div class="field field-<?= $fieldId ?>-label">
+                <label>Label</label>
+                <input type="text" name="fields[<?= $fieldId ?>][label]" value="<?php echo $label ?>" placeholder="Label field">
+            </div>
+            <div class="field field-<?= $fieldId ?>-name">
+                <label>Name</label>
+                <input type="text" name="fields[<?= $fieldId ?>][name]" value="<?php echo $name ?>" placeholder="Name field">
+            </div>
+            <div class="field field-<?= $fieldId ?>-type">
+                <label>Type</label>
+                <select name="fields[<?= $fieldId ?>][type]" class="ui fluid dropdown">
+                    <option value="">Select Type</option>
+                    <?php foreach (\Flexi\CustomField\Types\TypeCustomField::ARRAY_FIELD_TYPES as $fieldType): ?>
+                    <option value="<?php echo $fieldType ?>"<?php if ($fieldType == $type) echo ' selected'; ?>>
+                        <?php echo ucfirst($fieldType) ?>
+                    </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+        <div class="field field-<?= $fieldId ?>-description">
+            <label>Description</label>
+            <input type="text" name="fields[<?= $fieldId ?>][description]" value="<?php echo $description ?>" placeholder="Description field...">
+        </div>
+        <div class="field">
+            <div class="ui checkbox">
+                <input type="checkbox" name="fields[<?= $fieldId ?>][required]"<?php if ($required) echo ' checked'; ?>>
+                <label>Required this field</label>
+            </div>
+        </div>
+    </div>
+</div>
+<script defer>
+    $('.ui.dropdown').dropdown({
+        on: 'hover'
+    });
+</script>

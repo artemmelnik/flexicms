@@ -50,6 +50,10 @@ class Config
             'menus' => [
                 'urlPath'   => '/admin/settings/appearance/menus/',
                 'title'     => 'Menus'
+            ],
+            'custom_fields' => [
+                'urlPath'   => '/admin/settings/custom_fields/',
+                'title'     => 'Custom Fields'
             ]
         ]
     ];

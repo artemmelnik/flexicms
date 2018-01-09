@@ -134,3 +134,33 @@ Route::post('/admin/plugins/ajaxActivate/', [
     'controller' => 'PluginController',
     'action'     => 'ajaxActivate'
 ]);
+
+Route::get('/admin/settings/custom_fields/', [
+    'controller' => 'CustomFieldController',
+    'action'     => 'listingGroup'
+]);
+
+Route::get('/admin/settings/custom_fields/group/(id:numeric)', [
+    'controller' => 'CustomFieldController',
+    'action'     => 'showGroup'
+]);
+
+Route::post('/admin/custom_fields/ajaxLoadTemplates/', [
+    'controller' => 'CustomFieldController',
+    'action'     => 'loadTemplatesByType'
+]);
+
+Route::post('/admin/custom_fields/ajaxLoadNewFieldTemplate/', [
+    'controller' => 'CustomFieldController',
+    'action'     => 'loadNewFieldTemplate'
+]);
+
+Route::post('/admin/custom_fields/ajaxAddGroup/', [
+    'controller' => 'CustomFieldController',
+    'action'     => 'addGroup'
+]);
+
+Route::post('/admin/custom_fields/ajaxUpdateFields/', [
+    'controller' => 'CustomFieldController',
+    'action'     => 'updateFields'
+]);
