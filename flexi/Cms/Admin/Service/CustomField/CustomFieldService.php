@@ -30,6 +30,8 @@ class CustomFieldService
             $groupIds[] = $group->id;
         }
 
+        if (empty($groupIds)) return $pageFields;
+
         $listFields = $customFieldModel->getListFieldsByGroupIds($page->id, $groupIds);
 
         foreach ($listFields as $field) {
