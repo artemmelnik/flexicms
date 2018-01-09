@@ -15,7 +15,8 @@
     },
     "files": [
       "flexi/Functions/functions.php",
-      "flexi/Functions/localization.php"
+      "flexi/Functions/localization.php",
+      "flexi/Functions/menus.php"
     ]
   }
 }

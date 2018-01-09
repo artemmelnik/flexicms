@@ -1,0 +1,9 @@
+<option value="all">All</option>
+<option value="page">Basic</option>
+<?php if (isset($listTemplates)): ?>
+    <?php foreach ($listTemplates as $key => $template): ?>
+        <option value="<?php echo $key ?>">
+            <?php echo $template ?>
+        </option>
+    <?php endforeach; ?>
+<?php endif; ?>

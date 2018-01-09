@@ -26,6 +26,15 @@ class Input
     }
 
     /**
+     * @param bool|mixed $key
+     * @return array|mixed
+     */
+    public static function files($key = false)
+    {
+        return $key ? static::getParam($key, $_FILES) : $_FILES;
+    }
+
+    /**
      * @param string $key
      * @param array $array
      * @return mixed

@@ -5,6 +5,9 @@
                 <div class="col page-title">
                     <h2 class="ui header">
                         <?= $post->title ?>
+                        <div class="sub header grey">
+                            <?php echo $baseUrl . '/post/' . \Flexi\Helper\Text::transliteration($post->title) ?>
+                        </div>
                     </h2>
                 </div>
             </div>
@@ -24,11 +27,59 @@
                 </form>
             </div>
             <div class="four wide column">
-                <div>
-                    <p><?php __('posts.edit.description_form_button') ?></p>
-                    <button type="submit" class="ui primary button" onclick="post.update()">
-                        <?php __('posts.edit.form_button') ?>
-                    </button>
+                <div class="ui segments">
+                    <div class="ui blue segment">
+                        <h4><?php __('posts.edit.update_segment_heading') ?></h4>
+                    </div>
+                    <div class="ui form segment">
+                        <div class="field">
+                            <label><?php __('posts.edit.label_status') ?></label>
+                            <select id="status" class="ui search dropdown">
+                                <option value="publish"<?php if ('publish' == $post->status) echo ' selected'; ?>>Опубликовано</option>
+                                <option value="draft"<?php if ('draft' == $post->status) echo ' selected'; ?>>В корзине</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="ui secondary segment">
+                        <p><?php __('posts.edit.description_form_button') ?></p>
+                        <button type="submit" class="ui primary button" onclick="post.update(this)">
+                            <?php __('posts.edit.form_button') ?>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="ui segments">
+                    <div class="ui blue segment">
+                        <h4><?php __('posts.edit.setting_segment.heading') ?></h4>
+                    </div>
+                    <div class="ui form segment">
+                        <div class="field">
+                            <label><?php __('posts.edit.setting_segment.label_type') ?></label>
+                            <select id="type" class="ui search dropdown">
+                                <option value="page">Basic</option>
+                                <?php foreach ($pageTypes as $key => $type): ?>
+                                    <option value="<?php echo $key ?>"<?php if ($key == $post->type) echo ' selected'; ?>>
+                                        <?php echo $type ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ui segments">
+                    <div class="ui blue segment">
+                        <input class="upload-file" type="file" multiple="multiple" accept=".txt,image/*" style="display: none;">
+                        <?php if ($image): ?>
+                        <img class="ui medium bordered image post-image" src="<?php echo $image->link ?>">
+                        <?php else: ?>
+                        <img class="ui medium bordered image post-image" src="https://semantic-ui.com/images/wireframe/white-image.png">
+                        <?php endif; ?>
+                        <br>
+                        <button class="ui primary button upload-post-image">
+                            Add image
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

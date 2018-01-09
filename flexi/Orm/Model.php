@@ -35,6 +35,14 @@ class Model
     }
 
     /**
+     * @return string
+     */
+    public static function getTable(): string
+    {
+        return static::$table;
+    }
+
+    /**
      * Gets an attribute.
      *
      * @param  string  $attribute  The attribute to get.
@@ -167,7 +175,7 @@ class Model
      * @param  string $column    The name of the column.
      * @param  string $operator  The clause operator.
      * @param  mixed  $value     The value to check against the column.
-     * @return \Flexi\Database\Query
+     * @return \Flexi\Orm\Query
      */
     public static function where(string $column, string $operator = '=', $value): Query
     {

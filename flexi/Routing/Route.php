@@ -90,7 +90,7 @@ class Route
      * @param  string  $uri  The URI to prefix.
      * @return string
      */
-    private static function prefixed(string $uri): string
+    public static function prefixed(string $uri): string
     {
         // Normalize the URI.
         $uri = trim($uri, '/');

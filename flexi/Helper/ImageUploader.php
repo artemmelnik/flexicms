@@ -60,7 +60,7 @@ class ImageUploader
     /**
      * @return object
      */
-    public function uploadImage(): object
+    public function uploadImage()
     {
         try {
             // File too big
@@ -87,7 +87,8 @@ class ImageUploader
                     public $uploadedName;
                     public $fullPath;
 
-                    function __construct($imageFullName, $imageFullPath) {
+                    function __construct($imageFullName, $imageFullPath)
+                    {
                         $this->uploadedName = $imageFullName;
                         $this->fullPath = $imageFullPath;
                     }

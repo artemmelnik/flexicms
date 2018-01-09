@@ -29,4 +29,24 @@ class Page extends Model
 
         return $query;
     }
+
+    /**
+     * @param array $params
+     * @return array|Query
+     */
+    public function getPages(array $params = [])
+    {
+        $fields = [];
+
+        $query = Query::table(static::$table, __CLASS__)
+            ->select($fields);
+
+        if (isset($params['layout'])) {
+            $query = $query->where('layout', '=', $params['layout']);
+        }
+
+        $query = $query->all();
+
+        return $query;
+    }
 }

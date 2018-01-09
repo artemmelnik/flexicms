@@ -1,0 +1,150 @@
+<main>
+    <div class="ui container">
+        <div class="ui grid">
+            <div class="sixteen wide column">
+                <div class="col page-title">
+                    <h2 class="ui header">
+                        Group fields
+                        <a class="ui primary basic button right floated item btn-create-group-fields">
+                            <i class="plus icon"></i> Add group
+                        </a>
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="ui grid">
+            <div class="sixteen wide column">
+                <div class="setting-tabs">
+                    <?php echo Component::get('settings/tabs') ?>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui grid">
+            <div class="sixteen wide column">
+            <?php if (!empty($listGroup)): ?>
+                <table class="ui very basic table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Title <i class="ui help circle outline icon help-element" data-content="Name of the field group"></i></th>
+                            <th>Fields <i class="ui help circle outline icon help-element" data-content="Count of fields in this group"></i></th>
+                            <th>Type <i class="ui help circle outline icon help-element" data-content="Entity type to which this group is attached"></i></th>
+                            <th>Status <i class="ui help circle outline icon help-element" data-content="Group status, if the status is inactive - the fields are not displayed in the entity"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($listGroup as $group): ?>
+                        <tr>
+                            <th scope="row">
+                                <div class="inline field">
+                                    <div class="ui checkbox">
+                                        <input type="checkbox" name="terms">
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </th>
+                            <td>
+                                <a href="/admin/settings/custom_fields/group/<?php echo $group->id ?>">
+                                    <?php echo $group->title ?>
+                                </a>
+                            </td>
+                            <td>
+                                <?php echo $group->count_fields ?>
+                            </td>
+                            <td>
+                                <?php echo ucfirst($group->type) ?>
+                            </td>
+                            <td>
+                                <?php if ($group->status) {
+                                    echo 'Active';
+                                } else {
+                                    echo 'Inactive';
+                                } ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php else: ?>
+                <div class="row">
+                    <div class="col">
+                        <div class="empty-list-text">
+                            <div class="ui basic segment">
+                                <p>Empty group field list</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div id="addGroupFields" class="ui dimmer modals page transition">
+    <div class="ui standard test modal transition hidden">
+        <div class="ui tiny test modal transition">
+            <div class="header">
+                Add group
+            </div>
+            <div class="content">
+                <form id="addGroupForm" class="ui form">
+                    <div class="required field">
+                        <label>Title</label>
+                        <input type="text" name="title" id="titleGroup" placeholder="Title group...">
+                    </div>
+                    <div class="required field">
+                        <label>Type entity</label>
+                        <select id="typeGroup" class="ui fluid dropdown" onchange="customField.loadTemplates(this)">
+                            <?php if (isset($groupFieldTypes)): ?>
+                                <?php foreach ($groupFieldTypes as $groupType): ?>
+                                <option value="<?php echo $groupType ?>">
+                                    <?php echo ucfirst($groupType) ?>
+                                </option>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>Layout</label>
+                        <select id="layoutGroup" class="ui search dropdown">
+                            <option value="all">All</option>
+                            <option value="main">Main</option>
+                            <?php if (isset($listLayouts)): ?>
+                                <?php foreach ($listLayouts as $key => $layout): ?>
+                                <option value="<?php echo $key ?>">
+                                    <?php echo $layout ?>
+                                </option>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>Template</label>
+                        <select id="templateGroup" class="ui search dropdown">
+                            <option value="all">All</option>
+                            <option value="page">Basic</option>
+                            <?php if (isset($listTemplates)): ?>
+                                <?php foreach ($listTemplates as $key => $template): ?>
+                                <option value="<?php echo $key ?>">
+                                    <?php echo $template ?>
+                                </option>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="actions">
+                <div class="ui negative button">
+                    Cancel
+                </div>
+                <div class="ui green button submit right icon" onclick="customField.addGroup(this)">
+                    Create
+                    <i class="checkmark icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
