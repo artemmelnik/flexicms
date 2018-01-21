@@ -209,7 +209,7 @@ class Query
                 $this->sql .= Builder::describe($this->table);
                 break;
         }
-        
+
         // Instantiate the statement.
         $this->stmt = new Statement($this->sql);
 
