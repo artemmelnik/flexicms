@@ -23,8 +23,11 @@ class PageController extends FrontController
 
     public function show($segment)
     {
+<<<<<<< HEAD:modules/Front/Controller/PageController.php
         class_alias('\\Modules\\Front\\Classes\\Page', 'Page');
 
+=======
+>>>>>>> 8c0b150c4bdc6b50652645f05d90b3606094b62a:flexi/Cms/Front/Controller/PageController.php
         $pageModel = new Model\Page();
         $page = $pageModel->getPageBySegment($segment);
 
