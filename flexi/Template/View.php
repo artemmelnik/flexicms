@@ -64,7 +64,7 @@ class View implements ResponderInterface
      */
     public static function theme(): string
     {
-        return static::engine()->detectViewDirectory();
+        return static::engine()->detectThemeDirectory();
     }
 
     /**
@@ -98,7 +98,8 @@ class View implements ResponderInterface
     public function render(): string
     {
         // Get path for the views.
-        $path = static::path() . $this->file . self::TEMPLATE_EXTENSION;
+        //$path = static::path() . $this->file . self::TEMPLATE_EXTENSION;
+        $path = Router::module()->path() . 'View/' . $this->file . self::TEMPLATE_EXTENSION;
 
         // Render the view.
         return Component::load($path, $this->data);

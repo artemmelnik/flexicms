@@ -1,0 +1,41 @@
+<?php
+namespace Modules\Admin\Controller;
+
+use Flexi\Localization\I18n;
+use View;
+use  Modules\Admin\Model\Plugin as PluginModel;
+
+/**
+ * Class PluginController
+ * @package Modules\Admin\Controller
+ */
+class PluginController extends AdminController
+{
+    /**
+     * @return \Flexi\Template\View
+     */
+    public function listPlugins()
+    {
+        I18n::instance()->load('plugins/list');
+
+        $pluginModel = new PluginModel();
+        $installedPlugins = $pluginModel->getPlugins();
+        $plugins = getPlugins();
+
+        foreach ($plugins as $key => $plugin) {
+            $plugins[$key]['is_active'] = 0;
+            $plugins[$key]['is_install'] = false;
+            $plugins[$key]['plugin_id'] = 0;
+        }
+
+        foreach ($installedPlugins as $plugin) {
+            $plugins[$plugin->directory]['is_active'] = $plugin->is_active;
+            $plugins[$plugin->directory]['is_install'] = true;
+            $plugins[$plugin->directory]['plugin_id'] = $plugin->id;
+        }
+
+        return View::make('plugins/list', [
+            'plugins' => $plugins,
+        ]);
+    }
+}

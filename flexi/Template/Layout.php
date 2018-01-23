@@ -54,7 +54,7 @@ class Layout
         static::$data = array_merge_recursive(static::data(), $data);
 
         // Get the path to the layout.
-        $path = View::path() . $name . '.layout' . View::TEMPLATE_EXTENSION;
+        $path = ROOT_DIR . View::theme() . $name . '.layout' . View::TEMPLATE_EXTENSION;
 
         // Load.
         return Component::load($path, static::data());

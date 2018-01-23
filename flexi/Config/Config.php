@@ -82,5 +82,4 @@ class Config
         // File load unsuccessful.
         return false;
     }
-
 }

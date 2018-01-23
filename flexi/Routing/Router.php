@@ -82,12 +82,6 @@ class Router
      */
     private static function routes()
     {
-        // Load file routes in CMS
-        Route::$module = 'Admin';
-        require_once ROOT_DIR . '/flexi/Cms/Admin/routes.php';
-        Route::$module = 'Front';
-        require_once ROOT_DIR . '/flexi/Cms/Front/routes.php';
-
         // Load the routes file from each module that has it.
         foreach (scandir(path('modules')) as $module) {
             // Ensure its not a hidden folder.
@@ -97,7 +91,7 @@ class Router
             Route::$module = $module;
 
             // Load file is exists.
-            if (is_file($path = path('modules') . $module . '/routes.php')) {
+            if (is_file($path = path('modules') . '/' . $module . '/routes.php')) {
                 require_once $path;
             }
         }

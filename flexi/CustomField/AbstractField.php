@@ -19,6 +19,10 @@ abstract class AbstractField
      */
     protected $fieldDataArray;
 
+    /**
+     * AbstractField constructor.
+     * @param array $params
+     */
     public function __construct(array $params)
     {
         $this->setFieldData(

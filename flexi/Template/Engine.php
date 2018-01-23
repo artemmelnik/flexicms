@@ -26,13 +26,22 @@ class Engine
     public function detectViewDirectory(): string
     {
         $module = Router::module();
+
+        $directory = sprintf('/modules/%s/View/', $module->module);
+
+        return $directory;
+    }
+
+    public function detectThemeDirectory(): string
+    {
+        $module = Router::module();
         $theme = \Setting::value('active_theme', 'theme');
 
-        $directory = sprintf('/content/themes/%s/', $theme);
-
-        if ($module->module == Define::DEFAULT_MODULE['admin']) {
-            $directory = '/flexi/Cms/Admin/View/';
+        if ($module->instance()->theme !== null) {
+            $theme = $module->instance()->theme;
         }
+
+        $directory = sprintf('/content/themes/%s/', $theme);
 
         return $directory;
     }

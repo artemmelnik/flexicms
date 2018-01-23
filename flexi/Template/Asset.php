@@ -18,6 +18,6 @@ class Asset
      */
     public static function get($file): string
     {
-        return View::theme() . '/' . $file;
+        return View::theme() . $file;
     }
 }
