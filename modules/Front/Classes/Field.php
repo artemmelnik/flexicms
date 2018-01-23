@@ -1,7 +1,7 @@
 <?php
-namespace Flexi\Cms\Front\Classes;
+namespace Modules\Front\Classes;
 
-use Flexi\Cms\Front\Model\CustomField as CustomFieldModel;
+use Modules\Front\Model\CustomField as CustomFieldModel;
 
 /**
  * Class Field

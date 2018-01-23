@@ -30,9 +30,9 @@ class Flexi
         class_alias('\\Flexi\\Settings\\Setting', 'Setting');
         class_alias('\\Flexi\\Customize\\Customize', 'Customize');
         class_alias('\\Flexi\\DI\\Container', 'DI');
-        class_alias('\\Flexi\\Cms\\Front\\Classes\\Page', 'Page');
-        class_alias('\\Flexi\\Cms\\Front\\Classes\\Field', 'Field');
-        class_alias('\\Flexi\\Cms\\Front\\Classes\\Post', 'Post');
+        class_alias('\\Modules\\Front\\Classes\\Page', 'Page');
+        class_alias('\\Modules\\Front\\Classes\\Field', 'Field');
+        class_alias('\\Modules\\Front\\Classes\\Post', 'Post');
 
         // Initialize the URI.
         Uri::initialize();

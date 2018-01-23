@@ -1,7 +1,7 @@
 <?php
-namespace Flexi\Cms\Front\Classes;
+namespace Modules\Front\Classes;
 
-use Flexi;
+use Modules;
 
 /**
  * Class Post
@@ -15,7 +15,7 @@ class Post
      */
     public static function getPostsInIds(array $ids): array
     {
-        $postModel = new Flexi\Cms\Front\Model\Post();
+        $postModel = new Modules\Front\Model\Post();
 
         return $postModel->getPostsInId($ids);
     }

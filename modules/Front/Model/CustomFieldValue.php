@@ -1,5 +1,5 @@
 <?php
-namespace Flexi\Cms\Front\Model;
+namespace Modules\Front\Model;
 
 use Flexi;
 use Flexi\Orm\Model;
@@ -7,7 +7,7 @@ use Query;
 
 /**
  * Class CustomFieldValue
- * @package Flexi\Cms\Front\Model
+ * @package Modules\Front\Model
  */
 class CustomFieldValue extends Model
 {

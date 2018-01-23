@@ -2,6 +2,7 @@
 namespace Modules\Admin\Controller;
 
 use Flexi;
+use Modules;
 use Flexi\Helper\ImageUploader;
 use Flexi\Http\Input;
 use Flexi\Http\Uri;

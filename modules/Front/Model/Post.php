@@ -1,12 +1,12 @@
 <?php
-namespace Flexi\Cms\Front\Model;
+namespace Modules\Front\Model;
 
 use Flexi\Orm\Model;
 use Query;
 
 /**
  * Class Post
- * @package Flexi\Cms\Front\Model
+ * @package Modules\Front\Model
  */
 class Post extends Model
 {

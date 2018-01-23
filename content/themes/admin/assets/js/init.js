@@ -1,10 +1,12 @@
-$('#redactor').redactor({
+/*$('#redactor').redactor({
     imageUpload: '/ajax/redactor/core/uploadImage/',
     fileUpload: '/ajax/redactor/core/uploadFile/',
     plugins: ['table', 'video', 'source'],
     imagePosition: true,
     imageResizable: true
-});
+});*/
+
+//$('#redactor').froalaEditor();
 
 var files;
 $('input.upload-file').on('change', function(){
