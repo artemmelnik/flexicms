@@ -45,6 +45,12 @@ class Page extends Model
             $query = $query->where('layout', '=', $params['layout']);
         }
 
+        if (isset($params['order_by']) && is_array($params['order_by'])) {
+            foreach ($params['order_by'] as $column => $direction) {
+                $query = $query->orderBy($column, $direction);
+            }
+        }
+
         $query = $query->all();
 
         return $query;
