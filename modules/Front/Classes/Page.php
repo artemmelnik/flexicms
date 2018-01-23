@@ -1,7 +1,8 @@
 <?php
-namespace Flexi\Cms\Front\Classes;
+namespace Modules\Front\Classes;
 
 use Flexi;
+use Modules;
 
 /**
  * Class Page
@@ -10,20 +11,20 @@ use Flexi;
 class Page
 {
     /**
-     * @var Flexi\Cms\Front\Model\Page
+     * @var Modules\Front\Model\Page
      */
     protected static $page;
 
     /**
-     * @param Flexi\Cms\Front\Model\Page $page
+     * @param Modules\Front\Model\Page $page
      */
-    public static function setPage(Flexi\Cms\Front\Model\Page $page)
+    public static function setPage(Modules\Front\Model\Page $page)
     {
         static::$page = $page;
     }
 
     /**
-     * @return Flexi\Cms\Front\Model\Page
+     * @return Modules\Front\Model\Page
      */
     public static function getPage()
     {

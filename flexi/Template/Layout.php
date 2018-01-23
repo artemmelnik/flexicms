@@ -56,8 +56,6 @@ class Layout
         // Get the path to the layout.
         $path = ROOT_DIR . View::theme() . $name . '.layout' . View::TEMPLATE_EXTENSION;
 
-        $test = Component::load($path, static::data());
-
         // Load.
         return Component::load($path, static::data());
     }

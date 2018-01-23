@@ -104,9 +104,9 @@ class Module
             // Return the response.
             return $this->response;
         } else {
-            throw new Exception(sprintf(
-                'Controller <strong>%s</strong> does not exist.'
-            , $class));
+            throw new Exception(
+                sprintf('Controller <strong>%s</strong> does not exist.', $class)
+            );
         }
     }
 

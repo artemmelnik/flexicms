@@ -1,7 +1,8 @@
 <?php
-namespace Flexi\Cms\Front\Classes;
+namespace Modules\Front\Classes;
 
 use Flexi;
+use Modules;
 
 /**
  * Class Menu
@@ -21,7 +22,7 @@ class Menu
             return $menuItems;
         }
 
-        $menuModel = new Flexi\Cms\Front\Model\MenuItem;
+        $menuModel = new Modules\Front\Model\MenuItem;
         $menuItems = $menuModel->getItemsByMenuId($menuId);
 
         Flexi\DI\Container::instance()->set('menuItems', $menuItems);

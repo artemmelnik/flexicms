@@ -1,9 +1,9 @@
 <?php
-namespace Flexi\Cms\Front\Classes;
+namespace Modules\Front\Classes;
 
 /**
  * Class Widget
- * @package Flexi\Cms\Front\Classes
+ * @package Modules\Front\Classes
  */
 class Widget
 {
