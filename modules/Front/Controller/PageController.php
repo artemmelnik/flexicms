@@ -2,7 +2,7 @@
 namespace Modules\Front\Controller;
 
 use Flexi\Template\View;
-use Flexi\Cms\Front\Model;
+use Modules\Front\Model;
 
 /**
  * Class PageController
