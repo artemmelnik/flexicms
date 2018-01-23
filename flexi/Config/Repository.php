@@ -1,7 +1,10 @@
 <?php
-
 namespace Flexi\Config;
 
+/**
+ * Class Repository
+ * @package Flexi\Config
+ */
 class Repository
 {
     /**

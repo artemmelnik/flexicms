@@ -1,6 +1,7 @@
 <?php
 namespace Flexi\Auth;
 
+use Flexi;
 use Flexi\Config\Config;
 use Flexi\Encryption\Hash;
 use Flexi\Facades\Session;
@@ -39,9 +40,8 @@ class Auth implements AuthInterface
         }
 
         // Check if we have a user logged in.
-        if (
-            Session::has('auth.user') &&
-            Session::has('auth.authorized')
+        if (Session::has('auth.user')
+            && Session::has('auth.authorized')
         ) {
             static::$authorized = Session::get('auth.authorized');
             static::$user       = Session::get('auth.user');
@@ -74,7 +74,7 @@ class Auth implements AuthInterface
      * @param  \Flexi\Orm\Model  $user  The user to authorize.
      * @return void
      */
-    public static function authorize(\Flexi\Orm\Model $user)
+    public static function authorize(Flexi\Orm\Model $user)
     {
         Session::put('auth.authorized', true);
         Session::put('auth.user', $user);
@@ -120,7 +120,7 @@ class Auth implements AuthInterface
     /**
      * Generates a new random password salt.
      *
-     * @return int
+     * @return string
      */
     public static function salt(): string
     {

@@ -42,11 +42,12 @@ class I18n
 
     /**
      * @param string $file
+     * @param string $module
      * @return I18n
      */
-    public function load(string $file)
+    public function load(string $file, string $module = '')
     {
-        $path    = static::path() . $file . '.ini';
+        $path    = static::path($module) . $file . '.ini';
         $content = parse_ini_file($path, true);
 
         $lang = \DI::instance()->get('lang') ?: [];
@@ -79,10 +80,8 @@ class I18n
         $module = \DI::instance()->get('module');
 
         $localizations = [];
-        $path = path('modules') . sprintf('%s/Language/', $module->module);
-        if (in_array($module->module, ['Admin', 'Front'])) {
-            $path = sprintf('%s/flexi/Cms/%s/Language/', ROOT_DIR, $module->module);
-        }
+        $path = path('modules') . sprintf('/%s/Language/', $module->module);
+
         foreach (scandir($path) as $localization) {
             // Ignore hidden directories.
             if ($localization === '.' || $localization === '..') continue;
@@ -102,8 +101,9 @@ class I18n
 
     /**
      * @return string
+     * @param string $moduleName
      */
-    private static function path(): string
+    private static function path(string $moduleName = ''): string
     {
         $activeLanguage = \Setting::value('language');
 
@@ -113,10 +113,13 @@ class I18n
 
         /** @var Module $module */
         $module = \DI::instance()->get('module');
-        $path = path('modules') . sprintf('%s/Language/%s/', $module->module, $activeLanguage);
-        if (in_array($module->module, ['Admin', 'Front'])) {
-            $path = sprintf('%s/flexi/Cms/%s/Language/%s/', ROOT_DIR, $module->module, $activeLanguage);
+
+        $moduleModuleName = $module->module;
+        if ($moduleName !== '') {
+            $moduleModuleName = $moduleName;
         }
+
+        $path = path('modules') . sprintf('/%s/Language/%s/', $moduleModuleName, $activeLanguage);
 
         return $path;
     }

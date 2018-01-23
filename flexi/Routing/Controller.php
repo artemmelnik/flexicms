@@ -13,6 +13,11 @@ abstract class Controller
     public $layout = 'main';
 
     /**
+     * @var string|null
+     */
+    public $theme = null;
+
+    /**
      * @var array
      */
     public $data = [];

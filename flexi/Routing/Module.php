@@ -84,7 +84,7 @@ class Module
      */
     public function path(): string
     {
-        return path('modules') . $this->module . '/';
+        return path('modules') . '/' . $this->module . '/';
     }
 
     /**
@@ -94,10 +94,6 @@ class Module
     {
         // Build the class name.
         $class = '\\Modules\\' . $this->module . '\Controller\\' . $this->controller;
-
-        if (in_array($this->module, ['Admin', 'Front'])) {
-            $class = '\\Flexi\\Cms\\' . $this->module . '\Controller\\' . $this->controller;
-        }
 
         // Ensure the class exists.
         if (class_exists($class)) {
@@ -123,8 +119,7 @@ class Module
     {
         $modules = [];
 
-        foreach (scandir(path('modules')) as $module)
-        {
+        foreach (scandir(path('modules')) as $module) {
             // Ignore hidden directories.
             if ($module === '.' || $module === '..') continue;
 
