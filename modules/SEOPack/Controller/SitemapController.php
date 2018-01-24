@@ -21,7 +21,7 @@ class SitemapController extends \Controller
         $pages = $pageModel->getPages();
 
         $sitemap = new Sitemap;
-        $sitemap->addItem('https://antiotel.ru/');
+        $sitemap->addItem(Config::item('baseUrl'));
 
         /**
          * @var PageModel $page
