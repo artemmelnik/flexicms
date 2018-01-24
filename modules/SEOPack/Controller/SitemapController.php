@@ -1,8 +1,9 @@
 <?php
 namespace Modules\SEOPack\Controller;
 
+use Flexi\Config\Config;
 use Flexi\Sitemap\Sitemap;
-use Flexi\Cms\Admin\Model\Page as PageModel;
+use Modules\Admin\Model\Page as PageModel;
 
 /**
  * Class SitemapController
@@ -26,7 +27,7 @@ class SitemapController extends \Controller
          * @var PageModel $page
          */
         foreach ($pages as $page) {
-            $sitemap->addItem('https://antiotel.ru/page/' . $page->getAttribute('segment'));
+            $sitemap->addItem(Config::item('baseUrl') . '/page/' . $page->getAttribute('segment'));
         }
 
         header('Content-Type: application/xml');
