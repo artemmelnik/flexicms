@@ -1,0 +1,68 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+<main>
+    <div class="ui container">
+        <div class="ui grid">
+            <div class="sixteen wide column">
+                <div class="col page-title">
+                    <h2 class="ui header">
+                        {{ __('plugins.list.heading') }}
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui grid">
+            <div class="sixteen wide column">
+                <table class="ui compact celled definition table">
+                    <thead class="full-width">
+                    <tr>
+                        <th></th>
+                        <th>{{ __('plugins.list.table.plugin') }}</th>
+                        <th>{{ __('plugins.list.table.description') }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for directory,plugin in plugins %}
+                    <tr class="top aligned">
+                        <td class="collapsing">
+                            <div class="ui fitted toggle checkbox">
+                                <input type="checkbox" data-active="{{ plugin.is_active }}" onchange="plugin.activate(this, {{ plugin.plugin_id }})"{% if plugin.is_active %} checked{% endif %}>
+                                <label></label>
+                            </div>
+                        </td>
+                        <td>
+                            {{ plugin.name }}<br>
+                            {% if plugin.is_install %}
+                                <span class="disabled" style="color: #909090">
+                                    {{ __('plugins.list.table.installed') }}
+                                </span>
+                            {% else %}
+                                <a href="javascript:void(0)" onclick="plugin.install(this, '{{ directory }}')">
+                                    {{ __('plugins.list.table.install') }}
+                                </a>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {{ plugin.description }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                    <tfoot class="full-width">
+                    <tr>
+                        <th></th>
+                        <th colspan="4">
+                            <div class="ui right floated small primary labeled icon button">
+                                <i class="upload icon"></i> {{ __('plugins.list.table.add_button') }}
+                            </div>
+                        </th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

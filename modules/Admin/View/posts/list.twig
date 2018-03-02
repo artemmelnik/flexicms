@@ -1,0 +1,56 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+<main>
+    <div class="ui container">
+        <div class="row">
+            <div class="col page-title">
+                <h2 class="ui header">
+                    {{ __('posts.list.title') }}
+                    <a href="/admin/posts/create/" class="ui primary button right floated item">
+                        {{ __('posts.list.create_button') }}
+                    </a>
+                </h2>
+            </div>
+        </div>
+        {% if posts is not empty %}
+        <table class="ui very basic table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>{{ __('posts.list.table_title') }}</th>
+                <th>{{ __('posts.list.table_date') }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for post in posts %}
+            <tr>
+                <th scope="row">
+                    {{ post.getAttribute('id') }}
+                </th>
+                <td>
+                    <a href="/admin/posts/edit/{{ post.getAttribute('id') }}">
+                        {{ post.getAttribute('title') }}
+                    </a>
+                </td>
+                <td>
+                    {{ post.getAttribute('date') }}
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="row">
+            <div class="col">
+                <div class="empty-list-text">
+                    <div class="ui basic segment">
+                        <p>{{ __('posts.list.empty_list_text') }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</main>
+{% endblock %}

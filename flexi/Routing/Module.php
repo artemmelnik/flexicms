@@ -2,6 +2,7 @@
 namespace Flexi\Routing;
 
 use Exception;
+use Flexi\Config\Config;
 
 /**
  * Class Module
@@ -50,6 +51,11 @@ class Module
     public $current = [];
 
     /**
+     * @var string
+     */
+    public $viewPath = '';
+
+    /**
      * Constructor.
      *
      * @param array $config
@@ -84,7 +90,34 @@ class Module
      */
     public function path(): string
     {
-        return path('modules') . '/' . $this->module . '/';
+        return path('modules') . DIRECTORY_SEPARATOR . $this->module . DIRECTORY_SEPARATOR;
+    }
+
+    public function url()
+    {
+        return Config::item('baseUrl') . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . $this->module . DIRECTORY_SEPARATOR;
+    }
+
+    /**
+     * @return string
+     */
+    public function pathView(): string
+    {
+        return $this->path() . 'View' . DIRECTORY_SEPARATOR;
+    }
+
+    /**
+     * @return string
+     */
+    public function pathTheme(): string
+    {
+        $theme = \Setting::value('active_theme', 'theme');
+
+        if ($theme == '') {
+            $theme = Config::item('defaultTheme');
+        }
+
+        return path_content('themes') . DIRECTORY_SEPARATOR . $theme . DIRECTORY_SEPARATOR;
     }
 
     /**
@@ -99,6 +132,15 @@ class Module
         if (class_exists($class)) {
             // Instantiate class.
             $this->instance = new $class;
+
+            $parents = class_parents($this->instance);
+
+            if (in_array('Modules\Front\Controller\FrontController', $parents)) {
+                $this->viewPath = $this->pathTheme();
+            } else {
+                $this->viewPath = $this->pathView();
+            }
+
             $this->response = call_user_func_array([$this->instance, $this->action], $this->parameters);
 
             // Return the response.
@@ -138,7 +180,7 @@ class Module
      */
     public function current()
     {
-        $path   = path('modules') . $this->module . '/module.php';
+        $path   = path('modules') . $this->module . DIRECTORY_SEPARATOR . 'module.php';
         $module = null;
 
         if (is_file($path)) {

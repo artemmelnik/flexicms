@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Admin panel</title>
+
+    <link rel="stylesheet" href="{{ asset('assets/semantic/semantic.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/semantic/components/dropdown.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/semantic/components/transition.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/semantic/components/icon.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/semantic/components/segment.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/semantic/components/sidebar.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/semantic/components/popup.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/semantic/components/form.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/semantic/components/accordion.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/semantic/components/tab.min.css') }}">
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="{{ asset('assets/css/dashboard.css') }}">
+
+    <!-- simplelineicons for this template -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css">
+
+    <!-- Redactor CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/plugins/froala/froala_editor.pkgd.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/plugins/froala/froala_style.min.css') }}">
+</head>
+<body>
+<header>
+    <div class="ui borderless main menu top-header">
+        <div class="ui container">
+            <div href="/admin/" class="header item logo-item">
+                <img class="logo" src="{{ asset('assets/images/logo.png') }}">
+            </div>
+
+            {% for item in navigation %}
+                <a class="item" href="{{ item.urlPath }}">
+                    <i class="{{ item.classIcon }}"></i> {{ item.title }}
+                </a>
+            {% endfor %}
+
+            <a href="/admin/logout/" class="ui right floated item" tabindex="0">
+                <i class="icon-logout icons"></i> {{ __('dashboard.main.logout') }}
+            </a>
+        </div>
+    </div>
+</header>
+
+{% block content %}{% endblock %}
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="{{ asset('assets/js/jquery-2.0.3.min.js') }}"></script>
+<script src="{{ asset('assets/semantic/semantic.min.js') }}"></script>
+<script src="{{ asset('assets/semantic/components/transition.min.js') }}"></script>
+<script src="{{ asset('assets/semantic/components/dropdown.min.js') }}"></script>
+<script src="{{ asset('assets/semantic/components/sidebar.min.js') }}"></script>
+<script src="{{ asset('assets/semantic/components/popup.min.js') }}"></script>
+<script src="{{ asset('assets/semantic/components/form.min.js') }}"></script>
+<script src="{{ asset('assets/semantic/components/accordion.min.js') }}"></script>
+<script src="{{ asset('assets/semantic/components/tab.min.js') }}"></script>
+<script src="{{ asset('assets/js/plugins/froala/froala_editor.pkgd.min.js') }}"></script>
+<script src="{{ asset('assets/js/jquery-sortable.js') }}"></script>
+<script src="{{ asset('assets/js/init.js') }}"></script>
+<script src="{{ asset('assets/js/page.js') }}"></script>
+<script src="{{ asset('assets/js/post.js') }}"></script>
+<script src="{{ asset('assets/js/setting.js') }}"></script>
+<script src="{{ asset('assets/js/menu.js') }}"></script>
+<script src="{{ asset('assets/js/plugin.js') }}"></script>
+<script src="{{ asset('assets/js/custom-field.js') }}"></script>
+</body>
+</html>

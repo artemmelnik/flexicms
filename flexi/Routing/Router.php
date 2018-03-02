@@ -3,8 +3,8 @@ namespace Flexi\Routing;
 
 use Flexi\Http\Request;
 use Flexi\Http\Uri;
-use Flexi\Template\Layout;
 use Flexi\Flexi;
+use Flexi\Template\View;
 
 /**
  * Class Router
@@ -55,7 +55,10 @@ class Router
         // Set module in DI
         \DI::instance()->set('module', static::$module);
 
-        // Run the module.
+        /**
+         * Run the module.
+         * @var View $response
+         */
         $response = $module->run();
 
         // Run the response.
@@ -64,12 +67,12 @@ class Router
         }
 
         // Do we have a layout to process?
-        $layout = $module->instance()->layout;
+        //$layout = $module->instance()->layout;
 
         // Process layout.
-        if ($layout !== '') {
-            echo Layout::get($layout);
-        }
+        //if ($layout !== '') {
+            //echo Layout::get($layout);
+        //}
 
         // Close Flexi.
         Flexi::close();
@@ -91,7 +94,7 @@ class Router
             Route::$module = $module;
 
             // Load file is exists.
-            if (is_file($path = path('modules') . '/' . $module . '/routes.php')) {
+            if (is_file($path = path('modules') . DIRECTORY_SEPARATOR . $module . '/routes.php')) {
                 require_once $path;
             }
         }

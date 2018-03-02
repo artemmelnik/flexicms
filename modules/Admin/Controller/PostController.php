@@ -26,9 +26,9 @@ class PostController extends AdminController
         $postModel = new PostModel();
         $posts     = $postModel->getPosts();
 
-        return View::make('posts/list', [
-            'posts' => $posts
-        ]);
+        $this->setData('posts', $posts);
+
+        return View::make('posts/list', $this->data);
     }
 
     /**
@@ -38,7 +38,7 @@ class PostController extends AdminController
     {
         I18n::instance()->load('posts/create');
 
-        return View::make('posts/create');
+        return View::make('posts/create', $this->data);
     }
 
     /**
@@ -59,12 +59,12 @@ class PostController extends AdminController
             $image = $fileModel->getFile($post->getAttribute('thumbnail'));
         }
 
-        return View::make('posts/edit', [
-            'baseUrl'   => Uri::base(),
-            'post'      => $post,
-            'pageTypes' => getTypes('post'),
-            'image'     => $image
-        ]);
+        $this->setData('baseUrl', Uri::base());
+        $this->setData('post', $post);
+        $this->setData('pageTypes', getTypes('post'));
+        $this->setData('image', $image);
+
+        return View::make('posts/edit', $this->data);
     }
 
     public function add()

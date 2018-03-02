@@ -2,6 +2,7 @@
 namespace Modules\Admin\Model;
 
 use Flexi;
+use Modules;
 use Flexi\Orm\Model;
 use Query;
 

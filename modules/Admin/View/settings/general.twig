@@ -1,0 +1,57 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+<main>
+    <div class="ui container">
+        <div class="ui grid">
+            <div class="sixteen wide column">
+                <div class="col page-title">
+                    <h2 class="ui header">
+                        {{ __('settings.general.heading') }}
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="ui grid">
+            <div class="sixteen wide column">
+                <div class="setting-tabs">
+                    {% include "settings/tabs.twig" %}
+                </div>
+            </div>
+        </div>
+
+        <div class="ui grid">
+            <div class="sixteen wide column">
+                <form id="settingForm" class="ui form">
+                    {% for setting in settings %}
+                        {% if setting.getAttribute('key_field') == 'language' %}
+                            <div class="field">
+                                <label>
+                                    {{ setting.getAttribute('name') }}
+                                </label>
+                                <select name="{{ setting.getAttribute('key_field') }}" class="ui search dropdown">
+                                    {% for language in languages %}
+                                        <option value="{{ language.key }}"{% if language.key == get_setting('language') %} selected{% endif %}>
+                                            {{ language.title }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        {% else %}
+                            <div class="field">
+                                <label>
+                                    {{ setting.getAttribute('name') }}
+                                </label>
+                                <input type="text" name="{{ setting.getAttribute('key_field') }}" value="{{ setting.getAttribute('value') }}">
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    <button type="submit" class="ui primary button" onclick="setting.update(this); return false;">
+                        {{ __('settings.general.form.button') }}
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

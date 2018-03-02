@@ -1,0 +1,61 @@
+{% set fieldId = uniqid() %}
+{% set label = 'New field' %}
+{% set name = '' %}
+{% set type = '' %}
+{% set description = '' %}
+{% set required = 0 %}
+
+{% if field %}
+    {% set fieldId = field.id %}
+    {% set label = field.label %}
+    {% set name = field.name %}
+    {% set type = field.type %}
+    {% set description = field.description %}
+    {% set required = field.required %}
+{% endif %}
+
+<div class="title">
+    <div class="ui small header">
+        <i class="dropdown icon"></i> {{ label }}
+    </div>
+</div>
+<div class="content">
+    <div class="ui form">
+        <div class="three fields">
+            <div class="field field-{{ fieldId }}-label">
+                <label>Label</label>
+                <input type="text" name="fields[{{ fieldId }}][label]" value="{{ label }}" placeholder="Label field">
+            </div>
+            <div class="field field-{{ fieldId }}-name">
+                <label>Name</label>
+                <input type="text" name="fields[{{ fieldId }}][name]" value="{{ name }}" placeholder="Name field">
+            </div>
+            <div class="field field-{{ fieldId }}-type">
+                <label>Type</label>
+                <select name="fields[{{ fieldId }}][type]" class="ui fluid dropdown">
+                    <option value="">Select Type</option>
+                    {% for fieldType in fieldTypes %}
+                        <option value="{{ fieldType }}"{% if fieldType == type %} selected{% endif %}>
+                            {{ fieldType|capitalize }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="field field-{{ fieldId }}-description">
+            <label>Description</label>
+            <input type="text" name="fields[{{ fieldId }}][description]" value="{{ description }}" placeholder="Description field...">
+        </div>
+        <div class="field">
+            <div class="ui checkbox">
+                <input type="checkbox" name="fields[{{ fieldId }}][required]"{% if required %} checked{% endif %}>
+                <label>Required this field</label>
+            </div>
+        </div>
+    </div>
+</div>
+<script defer>
+    $('.ui.dropdown').dropdown({
+        on: 'hover'
+    });
+</script>

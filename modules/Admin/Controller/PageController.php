@@ -2,6 +2,7 @@
 namespace Modules\Admin\Controller;
 
 use Flexi;
+use Modules;
 use Flexi\Http\Input;
 use Flexi\Http\Uri;
 use Modules\Admin\Model\Page as PageModel;
@@ -25,9 +26,9 @@ class PageController extends AdminController
         $pageModel = new PageModel();
         $pages     = $pageModel->getPages();
 
-        return View::make('pages/list', [
-            'pages' => $pages
-        ]);
+        $this->setData('pages', $pages);
+
+        return View::make('pages/list', $this->data);
     }
 
     /**
@@ -37,7 +38,7 @@ class PageController extends AdminController
     {
         I18n::instance()->load('pages/create');
 
-        return View::make('pages/create');
+        return View::make('pages/create', $this->data);
     }
 
     /**
@@ -55,13 +56,13 @@ class PageController extends AdminController
 
         $customFields = $customFieldService->getPageFields($page);
 
-        return View::make('pages/edit', [
-            'baseUrl' => Uri::base(),
-            'page' => $page,
-            'pageTypes' => getTypes(),
-            'layouts' => getLayouts(),
-            'customFields' => $customFields
-        ]);
+        $this->setData('baseUrl', Uri::base());
+        $this->setData('page', $page);
+        $this->setData('pageTypes', getTypes());
+        $this->setData('layouts', getLayouts());
+        $this->setData('customFields', $customFields);
+
+        return View::make('pages/edit', $this->data);
     }
 
     public function add()
@@ -69,10 +70,10 @@ class PageController extends AdminController
         $params = Input::post();
 
         if (isset($params['title'])) {
-            $page = new \Modules\Admin\Model\Page;
+            $page = new Modules\Admin\Model\Page;
             $page->setAttribute('title', $params['title']);
             $page->setAttribute('content', $params['content']);
-            $page->setAttribute('segment', \Flexi\Helper\Text::transliteration($params['title']));
+            $page->setAttribute('segment', Flexi\Helper\Text::transliteration($params['title']));
             $page->save();
 
             echo $page->getAttribute('id');
@@ -90,7 +91,7 @@ class PageController extends AdminController
         }
 
         if (isset($params['title'])) {
-            $page = new \Modules\Admin\Model\Page;
+            $page = new Modules\Admin\Model\Page;
             $page->setAttribute('id', $params['page_id']);
             $page->setAttribute('title', $params['title']);
             $page->setAttribute('content', $params['content']);

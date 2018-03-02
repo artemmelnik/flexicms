@@ -1,0 +1,12 @@
+<li class="menu-item-{{ item.getAttribute('id') }}" data-id="{{ item.getAttribute('id') }}">
+    <i class="icon-pencil icons"></i>
+    <input type="text" value="{{ item.getAttribute('name') }}" onchange="menu.updateItem({{ item.getAttribute('id') }}, 'name', this)">
+    <i class="icon-link icons"></i>
+    <input type="text" value="{{ item.getAttribute('link') }}" onchange="menu.updateItem({{ item.getAttribute('id') }}, 'link', this)">
+    <div class="menu-item-event">
+        <button class="button-remove" onclick="menu.removeItem({{ item.getAttribute('id') }})">
+            <i class="icon-trash icons"></i>
+        </button>
+        <i class="icon-cursor-move icons"></i>
+    </div>
+</li>

@@ -1,6 +1,8 @@
 <?php
 namespace Flexi\Template;
 
+use Flexi\Routing\Router;
+
 /**
  * Class Asset
  * @package Flexi\Template
@@ -18,6 +20,6 @@ class Asset
      */
     public static function get($file): string
     {
-        return View::theme() . $file;
+        return Router::module()->url() . 'View' . DIRECTORY_SEPARATOR . $file;
     }
 }

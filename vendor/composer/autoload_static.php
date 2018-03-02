@@ -7,12 +7,21 @@ namespace Composer\Autoload;
 class ComposerStaticInitf18486ed4d0525b56e8fea339bf0d377
 {
     public static $files = array (
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '36389227dc6e38db545088f4ae2c20ef' => __DIR__ . '/../..' . '/flexi/Functions/functions.php',
         '4961e09f281be4ed056047a0e2eb4be3' => __DIR__ . '/../..' . '/flexi/Functions/localization.php',
         '7cf5543fc386d3540044060a7884d222' => __DIR__ . '/../..' . '/flexi/Functions/menus.php',
     );
 
     public static $prefixLengthsPsr4 = array (
+        'T' => 
+        array (
+            'Twig\\' => 5,
+        ),
+        'S' => 
+        array (
+            'Symfony\\Polyfill\\Mbstring\\' => 26,
+        ),
         'P' => 
         array (
             'Plugin\\' => 7,
@@ -28,6 +37,14 @@ class ComposerStaticInitf18486ed4d0525b56e8fea339bf0d377
     );
 
     public static $prefixDirsPsr4 = array (
+        'Twig\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/twig/twig/src',
+        ),
+        'Symfony\\Polyfill\\Mbstring\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
         'Plugin\\' => 
         array (
             0 => __DIR__ . '/../..' . '/content/plugins',
@@ -42,11 +59,22 @@ class ComposerStaticInitf18486ed4d0525b56e8fea339bf0d377
         ),
     );
 
+    public static $prefixesPsr0 = array (
+        'T' => 
+        array (
+            'Twig_' => 
+            array (
+                0 => __DIR__ . '/..' . '/twig/twig/lib',
+            ),
+        ),
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitf18486ed4d0525b56e8fea339bf0d377::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitf18486ed4d0525b56e8fea339bf0d377::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitf18486ed4d0525b56e8fea339bf0d377::$prefixesPsr0;
 
         }, null, ClassLoader::class);
     }

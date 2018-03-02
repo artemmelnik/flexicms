@@ -1,0 +1,7 @@
+<option value="all">All</option>
+<option value="page">Basic</option>
+{% if listTemplates %}
+    {% for key,template in listTemplates %}
+        <option value="{{ key }}">{{ template }}</option>
+    {% endfor %}
+{% endif %}

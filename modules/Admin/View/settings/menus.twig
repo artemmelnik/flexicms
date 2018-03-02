@@ -1,0 +1,85 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+<main>
+    <div class="ui container">
+        <div class="ui grid">
+            <div class="sixteen wide column">
+                <div class="col page-title">
+                    <h2 class="ui header">
+                        {{ __('settings.menus.heading') }}
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="ui grid">
+            <div class="sixteen wide column">
+                <div class="setting-tabs">
+                    {% include "settings/tabs.twig" %}
+                </div>
+            </div>
+        </div>
+
+        <div class="ui grid">
+            <div class="four wide column">
+                {% if menus is not empty %}
+                    <div class="ui vertical pointing menu">
+                        {% for menu in menus %}
+                        <a class="item{% if menuId == menu.getAttribute('id') %} active{% endif %}" href="?menu_id={{ menu.getAttribute('id') }}">
+                            {{ menu.getAttribute('name') }}
+                        </a>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="empty-items">
+                        <p>{{ __('settings.menus.not_have_menu') }}</p>
+                    </div>
+                {% endif %}
+                <a href="javascript:void(0)" class="ui primary button btn-create-menu">
+                    {{ __('settings.menus.create_menu_button') }}
+                </a>
+            </div>
+            <div class="twelve wide column">
+                {% if menuId is not null %}
+                    <input type="hidden" id="sortMenuId" value="{{ menuId }}" />
+                    <ol id="listItems" class="edit-menu">
+                        {% for item in editMenu %}
+                            {% include "settings/menu_item.twig" %}
+                        {% endfor %}
+                    </ol>
+                    <button class="ui basic button" onclick="menu.addItem({{ menuId }})">
+                        <i class="plus icon"></i> {{ __('settings.menus.create_menu_item_button') }}
+                    </button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</main>
+
+<div id="addMenu" class="ui dimmer modals page transition">
+    <div class="ui standard test modal transition hidden">
+        <div class="ui mini test modal transition">
+            <div class="header">
+                {{ __('settings.menus.modal_form.heading') }}
+            </div>
+            <div class="content">
+                <div class="ui form">
+                    <div class="required field">
+                        <label>{{ __('settings.menus.modal_form.label_name') }}</label>
+                        <input type="text" placeholder="{{ __('settings.menus.modal_form.placeholder_name') }}" id="menuName">
+                    </div>
+                </div>
+            </div>
+            <div class="actions">
+                <div class="ui negative button">
+                    {{ __('settings.menus.modal_form.cancel_button') }}
+                </div>
+                <div class="ui positive right labeled icon button" onclick="menu.add();">
+                    {{ __('settings.menus.modal_form.create_button') }}
+                    <i class="checkmark icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

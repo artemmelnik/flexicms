@@ -1,10 +1,12 @@
 <?php
 namespace Flexi\Template;
 
-use Flexi\Config\Config;
-use Flexi\Http\Uri;
+use Flexi;
 use Flexi\Routing\ResponderInterface;
 use Flexi\Routing\Router;
+use Twig_Environment;
+use Twig_Function;
+use Twig_Loader_Filesystem;
 
 /**
  * Class View
@@ -12,8 +14,6 @@ use Flexi\Routing\Router;
  */
 class View implements ResponderInterface
 {
-    const TEMPLATE_EXTENSION = '.phtml';
-
     /**
      * @var string The view file.
      */
@@ -25,28 +25,45 @@ class View implements ResponderInterface
     protected $data = [];
 
     /**
-     * @var Engine
+     * @var string
      */
-    protected static $engine;
+    protected $pathTemplates = '';
+
+    /**
+     * @var Twig_Environment
+     */
+    protected $twig;
 
     /**
      * View constructor.
      */
     public function __construct()
     {
-        static::$engine = new Engine();
-    }
+        $this->pathTemplates = $this->pathTemplates();
 
-    /**
-     * @return Engine
-     */
-    public static function engine(): Engine
-    {
-        if (static::$engine == null) {
-            return new Engine();
+        //$_SERVER['DOCUMENT_ROOT'] . '/content/themes/default'
+        $loader = new Twig_Loader_Filesystem($this->pathTemplates);
+        $this->twig = new Twig_Environment($loader);
+
+        $functions[] = new Twig_Function('__', function ($key, $data = []) {
+            echo Flexi\Localization\I18n::instance()->get($key, $data);
+        });
+
+        $functions[] = new Twig_Function('asset', function ($file) {
+            echo Asset::get($file);
+        });
+
+        $functions[] = new Twig_Function('get_setting', function ($key, $section = 'general') {
+            return \Setting::value($key, $section);
+        });
+
+        $functions[] = new Twig_Function('uniqid', function () {
+            return uniqid();
+        });
+
+        foreach ($functions as $function) {
+            $this->twig->addFunction($function);
         }
-
-        return static::$engine;
     }
 
     /**
@@ -59,20 +76,9 @@ class View implements ResponderInterface
         return $this->data;
     }
 
-    /**
-     * @return string
-     */
-    public static function theme(): string
+    public static function pathTemplates(): string
     {
-        return static::engine()->detectThemeDirectory();
-    }
-
-    /**
-     * @return string
-     */
-    public static function path(): string
-    {
-        return ROOT_DIR . static::engine()->detectViewDirectory();
+        return Router::module()->viewPath;
     }
 
     /**
@@ -81,13 +87,9 @@ class View implements ResponderInterface
     public function respond()
     {
         // Get the module action instance.
-        $instance = Router::module()->instance();
-        // If we have no layout, then directly output the view.
-        if (is_object($instance) && isset($instance->layout) && $instance->layout === '') {
-            echo $this->render();
-        } else {
-            Layout::view($this);
-        }
+        //$instance = Router::module()->instance();
+
+        echo $this->render();
     }
 
     /**
@@ -97,12 +99,9 @@ class View implements ResponderInterface
      */
     public function render(): string
     {
-        // Get path for the views.
-        //$path = static::path() . $this->file . self::TEMPLATE_EXTENSION;
-        $path = Router::module()->path() . 'View/' . $this->file . self::TEMPLATE_EXTENSION;
+        $template = $this->twig->load($this->file . '.twig');
 
-        // Render the view.
-        return Component::load($path, $this->data);
+        return $template->render($this->data);
     }
 
     /**
@@ -115,10 +114,10 @@ class View implements ResponderInterface
     public static function make(string $file, array $data = []): View
     {
         // Instantiate class.
-        $name           = get_called_class();
-        $class          = new $name;
-        $class->file    = $file;
-        $class->data    = $data;
+        $name        = get_called_class();
+        $class       = new $name;
+        $class->file = $file;
+        $class->data = $data;
 
         // Return new object.
         return $class;

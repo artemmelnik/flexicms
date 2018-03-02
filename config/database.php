@@ -1,10 +1,10 @@
 <?php
 
 return [
-    'host'     => 'zzema.mysql.tools',
-    'db_name'  => 'zzema_flexicms',
-    'username' => 'zzema_flexicms',
-    'password' => '2a5wjxat',
+    'host'     => 'localhost',
+    'db_name'  => 'db',
+    'username' => 'root',
+    'password' => 'pass',
     'charset'  => 'utf8',
     'driver'   => 'mysql'
 ];

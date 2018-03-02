@@ -1,0 +1,120 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+<main>
+    <div class="ui container">
+        <div class="ui grid">
+            <div class="sixteen wide column">
+                <div class="col page-title">
+                    <h2 class="ui header">
+                        {{ page.getAttribute('title') }}
+                        <div class="sub header grey">
+                            {{ baseUrl }}/page/{{ page.getAttribute('segment') }}
+                        </div>
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="ui grid">
+            <div class="twelve wide column">
+                <div class="ui secondary menu">
+                    <a class="item active" data-tab="content">Content</a>
+                    {% if customFields is not empty %}
+                        <a class="item" data-tab="custom_fields">Custom fields</a>
+                    {% endif %}
+                </div>
+                <div class="ui bottom attached tab active" data-tab="content">
+                    <form id="formPage" class="ui form">
+                        <input type="hidden" name="page_id" id="formPageId" value="{{ page.getAttribute('id') }}" />
+                        <div class="field">
+                            <label>{{ __('pages.edit.label_title') }}</label>
+                            <input type="text" name="title" class="form-control" id="formTitle" value="{{ page.getAttribute('title') }}" placeholder="{{ __('page.edit.placeholder_title') }}">
+                        </div>
+                        <div class="field">
+                            <label>{{ __('pages.edit.label_content') }}</label>
+                            <textarea name="content" id="redactor">{{ page.getAttribute('content') }}</textarea>
+                        </div>
+                    </form>
+                </div>
+                {% if customFields is not empty %}
+                <div class="ui bottom attached tab" data-tab="custom_fields">
+                    <div class="ui styled fluid accordion">
+                        <form id="customFieldsForm" class="ui form">
+                            {% for group in customFields %}
+                            <div class="title">
+                                <i class="dropdown icon"></i>
+                                {{ group.group.title }}
+                            </div>
+                            <div class="content">
+                                {% if customFields %}
+                                    {% for field in group.fields %}
+                                        {{ field.html|raw }}
+                                    {% endfor %}
+                                {% else %}
+                                    <p>There are no fields in this group.</p>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        </form>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            <div class="four wide column">
+                <div class="ui segments">
+                    <div class="ui blue segment">
+                        <h4>{{ __('pages.edit.update_segment_heading') }}</h4>
+                    </div>
+                    <div class="ui form segment">
+                        <div class="field">
+                            <label>{{ __('pages.edit.label_status') }}</label>
+                            <select id="status" class="ui search dropdown">
+                                <option value="publish"{% if page.getAttribute('status') == 'publish' %} selected{% endif %}>Опубликовано</option>
+                                <option value="draft"{% if page.getAttribute('status') == 'draft' %} selected{% endif %}>В корзине</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="ui secondary segment">
+                        <p>{{ __('pages.edit.description_form_button') }}</p>
+                        <button type="submit" class="ui primary button" onclick="page.update(this)">
+                            {{ __('pages.edit.form_button') }}
+                        </button>
+                    </div>
+                </div>
+
+                <div class="ui segments">
+                    <div class="ui blue segment">
+                        <h4>{{ __('pages.edit.setting_segment.heading') }}</h4>
+                    </div>
+                    <div class="ui form segment">
+                        <div class="field">
+                            <label>Layout</label>
+                            <select id="layout" class="ui search dropdown">
+                                <option value="main">Main</option>
+                                {% for key,layout in layouts %}
+                                    <option value="{{ key }}"{% if page.getAttribute('layout') == key %} selected{% endif %}>
+                                        {{ layout }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="ui form segment">
+                        <div class="field">
+                            <label>{{ __('pages.edit.setting_segment.label_type') }}</label>
+                            <select id="type" class="ui search dropdown">
+                                <option value="page">Basic</option>
+                                {% for key,type in pageTypes %}
+                                    <option value="{{ key }}"{% if page.getAttribute('type') == key %} selected{% endif %}>
+                                        {{ type }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

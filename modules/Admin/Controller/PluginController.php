@@ -34,8 +34,8 @@ class PluginController extends AdminController
             $plugins[$plugin->directory]['plugin_id'] = $plugin->id;
         }
 
-        return View::make('plugins/list', [
-            'plugins' => $plugins,
-        ]);
+        $this->setData('plugins', $plugins);
+
+        return View::make('plugins/list', $this->data);
     }
 }

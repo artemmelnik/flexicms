@@ -28,6 +28,8 @@ class CustomFieldController extends AdminController
     {
         parent::__construct();
 
+        $this->setData('settingNavItems', \Customize::instance()->getAdminSettingItems());
+
         $this->customFieldGroupModel = new Modules\Admin\Model\CustomFieldGroup();
         $this->customFieldModel = new Modules\Admin\Model\CustomField();
     }
@@ -37,12 +39,12 @@ class CustomFieldController extends AdminController
      */
     public function listingGroup()
     {
-        return View::make('custom_fields/list_group', [
-            'groupFieldTypes' => Flexi\CustomField\Types\TypeGroup::ARRAY_GROUP_TYPES,
-            'listLayouts' => getLayouts(),
-            'listTemplates' => getTypes(),
-            'listGroup' => $this->customFieldGroupModel->getListGroup()
-        ]);
+        $this->setData('groupFieldTypes', Flexi\CustomField\Types\TypeGroup::ARRAY_GROUP_TYPES);
+        $this->setData('listLayouts', getLayouts());
+        $this->setData('listTemplates', getTypes());
+        $this->setData('listGroup', $this->customFieldGroupModel->getListGroup());
+
+        return View::make('custom_fields/list_group', $this->data);
     }
 
     public function showGroup(int $id)
@@ -55,10 +57,11 @@ class CustomFieldController extends AdminController
 
         $fieldList = $this->customFieldModel->getListFieldsByGroupId($group->id);
 
-        return View::make('custom_fields/fields_group', [
-            'group' => $group,
-            'fieldList' => $fieldList
-        ]);
+        $this->setData('group', $group);
+        $this->setData('fieldList', $fieldList);
+        $this->setData('fieldTypes', Flexi\CustomField\Types\TypeCustomField::ARRAY_FIELD_TYPES);
+
+        return View::make('custom_fields/fields_group', $this->data);
     }
 
     /**
@@ -69,9 +72,9 @@ class CustomFieldController extends AdminController
         $params = Flexi\Http\Input::post();
 
         if (isset($params['type'])) {
-            echo \Component::get('custom_fields/components/template_options', [
+            echo \View::make('custom_fields/components/template_options', [
                 'listTemplates' => getTypes($params['type'])
-            ]);
+            ])->render();
         }
 
         exit;
@@ -82,9 +85,10 @@ class CustomFieldController extends AdminController
         $params = Flexi\Http\Input::post();
 
         if (isset($params['group_id'])) {
-            echo \Component::get('custom_fields/components/item_field', [
-                'groupId' => $params['group_id']
-            ]);
+            echo \View::make('custom_fields/components/item_field', [
+                'groupId' => $params['group_id'],
+                'fieldTypes' => Flexi\CustomField\Types\TypeCustomField::ARRAY_FIELD_TYPES
+            ])->render();
         }
 
         exit;

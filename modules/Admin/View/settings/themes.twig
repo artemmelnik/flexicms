@@ -1,0 +1,57 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+<main>
+    <div class="ui container">
+        <div class="ui grid">
+            <div class="sixteen wide column">
+                <div class="col page-title">
+                    <h2 class="ui header">
+                        {{ __('settings.themes.heading') }}
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="ui grid">
+            <div class="sixteen wide column">
+                <div class="setting-tabs">
+                    {% include "settings/tabs.twig" %}
+                </div>
+            </div>
+        </div>
+
+        <div class="ui grid">
+            <?php foreach($themes as $theme): ?>
+            {% for theme in themes %}
+            <div class="four wide column">
+                <div class="ui card">
+                    <div class="image">
+                        <img src="{{ theme.screen }}">
+                    </div>
+                    <div class="content">
+                        <span class="header">{{ theme.name }}</span>
+                        <div class="meta">
+                            <span>{{ __('settings.themes.theme.version') }} {{ theme.version }}</span>
+                        </div>
+                        <div class="description">
+                            {{ theme.description }}
+                        </div>
+                    </div>
+                    <div class="extra content">
+                        {% if activeTheme == theme.dirTheme %}
+                            <button class="ui button" disabled>
+                                {{ __('settings.themes.theme.activated') }}
+                            </button>
+                        {% else %}
+                            <button class="ui primary button" onclick="setting.setActiveTheme(this, '{{ theme.dirTheme }}')">
+                                {{ __('settings.themes.theme.activate_button') }}
+                            </button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+{% endblock %}

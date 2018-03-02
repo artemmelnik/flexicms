@@ -1,0 +1,7 @@
+<div class="ui secondary pointing menu">
+    {% for item in settingNavItems %}
+        <a class="item" href="{{ item.urlPath }}">
+            {{ item.title }}
+        </a>
+    {% endfor %}
+</div>

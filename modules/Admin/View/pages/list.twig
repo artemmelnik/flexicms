@@ -1,0 +1,45 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+<main>
+    <div class="ui container">
+        <div class="row">
+            <div class="col page-title">
+                <h2 class="ui header">
+                    {{ __('pages.list.title') }}
+                    <a href="/admin/pages/create/" class="ui primary button right floated item">
+                        {{ __('pages.list.create_button') }}
+                    </a>
+                </h2>
+            </div>
+        </div>
+
+        <table class="ui very basic table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>{{ __('pages.list.table_title') }}</th>
+                <th>{{ __('pages.list.table_date') }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for page in pages %}
+            <tr>
+                <th scope="row">
+                    {{ page.getAttribute('id') }}
+                </th>
+                <td>
+                    <a href="/admin/pages/edit/{{ page.getAttribute('id') }}">
+                        {{ page.getAttribute('title') }}
+                    </a>
+                </td>
+                <td>
+                    {{ page.getAttribute('date') }}
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</main>
+{% endblock %}
