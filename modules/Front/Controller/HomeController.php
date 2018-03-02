@@ -14,6 +14,6 @@ class HomeController extends FrontController
      */
     public function index()
     {
-        return View::make('index');
+        return View::make('main.layout');
     }
 }
