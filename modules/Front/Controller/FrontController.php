@@ -10,11 +10,6 @@ use Controller;
 class FrontController extends Controller
 {
     /**
-     * @var string
-     */
-    public $layout = 'main';
-
-    /**
      * FrontController constructor.
      */
     public function __construct()
@@ -27,11 +22,11 @@ class FrontController extends Controller
      */
     private function loadThemeFunctions()
     {
-        //$functions = \View::path() . 'functions.php';
+        $functions = \View::pathTemplates() . 'functions.php';
 
-        /*if (is_file($functions)) {
+        if (is_file($functions)) {
             require_once $functions;
-        }*/
+        }
     }
 
     /**

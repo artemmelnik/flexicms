@@ -1,0 +1,121 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+    <main>
+        <div class="ui container">
+            <div class="ui grid">
+                <div class="sixteen wide column">
+                    <div class="col page-title">
+                        <h2 class="ui header">
+                            {{ resource.getAttribute('title') }}
+                            <div class="sub header grey">
+                                {{ baseUrl }}/{{ nameResource }}/{{ resource.getAttribute('segment') }}
+                            </div>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="ui grid">
+                <div class="twelve wide column">
+                    <div class="ui secondary menu">
+                        <a class="item active" data-tab="content">Content</a>
+                        {% if customFields is not empty %}
+                            <a class="item" data-tab="custom_fields">Custom fields</a>
+                        {% endif %}
+                    </div>
+                    <div class="ui bottom attached tab active" data-tab="content">
+                        <form id="formPage" class="ui form">
+                            <input type="hidden" name="resource_id" id="formResourceId" value="{{ resource.getAttribute('id') }}" />
+                            <div class="field">
+                                <label>{{ __('resources.edit.label_title') }}</label>
+                                <input type="text" name="title" class="form-control" id="formTitle" value="{{ resource.getAttribute('title') }}" placeholder="{{ __('resources.edit.placeholder_title', [nameResource]) }}">
+                            </div>
+                            <div class="field">
+                                <label>{{ __('resources.edit.label_content') }}</label>
+                                <textarea name="content" id="redactor">{{ resource.getAttribute('content') }}</textarea>
+                            </div>
+                        </form>
+                    </div>
+                    {% if customFields is not empty %}
+                        <div class="ui bottom attached tab" data-tab="custom_fields">
+                            <div class="ui styled fluid accordion">
+                                <form id="customFieldsForm" class="ui form">
+                                    {% for group in customFields %}
+                                        <div class="title">
+                                            <i class="dropdown icon"></i>
+                                            {{ group.group.title }}
+                                        </div>
+                                        <div class="content">
+                                            {% if customFields %}
+                                                {% for field in group.fields %}
+                                                    {{ field.html|raw }}
+                                                {% endfor %}
+                                            {% else %}
+                                                <p>There are no fields in this group.</p>
+                                            {% endif %}
+                                        </div>
+                                    {% endfor %}
+                                </form>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="four wide column">
+                    <div class="ui segments">
+                        <div class="ui blue segment">
+                            <h4>{{ __('resources.edit.update_segment_heading') }}</h4>
+                        </div>
+                        <div class="ui form segment">
+                            <div class="field">
+                                <label>{{ __('resources.edit.label_status') }}</label>
+                                <select id="status" class="ui search dropdown">
+                                    <option value="publish"{% if resource.getAttribute('status') == 'publish' %} selected{% endif %}>Опубликовано</option>
+                                    <option value="draft"{% if resource.getAttribute('status') == 'draft' %} selected{% endif %}>В корзине</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="ui secondary segment">
+                            <p>{{ __('resources.edit.description_form_button', [nameResource]) }}</p>
+                            <button type="submit" class="ui primary button" onclick="resource.update(this)">
+                                {{ __('resources.edit.form_button') }}
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="ui segments">
+                        <div class="ui blue segment">
+                            <h4>{{ __('resources.edit.setting_segment.heading') }}</h4>
+                        </div>
+                        <div class="ui form segment">
+                            <div class="field">
+                                <label>{{ __('resources.edit.setting_segment.label_type', [nameResource]) }}</label>
+                                <select id="type" class="ui search dropdown">
+                                    <option value="page">Basic</option>
+                                    {% for key,type in pageTypes %}
+                                        <option value="{{ key }}"{% if resource.getAttribute('type') == key %} selected{% endif %}>
+                                            {{ type }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="ui segments">
+                            <div class="ui blue segment">
+                                <input class="upload-file" type="file" multiple="multiple" accept=".txt,image/*" style="display: none;">
+                                {% if image %}
+                                    <img class="ui medium bordered image post-image" src="{{ image.link }}">
+                                {% else %}
+                                    <img class="ui medium bordered image post-image" src="https://semantic-ui.com/images/wireframe/white-image.png">
+                                {% endif %}
+                                <br>
+                                <button class="ui primary button upload-post-image">
+                                    Add image
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

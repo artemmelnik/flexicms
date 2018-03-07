@@ -6,6 +6,7 @@ use Flexi\Http\Redirect;
 use Flexi\Routing\Controller;
 use Flexi\Template\View;
 use Flexi\Localization\I18n;
+use Modules\Admin\Model\ResourceType as ResourceTypeModel;
 
 /**
  * Class AdminController
@@ -34,10 +35,12 @@ class AdminController extends Controller
 
         I18n::instance()
             ->load('dashboard/main', 'Admin')
-            ->load('dashboard/menu', 'Admin')
-        ;
+            ->load('dashboard/menu', 'Admin');
+
+        $resourceTypeModel = new ResourceTypeModel();
 
         $this->setData('navigation', \Customize::instance()->getAdminMenuItems());
+        $this->setData('resourcesType', $resourceTypeModel->getResourcesType());
     }
 
     /**

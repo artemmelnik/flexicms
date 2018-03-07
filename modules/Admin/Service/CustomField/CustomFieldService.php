@@ -13,35 +13,35 @@ use Modules\Admin\Model\CustomField as CustomFieldModel;
 class CustomFieldService
 {
     /**
-     * @param Modules\Admin\Model\Page $page
+     * @param Modules\Admin\Model\Resource $resource
      * @return array
      */
-    public function getPageFields(Modules\Admin\Model\Page $page): array
+    public function getResourceFields(Modules\Admin\Model\Resource $resource): array
     {
-        $pageFields = [];
+        $resourceFields = [];
         $groupIds = [];
 
         $customFieldGroupModel = new CustomFieldGroupModel();
         $customFieldModel = new CustomFieldModel();
 
-        $listGroup = $customFieldGroupModel->getFieldGroupByPage($page);
+        $listGroup = $customFieldGroupModel->getFieldGroupByResource($resource);
 
         foreach ($listGroup as $group) {
-            $pageFields[$group->id]['group'] = $group;
+            $resourceFields[$group->id]['group'] = $group;
             $groupIds[] = $group->id;
         }
 
-        if (empty($groupIds)) return $pageFields;
+        if (empty($groupIds)) return $resourceFields;
 
-        $listFields = $customFieldModel->getListFieldsByGroupIds($page->id, $groupIds);
+        $listFields = $customFieldModel->getListFieldsByGroupIds($resource->id, $groupIds);
 
         foreach ($listFields as $field) {
             $html = Flexi\CustomField\CustomField::make($field);
 
-            $pageFields[$field->group_id]['fields'][$field->id] = $field;
-            $pageFields[$field->group_id]['fields'][$field->id]->html = $html;
+            $resourceFields[$field->group_id]['fields'][$field->id] = $field;
+            $resourceFields[$field->group_id]['fields'][$field->id]->html = $html;
         }
 
-        return $pageFields;
+        return $resourceFields;
     }
 }

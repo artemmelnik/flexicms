@@ -16,11 +16,11 @@
  */
 class Twig_Environment
 {
-    const VERSION = '2.4.4';
-    const VERSION_ID = 20404;
+    const VERSION = '2.4.5';
+    const VERSION_ID = 20405;
     const MAJOR_VERSION = 2;
     const MINOR_VERSION = 4;
-    const RELEASE_VERSION = 4;
+    const RELEASE_VERSION = 5;
     const EXTRA_VERSION = '';
 
     private $charset;
@@ -453,12 +453,12 @@ class Twig_Environment
     /**
      * Tries to load a template consecutively from an array.
      *
-     * Similar to loadTemplate() but it also accepts Twig_Template instances and an array
-     * of templates where each is tried to be loaded.
+     * Similar to loadTemplate() but it also accepts instances of Twig_Template and
+     * Twig_TemplateWrapper, and an array of templates where each is tried to be loaded.
      *
-     * @param string|Twig_Template|array $names A template or an array of templates to try consecutively
+     * @param string|Twig_Template|Twig_TemplateWrapper|array $names A template or an array of templates to try consecutively
      *
-     * @return Twig_Template
+     * @return Twig_Template|Twig_TemplateWrapper
      *
      * @throws Twig_Error_Loader When none of the templates can be found
      * @throws Twig_Error_Syntax When an error occurred during compilation
@@ -471,6 +471,10 @@ class Twig_Environment
 
         foreach ($names as $name) {
             if ($name instanceof Twig_Template) {
+                return $name;
+            }
+
+            if ($name instanceof Twig_TemplateWrapper) {
                 return $name;
             }
 
@@ -677,6 +681,7 @@ class Twig_Environment
     public function setExtensions(array $extensions)
     {
         $this->extensionSet->setExtensions($extensions);
+        $this->updateOptionsHash();
     }
 
     /**

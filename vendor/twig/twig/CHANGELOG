@@ -1,3 +1,13 @@
+* 2.4.5 (2017-03-02)
+
+ * optimized the performance of calling an extension method at runtime
+ * optimized the performance of the dot operator for array and method calls
+ * added an exception when using "===" instead of "same as"
+ * fixed possible array to string conversion concealing actual error
+ * made variable names deterministic in compiled templates
+ * fixed length filter when passing an instance of IteratorAggregate
+ * fixed Environment::resolveTemplate to accept instances of TemplateWrapper
+
 * 2.4.4 (2017-09-27)
 
  * added Twig_Profiler_Profile::reset()
@@ -79,7 +89,19 @@
  * improved the performance of the filesystem loader
  * removed features that were deprecated in 1.x
 
-* 1.35.0 (2017-XX-XX)
+* 1.35.2 (2018-XX-XX)
+
+ * n/a
+
+* 1.35.1 (2018-03-02)
+
+ * added an exception when using "===" instead of "same as"
+ * fixed possible array to string conversion concealing actual error
+ * made variable names deterministic in compiled templates
+ * fixed length filter when passing an instance of IteratorAggregate
+ * fixed Environment::resolveTemplate to accept instances of TemplateWrapper
+
+* 1.35.0 (2017-09-27)
 
  * added Twig_Profiler_Profile::reset()
  * fixed use TokenParser to return an empty Node

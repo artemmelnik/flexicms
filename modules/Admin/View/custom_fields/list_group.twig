@@ -98,18 +98,18 @@
                         <input type="text" name="title" id="titleGroup" placeholder="Title group...">
                     </div>
                     <div class="required field">
-                        <label>Type entity</label>
+                        <label>Type resource</label>
                         <select id="typeGroup" class="ui fluid dropdown" onchange="customField.loadTemplates(this)">
-                            {% if groupFieldTypes %}
+                            {% if groupFieldTypes is not empty %}
                                 {% for groupType in groupFieldTypes %}
-                                    <option value="{{ groupType }}">
-                                        {{ groupType|capitalize }}
+                                    <option value="{{ groupType.getAttribute('name') }}">
+                                        {{ groupType.getAttribute('title') }}
                                     </option>
                                 {% endfor %}
                             {% endif %}
                         </select>
                     </div>
-                    <div class="field">
+                    <!--<div class="field">
                         <label>Layout</label>
                         <select id="layoutGroup" class="ui search dropdown">
                             <option value="all">All</option>
@@ -122,7 +122,7 @@
                                 {% endfor %}
                             {% endif %}
                         </select>
-                    </div>
+                    </div>-->
                     <div class="field">
                         <label>Template</label>
                         <select id="templateGroup" class="ui search dropdown">

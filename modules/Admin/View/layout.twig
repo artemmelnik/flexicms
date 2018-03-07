@@ -33,14 +33,38 @@
 <header>
     <div class="ui borderless main menu top-header">
         <div class="ui container">
-            <div href="/admin/" class="header item logo-item">
+            <div class="header item logo-item">
                 <img class="logo" src="{{ asset('assets/images/logo.png') }}">
             </div>
 
-            {% for item in navigation %}
-                <a class="item" href="{{ item.urlPath }}">
-                    <i class="{{ item.classIcon }}"></i> {{ item.title }}
-                </a>
+            {% for key,item in navigation %}
+                {% if item.parents %}
+                    <div class="ui dropdown item">
+                        <i class="{{ item.classIcon }}" style="margin-right: 5px;"></i> {{ item.title }} <i class="dropdown icon"></i>
+                        <div class="menu">
+                            {% for itemParent in item.parents %}
+                                <a class="item" href="{{ itemParent.urlPath }}">
+                                    <i class="{{ itemParent.classIcon }}"></i> {{ itemParent.title }}
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% elseif key == 'resource' %}
+                    <div class="ui dropdown item">
+                        <i class="{{ item.classIcon }}" style="margin-right: 5px;"></i> {{ item.title }} <i class="dropdown icon"></i>
+                        <div class="menu">
+                            {% for itemResourceType in resourcesType %}
+                                <a class="item" href="/admin/resources/{{ itemResourceType.getAttribute('id') }}">
+                                    <i class="icon-doc icons"></i> {{ itemResourceType.getAttribute('title') }}
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% else %}
+                    <a class="item" href="{{ item.urlPath }}">
+                        <i class="{{ item.classIcon }}"></i> {{ item.title }}
+                    </a>
+                {% endif %}
             {% endfor %}
 
             <a href="/admin/logout/" class="ui right floated item" tabindex="0">
@@ -67,6 +91,7 @@
 <script src="{{ asset('assets/js/plugins/froala/froala_editor.pkgd.min.js') }}"></script>
 <script src="{{ asset('assets/js/jquery-sortable.js') }}"></script>
 <script src="{{ asset('assets/js/init.js') }}"></script>
+<script src="{{ asset('assets/js/resource.js') }}"></script>
 <script src="{{ asset('assets/js/page.js') }}"></script>
 <script src="{{ asset('assets/js/post.js') }}"></script>
 <script src="{{ asset('assets/js/setting.js') }}"></script>

@@ -70,6 +70,31 @@ Route::post('/admin/post/update/', [
     'action'     => 'update'
 ]);
 
+Route::get('/admin/resources/(name:any)', [
+    'controller' => 'ResourceController',
+    'action'     => 'listing'
+]);
+
+Route::get('/admin/resource/(name:any)/create/', [
+    'controller' => 'ResourceController',
+    'action'     => 'create'
+]);
+
+Route::get('/admin/resource/(name:any)/edit/(id:numeric)', [
+    'controller' => 'ResourceController',
+    'action'     => 'edit'
+]);
+
+Route::post('/admin/resource/add/', [
+    'controller' => 'ResourceController',
+    'action'     => 'add'
+]);
+
+Route::post('/admin/resource/update/', [
+    'controller' => 'ResourceController',
+    'action'     => 'update'
+]);
+
 Route::get('/admin/settings/general/', [
     'controller' => 'SettingController',
     'action'     => 'general'

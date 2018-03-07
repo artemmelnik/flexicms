@@ -17,15 +17,11 @@ class Config
                 'urlPath'   => '/admin/',
                 'title'     => 'Home'
             ],
-            'pages' => [
-                'classIcon' => 'icon-doc icons',
-                'urlPath'   => '/admin/pages/',
-                'title'     => 'Pages'
-            ],
-            'posts' => [
-                'classIcon' => 'icon-pencil icons',
-                'urlPath'   => '/admin/posts/',
-                'title'     => 'Posts'
+            'resource' => [
+                'classIcon' => 'folder outline icon',
+                'urlPath'   => '#',
+                'title'     => 'Resources',
+                'parents'   => []
             ],
             'plugins' => [
                 'classIcon' => 'icon-wrench icons',

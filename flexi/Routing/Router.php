@@ -12,7 +12,6 @@ use Flexi\Template\View;
  */
 class Router
 {
-
     /**
      * @var \Flexi\Routing\Module The active module.
      */
@@ -65,14 +64,6 @@ class Router
         if (is_object($response) && method_exists($response, 'respond')) {
             $response->respond();
         }
-
-        // Do we have a layout to process?
-        //$layout = $module->instance()->layout;
-
-        // Process layout.
-        //if ($layout !== '') {
-            //echo Layout::get($layout);
-        //}
 
         // Close Flexi.
         Flexi::close();

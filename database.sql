@@ -1,3 +1,10 @@
+-- phpMyAdmin SQL Dump
+-- version 4.7.8
+-- https://www.phpmyadmin.net/
+-- Время создания: Мар 07 2018 г., 15:49
+-- Версия сервера: 5.7.16-10-log
+-- Версия PHP: 7.0.27
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
@@ -10,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- База данных: `zzema_dad`
+-- База данных: `flexicms`
 --
 
 -- --------------------------------------------------------
@@ -40,7 +47,6 @@ CREATE TABLE `custom_field_group` (
   `id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `type` varchar(15) NOT NULL DEFAULT 'post',
-  `layout` varchar(55) NOT NULL,
   `template` varchar(55) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -93,13 +99,6 @@ CREATE TABLE `menu` (
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Дамп данных таблицы `menu`
---
-
-INSERT INTO `menu` (`id`, `name`) VALUES
-(1, 'Main Menu');
-
 -- --------------------------------------------------------
 
 --
@@ -118,22 +117,6 @@ CREATE TABLE `menu_item` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `page`
---
-
-CREATE TABLE `page` (
-  `id` int(11) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `content` text NOT NULL,
-  `segment` varchar(255) NOT NULL,
-  `layout` varchar(55) NOT NULL DEFAULT 'main',
-  `type` varchar(155) NOT NULL DEFAULT 'page',
-  `status` varchar(55) NOT NULL DEFAULT 'publish',
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
--- --------------------------------------------------------
-
---
 -- Структура таблицы `plugin`
 --
 
@@ -146,19 +129,40 @@ CREATE TABLE `plugin` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `post`
+-- Структура таблицы `resource`
 --
 
-CREATE TABLE `post` (
+CREATE TABLE `resource` (
   `id` int(11) NOT NULL,
+  `resource_type_id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `content` text NOT NULL,
   `thumbnail` int(11) NOT NULL DEFAULT '0',
   `segment` varchar(255) NOT NULL,
-  `type` varchar(155) NOT NULL DEFAULT 'post',
-  `status` varchar(55) NOT NULL DEFAULT 'publish',
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `type` varchar(155) NOT NULL DEFAULT 'page',
+  `status` enum('publish','draft') NOT NULL DEFAULT 'draft',
+  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `resource_type`
+--
+
+CREATE TABLE `resource_type` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `resource_type`
+--
+
+INSERT INTO `resource_type` (`id`, `title`, `name`) VALUES
+(1, 'Page', 'page'),
+(2, 'Post', 'post');
 
 -- --------------------------------------------------------
 
@@ -181,9 +185,9 @@ CREATE TABLE `setting` (
 INSERT INTO `setting` (`id`, `name`, `key_field`, `value`, `section`) VALUES
 (1, 'Name site', 'name_site', 'Start site on FlexiCMS', 'general'),
 (2, 'Description', 'description', 'Example description for Flexi', 'general'),
-(3, 'Admin email', 'admin_email', 'admin2@admin.test', 'general'),
+(3, 'Admin email', 'admin_email', 'admin@admin.test', 'general'),
 (4, 'Language', 'language', 'en', 'general'),
-(5, 'Active theme', 'active_theme', 'dadstudio', 'theme');
+(5, 'Active theme', 'active_theme', 'default', 'theme');
 
 -- --------------------------------------------------------
 
@@ -248,21 +252,21 @@ ALTER TABLE `menu_item`
   ADD PRIMARY KEY (`id`);
 
 --
--- Индексы таблицы `page`
---
-ALTER TABLE `page`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Индексы таблицы `plugin`
 --
 ALTER TABLE `plugin`
   ADD PRIMARY KEY (`id`);
 
 --
--- Индексы таблицы `post`
+-- Индексы таблицы `resource`
 --
-ALTER TABLE `post`
+ALTER TABLE `resource`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `resource_type`
+--
+ALTER TABLE `resource_type`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -287,13 +291,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT для таблицы `custom_field`
 --
 ALTER TABLE `custom_field`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `custom_field_group`
 --
 ALTER TABLE `custom_field_group`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `custom_field_value`
@@ -305,25 +309,19 @@ ALTER TABLE `custom_field_value`
 -- AUTO_INCREMENT для таблицы `file`
 --
 ALTER TABLE `file`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `menu_item`
 --
 ALTER TABLE `menu_item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT для таблицы `page`
---
-ALTER TABLE `page`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `plugin`
@@ -332,10 +330,16 @@ ALTER TABLE `plugin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT для таблицы `post`
+-- AUTO_INCREMENT для таблицы `resource`
 --
-ALTER TABLE `post`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `resource`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT для таблицы `resource_type`
+--
+ALTER TABLE `resource_type`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT для таблицы `setting`

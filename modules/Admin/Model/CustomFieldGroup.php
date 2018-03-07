@@ -33,7 +33,6 @@ class CustomFieldGroup extends Model
         $customFieldGroup = new CustomFieldGroup();
         $customFieldGroup->setAttribute('title', $params['title']);
         $customFieldGroup->setAttribute('type', $params['type']);
-        $customFieldGroup->setAttribute('layout', $params['layout']);
         $customFieldGroup->setAttribute('template', $params['template']);
         $customFieldGroup->setAttribute('status', static::ACTIVE_STATUS);
         $customFieldGroup->save();
@@ -54,10 +53,14 @@ class CustomFieldGroup extends Model
         ;
     }
 
-    public function getFieldGroupByPage(Modules\Admin\Model\Page $page)
+    public function getFieldGroupByResource(Modules\Admin\Model\Resource $resource)
     {
-        $layout = $page->getAttribute('layout');
-        $template = $page->getAttribute('type');
+        $resourceTypeModel = new Modules\Admin\Model\ResourceType();
+
+        $resourceType = $resourceTypeModel->getResourceType($resource->getAttribute('resource_type_id'));
+
+        $template = $resource->getAttribute('type');
+        $type = $resourceType->getAttribute('name');
 
         $sql = "
             SELECT
@@ -66,8 +69,7 @@ class CustomFieldGroup extends Model
               type
             FROM
               " . static::$table . "
-            WHERE type = 'page'
-            AND (layout = 'all' OR layout = '" . $layout . "')
+            WHERE type = '" . $type . "'
             AND (template = 'all' OR template = '" . $template . "')
         ";
 

@@ -1,0 +1,44 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+    <main>
+        <div class="ui container">
+            <div class="row">
+                <div class="col page-title">
+                    <h2 class="ui header">
+                        Type resource: {{ __('resources.list.title', [resource_type.getAttribute('title')]) }}
+                        <a href="/admin/resource/{{ resource_type.getAttribute('name') }}/create/" class="ui primary button right floated item">
+                            {{ __('resources.list.create_button', [resource_type.getAttribute('title')]) }}
+                        </a>
+                    </h2>
+                </div>
+            </div>
+            <table class="ui very basic table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>{{ __('resources.list.table_title') }}</th>
+                        <th>{{ __('resources.list.table_date') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for resource in resources %}
+                    <tr>
+                        <th scope="row">
+                            {{ resource.getAttribute('id') }}
+                        </th>
+                        <td>
+                            <a href="/admin/resource/{{ resource_type.getAttribute('name') }}/edit/{{ resource.getAttribute('id') }}">
+                                {{ resource.getAttribute('title') }}
+                            </a>
+                        </td>
+                        <td>
+                            {{ resource.getAttribute('date') }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+{% endblock %}

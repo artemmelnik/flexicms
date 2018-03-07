@@ -124,7 +124,7 @@ function getTypes($switch = 'page')
             if (\Flexi\Helper\Common::searchMatchString($name, $switch)) {
                 $chunk = explode('.', $name, 3);
 
-                if ($chunk[0] == $switch && $chunk[1] == 'phtml') continue;
+                if ($chunk[0] == $switch && $chunk[1] == 'twig') continue;
 
                 list($switch, $key, $extension) = $chunk;
 
