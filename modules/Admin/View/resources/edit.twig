@@ -99,19 +99,20 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="ui segments">
-                            <div class="ui blue segment">
-                                <input class="upload-file" type="file" multiple="multiple" accept=".txt,image/*" style="display: none;">
-                                {% if image %}
-                                    <img class="ui medium bordered image post-image" src="{{ image.link }}">
-                                {% else %}
-                                    <img class="ui medium bordered image post-image" src="https://semantic-ui.com/images/wireframe/white-image.png">
-                                {% endif %}
-                                <br>
-                                <button class="ui primary button upload-post-image">
-                                    Add image
-                                </button>
-                            </div>
+                    </div>
+
+                    <div class="ui form segments">
+                        <div class="ui blue segment">
+                            <input class="upload-file" type="file" multiple="multiple" accept=".txt,image/*" style="display: none;">
+                            {% if image %}
+                                <img class="ui medium bordered image post-image" src="{{ image.link }}">
+                            {% else %}
+                                <img class="ui medium bordered image post-image" src="https://semantic-ui.com/images/wireframe/white-image.png">
+                            {% endif %}
+                            <br>
+                            <button class="ui primary button upload-post-image">
+                                Add image
+                            </button>
                         </div>
                     </div>
                 </div>

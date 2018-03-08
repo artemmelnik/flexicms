@@ -13,6 +13,7 @@
                     </h2>
                 </div>
             </div>
+            {% if resources is not empty %}
             <table class="ui very basic table">
                 <thead>
                     <tr>
@@ -39,6 +40,17 @@
                 {% endfor %}
                 </tbody>
             </table>
+            {% else %}
+            <div class="row">
+                <div class="col">
+                    <div class="empty-list-text">
+                        <div class="ui basic segment">
+                            <p>You do not have resources of this type</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
         </div>
     </main>
 {% endblock %}

@@ -8,11 +8,6 @@ namespace Flexi\Routing;
 abstract class Controller
 {
     /**
-     * @var string The layout to use.
-     */
-    public $layout = 'main';
-
-    /**
      * @var string|null
      */
     public $theme = null;
@@ -21,14 +16,6 @@ abstract class Controller
      * @var array
      */
     public $data = [];
-
-    /**
-     * @param string $layout
-     */
-    public function setLayout(string $layout)
-    {
-        $this->layout = $layout;
-    }
 
     /**
      * @param string $key

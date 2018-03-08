@@ -91,7 +91,6 @@ var customField = {
         var formData = new FormData();
         var title = $('#titleGroup');
         var type = $('#typeGroup');
-        //var layout = $('#layoutGroup');
         var template = $('#templateGroup');
 
         $('.field').removeClass('error');
@@ -103,7 +102,6 @@ var customField = {
 
         formData.append('title', title.val());
         formData.append('type', type.val());
-        //formData.append('layout', layout.val());
         formData.append('template', template.val());
 
         $.ajax({
