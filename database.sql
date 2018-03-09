@@ -139,7 +139,7 @@ CREATE TABLE `resource` (
   `content` text NOT NULL,
   `thumbnail` int(11) NOT NULL DEFAULT '0',
   `segment` varchar(255) NOT NULL,
-  `type` varchar(155) NOT NULL DEFAULT 'page',
+  `type` varchar(155) NOT NULL DEFAULT 'basic',
   `status` enum('publish','draft') NOT NULL DEFAULT 'draft',
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

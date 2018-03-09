@@ -90,7 +90,7 @@
                             <div class="field">
                                 <label>{{ __('resources.edit.setting_segment.label_type', [nameResource]) }}</label>
                                 <select id="type" class="ui search dropdown">
-                                    <option value="page">Basic</option>
+                                    <option value="basic">Basic</option>
                                     {% for key,type in pageTypes %}
                                         <option value="{{ key }}"{% if resource.getAttribute('type') == key %} selected{% endif %}>
                                             {{ type }}

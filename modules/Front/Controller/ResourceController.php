@@ -1,6 +1,7 @@
 <?php
 namespace Modules\Front\Controller;
 
+use Flexi\Http\Redirect;
 use Flexi\Template\View;
 use Modules\Front\Model;
 
@@ -25,12 +26,29 @@ class ResourceController extends FrontController
         parent::__construct();
     }
 
+    /**
+     * @param string $resourceType
+     * @param $segment
+     * @return View
+     */
     public function show(string $resourceType, $segment)
     {
         $resource = $this->resourceModel->getResourceBySegment($segment);
 
-        print_r($resource);
+        if ($resource->getAttribute('status') !== 'publish') {
+            Redirect::go('/');
+        }
 
-        return View::make('page', $this->data);
+        $templateName = $resourceType;
+
+        if ($resource->getAttribute('type') !== 'basic') {
+            $templateName .= '.' . $resource->getAttribute('type');
+        }
+
+        //print_r($resource);
+
+        $this->setData($resourceType, $resource);
+
+        return View::make($templateName, $this->data);
     }
 }

@@ -2,6 +2,9 @@
 
 {% block content %}
     <div>
-        Content...
+        <h1>{{ page.getAttribute('title') }}</h1>
+        <div>
+            {{ page.getAttribute('content') }}
+        </div>
     </div>
 {% endblock %}
