@@ -41,8 +41,10 @@ class View implements ResponderInterface
     {
         $this->pathTemplates = $this->pathTemplates();
 
-        //$_SERVER['DOCUMENT_ROOT'] . '/content/themes/default'
+        $adminPath = '/home/zzema/devstart.ru/geotrip/modules/Admin/View/';
         $loader = new Twig_Loader_Filesystem($this->pathTemplates);
+        $loader->addPath($adminPath, 'admin');
+
         $this->twig = new Twig_Environment($loader);
 
         $functions[] = new Twig_Function('__', function ($key, $data = []) {

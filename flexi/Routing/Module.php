@@ -98,6 +98,11 @@ class Module
         return Config::item('baseUrl') . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . $this->module . DIRECTORY_SEPARATOR;
     }
 
+    public static function getUrlByName($name)
+    {
+        return Config::item('baseUrl') . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . $name . DIRECTORY_SEPARATOR;
+    }
+
     /**
      * @return string
      */

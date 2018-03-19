@@ -42,6 +42,9 @@
                             <button class="ui button" disabled>
                                 {{ __('settings.themes.theme.activated') }}
                             </button>
+                            <button class="ui icon primary button">
+                                <i class="icon cogs"></i>
+                            </button>
                         {% else %}
                             <button class="ui primary button" onclick="setting.setActiveTheme(this, '{{ theme.dirTheme }}')">
                                 {{ __('settings.themes.theme.activate_button') }}

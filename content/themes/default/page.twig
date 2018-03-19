@@ -1,7 +1,7 @@
 {% extends "main.layout.twig" %}
 
 {% block content %}
-    <div>
+    <div class="page-content-{{ page.getAttribute('id') }}">
         <h1>{{ page.getAttribute('title') }}</h1>
         <div>
             {{ page.getAttribute('content') }}

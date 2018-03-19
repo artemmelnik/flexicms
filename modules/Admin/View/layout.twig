@@ -8,33 +8,37 @@
 
     <title>Admin panel</title>
 
-    <link rel="stylesheet" href="{{ asset('assets/semantic/semantic.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/semantic/components/dropdown.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/semantic/components/transition.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/semantic/components/icon.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/semantic/components/segment.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/semantic/components/sidebar.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/semantic/components/popup.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/semantic/components/form.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/semantic/components/accordion.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/semantic/components/tab.min.css') }}">
+    <link rel="stylesheet" href="/modules/Admin/View/assets/semantic/semantic.min.css">
+    <link rel="stylesheet" href="/modules/Admin/View/assets/semantic/components/dropdown.min.css">
+    <link rel="stylesheet" href="/modules/Admin/View/assets/semantic/components/transition.min.css">
+    <link rel="stylesheet" href="/modules/Admin/View/assets/semantic/components/icon.min.css">
+    <link rel="stylesheet" href="/modules/Admin/View/assets/semantic/components/segment.min.css">
+    <link rel="stylesheet" href="/modules/Admin/View/assets/semantic/components/sidebar.min.css">
+    <link rel="stylesheet" href="/modules/Admin/View/assets/semantic/components/popup.min.css">
+    <link rel="stylesheet" href="/modules/Admin/View/assets/semantic/components/form.min.css">
+    <link rel="stylesheet" href="/modules/Admin/View/assets/semantic/components/accordion.min.css">
+    <link rel="stylesheet" href="/modules/Admin/View/assets/semantic/components/tab.min.css">
 
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="{{ asset('assets/css/dashboard.css') }}">
+    <link rel="stylesheet" href="/modules/Admin/View/assets/css/dashboard.css">
 
     <!-- simplelineicons for this template -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css">
 
     <!-- Redactor CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/css/plugins/froala/froala_editor.pkgd.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/plugins/froala/froala_style.min.css') }}">
+    <link rel="stylesheet" href="/modules/Admin/View/assets/css/jodit.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/modules/Admin/View/assets/css/custom.css">
+
+    {% block stylesheets %}<!-- Stylesheets -->{% endblock %}
 </head>
 <body>
 <header>
     <div class="ui borderless main menu top-header">
         <div class="ui container">
             <div class="header item logo-item">
-                <img class="logo" src="{{ asset('assets/images/logo.png') }}">
+                <img class="logo" src="/modules/Admin/View/assets/images/logo.png">
             </div>
 
             {% for key,item in navigation %}
@@ -79,24 +83,25 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="{{ asset('assets/js/jquery-2.0.3.min.js') }}"></script>
-<script src="{{ asset('assets/semantic/semantic.min.js') }}"></script>
-<script src="{{ asset('assets/semantic/components/transition.min.js') }}"></script>
-<script src="{{ asset('assets/semantic/components/dropdown.min.js') }}"></script>
-<script src="{{ asset('assets/semantic/components/sidebar.min.js') }}"></script>
-<script src="{{ asset('assets/semantic/components/popup.min.js') }}"></script>
-<script src="{{ asset('assets/semantic/components/form.min.js') }}"></script>
-<script src="{{ asset('assets/semantic/components/accordion.min.js') }}"></script>
-<script src="{{ asset('assets/semantic/components/tab.min.js') }}"></script>
-<script src="{{ asset('assets/js/plugins/froala/froala_editor.pkgd.min.js') }}"></script>
-<script src="{{ asset('assets/js/jquery-sortable.js') }}"></script>
-<script src="{{ asset('assets/js/init.js') }}"></script>
-<script src="{{ asset('assets/js/resource.js') }}"></script>
-<script src="{{ asset('assets/js/page.js') }}"></script>
-<script src="{{ asset('assets/js/post.js') }}"></script>
-<script src="{{ asset('assets/js/setting.js') }}"></script>
-<script src="{{ asset('assets/js/menu.js') }}"></script>
-<script src="{{ asset('assets/js/plugin.js') }}"></script>
-<script src="{{ asset('assets/js/custom-field.js') }}"></script>
+<script src="/modules/Admin/View/assets/js/jquery-2.0.3.min.js"></script>
+<script src="/modules/Admin/View/assets/semantic/semantic.min.js"></script>
+<script src="/modules/Admin/View/assets/semantic/components/transition.min.js"></script>
+<script src="/modules/Admin/View/assets/semantic/components/dropdown.min.js"></script>
+<script src="/modules/Admin/View/assets/semantic/components/sidebar.min.js"></script>
+<script src="/modules/Admin/View/assets/semantic/components/popup.min.js"></script>
+<script src="/modules/Admin/View/assets/semantic/components/form.min.js"></script>
+<script src="/modules/Admin/View/assets/semantic/components/accordion.min.js"></script>
+<script src="/modules/Admin/View/assets/semantic/components/tab.min.js"></script>
+<script src="/modules/Admin/View/assets/js/jodit.min.js"></script>
+<script src="/modules/Admin/View/assets/js/jquery-sortable.js"></script>
+<script src="/modules/Admin/View/assets/js/init.js"></script>
+<script src="/modules/Admin/View/assets/js/resource.js"></script>
+<script src="/modules/Admin/View/assets/js/page.js"></script>
+<script src="/modules/Admin/View/assets/js/post.js"></script>
+<script src="/modules/Admin/View/assets/js/setting.js"></script>
+<script src="/modules/Admin/View/assets/js/menu.js"></script>
+<script src="/modules/Admin/View/assets/js/plugin.js"></script>
+<script src="/modules/Admin/View/assets/js/custom-field.js"></script>
+{% block scripts %}<!-- Scripts -->{% endblock %}
 </body>
 </html>

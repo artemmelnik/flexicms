@@ -15,16 +15,6 @@ use Modules\Admin\Model\ResourceType as ResourceTypeModel;
 class AdminController extends Controller
 {
     /**
-     * @var string
-     */
-    public $layout = 'admin';
-
-    /**
-     * @var string
-     */
-    public $theme = 'admin';
-
-    /**
      * AdminController constructor.
      */
     public function __construct()
