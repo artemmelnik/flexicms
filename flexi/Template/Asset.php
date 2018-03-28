@@ -20,6 +20,10 @@ class Asset
      */
     public static function get($file): string
     {
+        if (Router::module()->module === 'Front') {
+            return Router::module()->urlTheme() . $file;
+        }
+
         return Router::module()->url() . 'View' . DIRECTORY_SEPARATOR . $file;
     }
 }

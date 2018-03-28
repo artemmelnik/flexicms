@@ -63,9 +63,37 @@ class View implements ResponderInterface
             return uniqid();
         });
 
+        $functions[] = new Twig_Function('get_resources', function ($typeId, array $params = []) {
+            $resourceModel = new \Modules\Front\Model\Resource;
+
+            return $resourceModel->getResources($typeId, $params);
+        });
+
+        $functions[] = new Twig_Function('get_file', function ($id) {
+            $fileModel = new \Modules\Front\Model\File;
+            $file = $fileModel->getFileById($id);
+
+            if ($file === null) {
+                return '';
+            }
+
+            return $file->link;
+        });
+
+        $functions[] = new Twig_Function('get_field', function ($id, $name) {
+            return \Field::get($id, $name);
+        });
+
         foreach ($functions as $function) {
             $this->twig->addFunction($function);
         }
+
+        /*$resourceModel = new \Modules\Front\Model\Resource;
+
+        print_r(
+            $resourceModel->getResources(3)
+        );*/
+
     }
 
     /**

@@ -23,6 +23,33 @@ class Config
                 'title'     => 'Resources',
                 'parents'   => []
             ],
+            'geotrip' => [
+                'classIcon' => 'folder outline icon',
+                'urlPath'   => '#',
+                'title'     => 'Geotrip',
+                'parents'   => [
+                    'transport' => [
+                        'classIcon' => 'folder outline icon',
+                        'urlPath'   => '/admin/geotrip/transport/list/',
+                        'title'     => 'Транспорт',
+                    ],
+                    'activity' => [
+                        'classIcon' => 'folder outline icon',
+                        'urlPath'   => '/admin/geotrip/activity/list/',
+                        'title'     => 'Активности',
+                    ],
+                    'hotel' => [
+                        'classIcon' => 'folder outline icon',
+                        'urlPath'   => '/admin/geotrip/hotel/list/',
+                        'title'     => 'Гостиницы',
+                    ],
+                    'ready_tour' => [
+                        'classIcon' => 'folder outline icon',
+                        'urlPath'   => '/admin/ready-tour/listing/',
+                        'title'     => 'Готовые туры',
+                    ],
+                ]
+            ],
             'plugins' => [
                 'classIcon' => 'icon-wrench icons',
                 'urlPath'   => '/admin/plugins/',

@@ -91,7 +91,6 @@ class ResourceController extends AdminController
         $this->setData('baseUrl', Uri::base());
         $this->setData('resource', $resource);
         $this->setData('pageTypes', getTypes());
-        $this->setData('layouts', getLayouts());
         $this->setData('nameResource', $name);
         $this->setData('customFields', $customFields);
         $this->setData('image', $image);

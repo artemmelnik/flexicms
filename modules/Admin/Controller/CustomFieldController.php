@@ -44,7 +44,6 @@ class CustomFieldController extends AdminController
 
         //$this->setData('groupFieldTypes', Flexi\CustomField\Types\TypeGroup::ARRAY_GROUP_TYPES);
         $this->setData('groupFieldTypes', $resourceTypeModel->getResourcesType());
-        $this->setData('listLayouts', getLayouts());
         $this->setData('listTemplates', getTypes());
         $this->setData('listGroup', $this->customFieldGroupModel->getListGroup());
 

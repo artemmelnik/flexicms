@@ -126,6 +126,20 @@ class Module
     }
 
     /**
+     * @return string
+     */
+    public function urlTheme(): string
+    {
+        $theme = \Setting::value('active_theme', 'theme');
+
+        if ($theme == '') {
+            $theme = Config::item('defaultTheme');
+        }
+
+        return Config::item('baseUrl') . DIRECTORY_SEPARATOR . 'content' . DIRECTORY_SEPARATOR . 'themes' .  DIRECTORY_SEPARATOR . $theme . DIRECTORY_SEPARATOR;
+    }
+
+    /**
      * Runs the active controller action.
      */
     public function run()
