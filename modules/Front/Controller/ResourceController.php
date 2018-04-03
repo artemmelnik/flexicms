@@ -47,6 +47,10 @@ class ResourceController extends FrontController
 
         //print_r($resource);
 
+        //print_r($this->data);
+
+
+        $this->setData('type', $resourceType);
         $this->setData($resourceType, $resource);
 
         return View::make($templateName, $this->data);

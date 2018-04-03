@@ -32,7 +32,7 @@
                             </div>
                             <div class="field">
                                 <label>{{ __('resources.edit.label_content') }}</label>
-                                <textarea name="content" id="redactor">{{ resource.getAttribute('content') }}</textarea>
+                                <textarea name="content" class="redactor">{{ resource.getAttribute('content') }}</textarea>
                             </div>
                         </form>
                     </div>
@@ -79,6 +79,22 @@
                             <button type="submit" class="ui primary button" onclick="resource.update(this)">
                                 {{ __('resources.edit.form_button') }}
                             </button>
+                        </div>
+                    </div>
+
+                    <div class="ui segments">
+                        <div class="ui blue segment">
+                            <h4>Categories</h4>
+                        </div>
+                        <div class="ui form segment">
+                            {% for category in categories %}
+                                <div class="field">
+                                    <div class="ui checkbox">
+                                        <input type="checkbox" name="category[{{ category.id }}]" data-id="{{ category.id }}" class="js-category"{% if category.id in inCategories|keys %} checked{% endif %} tabindex="0">
+                                        <label>{{ category.name }}</label>
+                                    </div>
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
 

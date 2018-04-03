@@ -1,6 +1,14 @@
-if ($('#redactor').length > 0) {
-    var redactor = new Jodit('#redactor');
-}
+window.onload = function () {
+    if ($('.redactor').length > 0) {
+        var redactor = [];
+        $('.redactor').each(function (elem) {
+            //var redactor = new Jodit('.redactor');
+            redactor[elem] = new Jodit(this, {
+                i18n: 'en'
+            });
+        });
+    }
+};
 
 var files;
 $('input.upload-file').on('change', function(){

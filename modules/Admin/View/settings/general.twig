@@ -31,7 +31,7 @@
                                 </label>
                                 <select name="{{ setting.getAttribute('key_field') }}" class="ui search dropdown">
                                     {% for language in languages %}
-                                        <option value="{{ language.key }}"{% if language.key == get_setting('language') %} selected{% endif %}>
+                                        <option value="{{ language.key }}"{% if language.key == setting('language') %} selected{% endif %}>
                                             {{ language.title }}
                                         </option>
                                     {% endfor %}

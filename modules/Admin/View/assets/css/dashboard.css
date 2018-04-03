@@ -1,3 +1,7 @@
+main {
+    margin-top: 3em;
+}
+
 .empty-list-text {
     padding: 4em 0em;
     text-align: center;
@@ -10,9 +14,6 @@
     text-align: right;
 }
 
-.page-title{
-    padding-top: 2.5rem;
-}
 .page-title h3{}
 
 .setting-tabs {

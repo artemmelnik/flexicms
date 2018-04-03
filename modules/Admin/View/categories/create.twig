@@ -1,0 +1,90 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+    <main>
+        <div class="ui container">
+            <div class="ui grid">
+                <div class="sixteen wide column">
+                    <div class="col page-title">
+                        <h2 class="ui header">
+                            Create category
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="ui grid">
+                <div class="twelve wide column">
+                    <form id="formCategory" class="ui form">
+                        <div class="ui pointing secondary menu">
+                            <div class="item">Language: </div>
+                            <a class="item active" data-tab="en">English</a>
+                            <a class="item" data-tab="ru">Русский</a>
+                        </div>
+                        <input type="hidden" name="resource_type_id" id="formResourceTypeId" value="{{ resourceTypeId }}" />
+                        <div class="ui tab active" data-tab="en">
+                            <div class="field">
+                                <label>Name</label>
+                                <input type="text" name="name[en]" class="form-control" id="formName" placeholder="">
+                            </div>
+                            <div class="field">
+                                <label>Description</label>
+                                <textarea name="description[en]" class="redactor"></textarea>
+                            </div>
+                        </div>
+                        <div class="ui tab" data-tab="ru">
+                            <div class="field">
+                                <label>Name</label>
+                                <input type="text" name="name[ru]" class="form-control" id="formName" placeholder="">
+                            </div>
+                            <div class="field">
+                                <label>Description</label>
+                                <textarea name="description[ru]" class="redactor"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="four wide column">
+                    <div class="ui segments">
+                        <div class="ui blue segment">
+                            <h4>Setting</h4>
+                        </div>
+                        <div class="ui form segment">
+                            <div class="field">
+                                <label>Parent</label>
+                                <select id="parent" class="ui search dropdown">
+                                    <option value="basic">Not selected</option>
+                                    {% for key,category in categories %}
+                                        <option value="{{ category.id }}">
+                                            {{ category.name }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="ui secondary segment">
+                            <p>Save and create</p>
+                            <button type="submit" class="ui primary button" onclick="category.add(this)">
+                                Create
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="ui form segments">
+                        <div class="ui blue segment">
+                            <input class="upload-file" type="file" multiple="multiple" accept=".txt,image/*" style="display: none;">
+                            {% if image %}
+                                <img class="ui medium bordered image post-image" src="{{ image.link }}">
+                            {% else %}
+                                <img class="ui medium bordered image post-image" src="https://semantic-ui.com/images/wireframe/white-image.png">
+                            {% endif %}
+                            <br>
+                            <button class="ui primary button upload-post-image">
+                                Add image
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

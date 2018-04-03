@@ -1,4 +1,11 @@
 <?php
+/**
+ * This file is part of the FlexiCMS (https://flexicms.org)
+ * Copyright (c) 2017 Artem Melnik (https://artemmelnik.com)
+ */
+
+declare(strict_types=1);
+
 namespace Flexi;
 
 use Flexi\Auth\Auth;

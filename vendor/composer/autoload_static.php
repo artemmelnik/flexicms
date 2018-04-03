@@ -8,6 +8,7 @@ class ComposerStaticInitf18486ed4d0525b56e8fea339bf0d377
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         '36389227dc6e38db545088f4ae2c20ef' => __DIR__ . '/../..' . '/flexi/Functions/functions.php',
         '4961e09f281be4ed056047a0e2eb4be3' => __DIR__ . '/../..' . '/flexi/Functions/localization.php',
         '7cf5543fc386d3540044060a7884d222' => __DIR__ . '/../..' . '/flexi/Functions/menus.php',
@@ -24,11 +25,20 @@ class ComposerStaticInitf18486ed4d0525b56e8fea339bf0d377
         ),
         'P' => 
         array (
+            'Psr\\Http\\Message\\' => 17,
             'Plugin\\' => 7,
         ),
         'M' => 
         array (
             'Modules\\' => 8,
+        ),
+        'I' => 
+        array (
+            'Intervention\\Image\\' => 19,
+        ),
+        'G' => 
+        array (
+            'GuzzleHttp\\Psr7\\' => 16,
         ),
         'F' => 
         array (
@@ -45,6 +55,10 @@ class ComposerStaticInitf18486ed4d0525b56e8fea339bf0d377
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
+        'Psr\\Http\\Message\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+        ),
         'Plugin\\' => 
         array (
             0 => __DIR__ . '/../..' . '/content/plugins',
@@ -52,6 +66,14 @@ class ComposerStaticInitf18486ed4d0525b56e8fea339bf0d377
         'Modules\\' => 
         array (
             0 => __DIR__ . '/../..' . '/modules',
+        ),
+        'Intervention\\Image\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/intervention/image/src/Intervention/Image',
+        ),
+        'GuzzleHttp\\Psr7\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
         ),
         'Flexi\\' => 
         array (

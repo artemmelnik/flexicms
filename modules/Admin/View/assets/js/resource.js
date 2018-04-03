@@ -36,7 +36,13 @@ var resource = {
         formData.append('type', $('#type').val());
         formData.append('custom_fields', customFieldsForm.serialize());
 
-        if (typeof files !== 'undefined' ) {
+        $('.js-category').each(function () {
+            if ($(this).is(":checked")) {
+                formData.append('categories[' + $(this).data('id') + ']', $(this).val());
+            }
+        });
+
+        if (typeof files !== 'undefined') {
             $.each(files, function(key, value){
                 formData.append(key, value);
             });
@@ -54,7 +60,6 @@ var resource = {
             processData: false,
             contentType: false,
             beforeSend: function() {
-
             },
             success: function(result) {
                 window.location.reload();

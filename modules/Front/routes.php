@@ -5,7 +5,7 @@ Route::get('/', [
     'action'     => 'index'
 ]);
 
-Route::get('/r/(resourceType:any)/(segment:any)', [
+Route::get('/(resourceType:any)/show/(segment:any)', [
     'controller' => 'ResourceController',
     'action'     => 'show'
 ]);

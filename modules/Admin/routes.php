@@ -189,3 +189,18 @@ Route::post('/admin/custom_fields/ajaxUpdateFields/', [
     'controller' => 'CustomFieldController',
     'action'     => 'updateFields'
 ]);
+
+Route::get('/admin/resource/(resourceTypeId:numeric)/category/create/', [
+    'controller' => 'CategoryController',
+    'action'     => 'create'
+]);
+
+Route::get('/admin/resource/(resourceTypeId:numeric)/category/edit/(resourceId:numeric)', [
+    'controller' => 'CategoryController',
+    'action'     => 'edit'
+]);
+
+Route::post('/admin/category/create/', [
+    'controller' => 'CategoryController',
+    'action'     => 'processCreateCategory'
+]);
