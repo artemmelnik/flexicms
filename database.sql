@@ -1,7 +1,9 @@
 -- phpMyAdmin SQL Dump
 -- version 4.7.8
 -- https://www.phpmyadmin.net/
--- Время создания: Мар 07 2018 г., 15:49
+--
+-- Хост: zzema.mysql.ukraine.com.ua
+-- Время создания: Апр 05 2018 г., 11:53
 -- Версия сервера: 5.7.16-10-log
 -- Версия PHP: 7.0.27
 
@@ -17,8 +19,35 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- База данных: `flexicms`
+-- База данных: `zzema_demoflexi`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `category`
+--
+
+CREATE TABLE `category` (
+  `id` int(11) NOT NULL,
+  `parent_id` int(11) NOT NULL,
+  `resource_type_id` int(11) NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `date_added` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `category_description`
+--
+
+CREATE TABLE `category_description` (
+  `category_id` int(11) NOT NULL,
+  `language` varchar(2) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -91,6 +120,26 @@ CREATE TABLE `file` (
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `language`
+--
+
+CREATE TABLE `language` (
+  `id` int(11) NOT NULL,
+  `code` varchar(2) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `language`
+--
+
+INSERT INTO `language` (`id`, `code`, `name`) VALUES
+(1, 'en', 'English'),
+(2, 'ru', 'Русский');
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `menu`
 --
 
@@ -144,6 +193,25 @@ CREATE TABLE `resource` (
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Дамп данных таблицы `resource`
+--
+
+INSERT INTO `resource` (`id`, `resource_type_id`, `title`, `content`, `thumbnail`, `segment`, `type`, `status`, `date`) VALUES
+(1, 2, 'Hello World', 'Hello', 0, 'hello-world', 'basic', 'publish', '2018-04-04 22:09:27'),
+(2, 1, 'About', '<h1>Heading</h1><p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here,\r\n    content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various\r\n    versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>\r\n<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here,\r\n    content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various\r\n    versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p><p></p><h2>Heading</h2><p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p><p></p>', 0, 'about', 'basic', 'publish', '2018-04-05 11:19:03');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `resource_to_category`
+--
+
+CREATE TABLE `resource_to_category` (
+  `resource_id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 -- --------------------------------------------------------
 
 --
@@ -183,8 +251,8 @@ CREATE TABLE `setting` (
 --
 
 INSERT INTO `setting` (`id`, `name`, `key_field`, `value`, `section`) VALUES
-(1, 'Name site', 'name_site', 'Start site on FlexiCMS', 'general'),
-(2, 'Description', 'description', 'Example description for Flexi', 'general'),
+(1, 'Name site', 'name_site', 'Your first site on FlexiCMS', 'general'),
+(2, 'Description', 'description', 'Our task as a species is as much as possible the spread of beauty on the Internet.', 'general'),
 (3, 'Admin email', 'admin_email', 'admin@admin.test', 'general'),
 (4, 'Language', 'language', 'en', 'general'),
 (5, 'Active theme', 'active_theme', 'default', 'theme');
@@ -216,6 +284,12 @@ INSERT INTO `user` (`id`, `email`, `password`, `role`, `hash`, `date_reg`) VALUE
 --
 
 --
+-- Индексы таблицы `category`
+--
+ALTER TABLE `category`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `custom_field`
 --
 ALTER TABLE `custom_field`
@@ -237,6 +311,12 @@ ALTER TABLE `custom_field_value`
 -- Индексы таблицы `file`
 --
 ALTER TABLE `file`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `language`
+--
+ALTER TABLE `language`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -288,6 +368,12 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT для таблицы `category`
+--
+ALTER TABLE `category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT для таблицы `custom_field`
 --
 ALTER TABLE `custom_field`
@@ -312,6 +398,12 @@ ALTER TABLE `file`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT для таблицы `language`
+--
+ALTER TABLE `language`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT для таблицы `menu`
 --
 ALTER TABLE `menu`
@@ -333,7 +425,7 @@ ALTER TABLE `plugin`
 -- AUTO_INCREMENT для таблицы `resource`
 --
 ALTER TABLE `resource`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT для таблицы `resource_type`
