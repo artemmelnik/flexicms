@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title of the home page</title>
+        <style>
+            body {
+                font-family: sans-serif;
+            }
+            main h1 {
+                font-weight: 100;
+                font-size: 54px;
+            }
+            main p {
+                font-weight: 100;
+            }
+            .main-page {
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+    </body>
+</html>
