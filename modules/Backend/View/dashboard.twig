@@ -1,0 +1,21 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+    <main>
+        <div class="ui container">
+            <div class="ui grid">
+                <div class="sixteen wide column">
+                    <div class="widget-container">
+                        <div class="widget-empty">
+                            <p>{{ __('dashboard.main.widgets.heading') }}</p>
+                            <button class="ui basic button" onclick="alert('Недоступно в бета версии')">
+                                <i class="icon plus"></i>
+                                {{ __('dashboard.main.widgets.button') }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

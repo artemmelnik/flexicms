@@ -1,7 +1,7 @@
 <?php
 namespace Flexi\Template\Extension;
 
-use Modules\Front\Classes\Resource;
+use Modules\Frontend\Classes\Resource;
 use Twig_Extension;
 use Twig_SimpleFunction;
 
@@ -34,14 +34,14 @@ class ResourceExtension extends Twig_Extension
 
     public function getPrevById(int $resourceId)
     {
-        $resourceModel = new \Modules\Front\Model\Resource;
+        $resourceModel = new \Modules\Frontend\Model\Resource;
 
         return $resourceModel->getPrevResource($resourceId);
     }
 
     public function getNextById(int $resourceId)
     {
-        $resourceModel = new \Modules\Front\Model\Resource;
+        $resourceModel = new \Modules\Frontend\Model\Resource;
 
         return $resourceModel->getNextResource($resourceId);
     }
@@ -53,7 +53,7 @@ class ResourceExtension extends Twig_Extension
      */
     public function getResources(int $typeId, array $params = [])
     {
-        $resourceModel = new \Modules\Front\Model\Resource;
+        $resourceModel = new \Modules\Frontend\Model\Resource;
 
         return $resourceModel->getResources($typeId, $params);
     }

@@ -1,7 +1,7 @@
 <?php
 namespace Flexi\Template\Extension;
 
-use Modules\Front\Classes\Menu;
+use Modules\Frontend\Classes\Menu;
 use Twig_Extension;
 use Twig_SimpleFunction;
 

@@ -1,6 +1,10 @@
 <?php
-ini_set("display_errors",1);
-error_reporting(E_ALL);
+/**
+ * This file is part of the FlexiCMS (https://flexicms.org)
+ * Copyright (c) 2018 Artem Melnik (https://artemmelnik.com)
+ */
+
+declare(strict_types=1);
 
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -13,7 +17,7 @@ if (!is_file(ROOT_DIR . '/config/database.php')) {
 // Checking the recommended version PHP
 $version_compare = version_compare($version = phpversion(), $required = \Flexi\Define::PHP_MIN, '<');
 if ($version_compare) {
-    exit(sprintf('You are running PHP %s, but Flexi needs at least PHP %s to run.', $version, $required));
+    exit(sprintf('<h1 style="font-family: sans-serif;font-weight: 100;">You are running PHP %s, but Flexi needs at least PHP %s to run.</h1>', $version, $required));
 }
 
 try{

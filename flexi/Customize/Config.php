@@ -14,7 +14,7 @@ class Config
         'dashboardMenu' => [
             'home' => [
                 'classIcon' => 'icon-speedometer icons',
-                'urlPath'   => '/admin/',
+                'urlPath'   => '/backend/',
                 'title'     => 'Home'
             ],
             'resource' => [
@@ -25,30 +25,30 @@ class Config
             ],
             'plugins' => [
                 'classIcon' => 'icon-wrench icons',
-                'urlPath'   => '/admin/plugins/',
+                'urlPath'   => '/backend/plugins/',
                 'title'     => 'Plugins'
             ],
             'settings' => [
                 'classIcon' => 'icon-equalizer icons',
-                'urlPath'   => '/admin/settings/general/',
+                'urlPath'   => '/backend/settings/general/',
                 'title'     => 'Settings'
             ]
         ],
         'settingMenu' => [
             'general' => [
-                'urlPath'   => '/admin/settings/general/',
+                'urlPath'   => '/backend/settings/general/',
                 'title'     => 'General'
             ],
             'themes' => [
-                'urlPath'   => '/admin/settings/appearance/themes/',
+                'urlPath'   => '/backend/settings/appearance/themes/',
                 'title'     => 'Themes'
             ],
             'menus' => [
-                'urlPath'   => '/admin/settings/appearance/menus/',
+                'urlPath'   => '/backend/settings/appearance/menus/',
                 'title'     => 'Menus'
             ],
             'custom_fields' => [
-                'urlPath'   => '/admin/settings/custom_fields/',
+                'urlPath'   => '/backend/settings/custom_fields/',
                 'title'     => 'Custom Fields'
             ]
         ]

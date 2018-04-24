@@ -154,7 +154,7 @@ class Module
 
             $parents = class_parents($this->instance);
 
-            if (in_array('Modules\Front\Controller\FrontController', $parents)) {
+            if (in_array('Modules\Frontend\Controller\FrontendController', $parents)) {
                 $this->viewPath = $this->pathTheme();
             } else {
                 $this->viewPath = $this->pathView();
