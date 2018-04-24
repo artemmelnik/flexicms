@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Admin panel</title>
+
+    <link rel="stylesheet" href="/modules/Backend/View/assets/semantic/semantic.min.css">
+    <link rel="stylesheet" href="/modules/Backend/View/assets/semantic/components/dropdown.min.css">
+    <link rel="stylesheet" href="/modules/Backend/View/assets/semantic/components/transition.min.css">
+    <link rel="stylesheet" href="/modules/Backend/View/assets/semantic/components/icon.min.css">
+    <link rel="stylesheet" href="/modules/Backend/View/assets/semantic/components/segment.min.css">
+    <link rel="stylesheet" href="/modules/Backend/View/assets/semantic/components/sidebar.min.css">
+    <link rel="stylesheet" href="/modules/Backend/View/assets/semantic/components/popup.min.css">
+    <link rel="stylesheet" href="/modules/Backend/View/assets/semantic/components/form.min.css">
+    <link rel="stylesheet" href="/modules/Backend/View/assets/semantic/components/accordion.min.css">
+    <link rel="stylesheet" href="/modules/Backend/View/assets/semantic/components/tab.min.css">
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="/modules/Backend/View/assets/css/dashboard.css">
+
+    <!-- simplelineicons for this template -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css">
+
+    <!-- Redactor CSS -->
+    <link rel="stylesheet" href="/modules/Backend/View/assets/css/jodit.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/modules/Backend/View/assets/css/custom.css">
+
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+<header>
+    <div class="ui borderless main menu top-header">
+        <div class="ui container">
+            <div class="header item logo-item">
+                <img class="logo" src="/modules/Backend/View/assets/images/logo.png">
+            </div>
+
+            {% for key,item in navigation %}
+                {% if item.parents %}
+                    <div class="ui dropdown item">
+                        <i class="{{ item.classIcon }}" style="margin-right: 5px;"></i> {{ item.title }} <i class="dropdown icon"></i>
+                        <div class="menu">
+                            {% for itemParent in item.parents %}
+                                <a class="item" href="{{ itemParent.urlPath }}">
+                                    <i class="{{ itemParent.classIcon }}"></i> {{ itemParent.title }}
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% elseif key == 'resource' %}
+                    <div class="ui dropdown item">
+                        <i class="{{ item.classIcon }}" style="margin-right: 5px;"></i> {{ item.title }} <i class="dropdown icon"></i>
+                        <div class="menu">
+                            {% for itemResourceType in resourcesType %}
+                                <a class="item" href="/backend/resources/{{ itemResourceType.getAttribute('id') }}">
+                                    <i class="icon-doc icons"></i> {{ itemResourceType.getAttribute('title') }}
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% else %}
+                    <a class="item" href="{{ item.urlPath }}">
+                        <i class="{{ item.classIcon }}"></i> {{ item.title }}
+                    </a>
+                {% endif %}
+            {% endfor %}
+
+            <a href="/backend/logout/" class="ui right floated item" tabindex="0">
+                <i class="icon-logout icons"></i> {{ __('dashboard.main.logout') }}
+            </a>
+        </div>
+    </div>
+</header>
+
+{% block content %}{% endblock %}
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/modules/Backend/View/assets/js/jquery-2.0.3.min.js"></script>
+<script src="/modules/Backend/View/assets/semantic/semantic.min.js"></script>
+<script src="/modules/Backend/View/assets/semantic/components/transition.min.js"></script>
+<script src="/modules/Backend/View/assets/semantic/components/dropdown.min.js"></script>
+<script src="/modules/Backend/View/assets/semantic/components/sidebar.min.js"></script>
+<script src="/modules/Backend/View/assets/semantic/components/popup.min.js"></script>
+<script src="/modules/Backend/View/assets/semantic/components/form.min.js"></script>
+<script src="/modules/Backend/View/assets/semantic/components/accordion.min.js"></script>
+<script src="/modules/Backend/View/assets/semantic/components/tab.min.js"></script>
+<script src="/modules/Backend/View/assets/js/jodit.min.js"></script>
+<script src="/modules/Backend/View/assets/js/jquery-sortable.js"></script>
+<script src="/modules/Backend/View/assets/js/init.js"></script>
+<script src="/modules/Backend/View/assets/js/resource.js"></script>
+<script src="/modules/Backend/View/assets/js/category.js"></script>
+<script src="/modules/Backend/View/assets/js/setting.js"></script>
+<script src="/modules/Backend/View/assets/js/menu.js"></script>
+<script src="/modules/Backend/View/assets/js/plugin.js"></script>
+<script src="/modules/Backend/View/assets/js/custom-field.js"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

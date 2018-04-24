@@ -13,8 +13,8 @@ class Define
     const PHP_MIN = '7.0.0';
 
     const DEFAULT_MODULE = [
-        'admin' => 'Admin',
-        'front' => 'Front'
+        'Backend' => 'Backend',
+        'Frontend' => 'Frontend'
     ];
 
     const VIEW_PATH_MASK = [

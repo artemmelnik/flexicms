@@ -20,7 +20,7 @@ class Asset
      */
     public static function get(string $file): string
     {
-        if (Router::module()->module === 'Front') {
+        if (Router::module()->module === 'Frontend') {
             return Router::module()->urlTheme() . $file;
         }
 

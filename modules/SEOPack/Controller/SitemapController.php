@@ -3,7 +3,7 @@ namespace Modules\SEOPack\Controller;
 
 use Flexi\Config\Config;
 use Flexi\Sitemap\Sitemap;
-use Modules\Admin\Model\Page as PageModel;
+use Modules\Backend\Model\Page as PageModel;
 
 /**
  * Class SitemapController

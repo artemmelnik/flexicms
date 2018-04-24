@@ -44,7 +44,7 @@ class Setting
      */
     public static function get(string $section): bool
     {
-        $settings = \Modules\Admin\Model\Setting::select()
+        $settings = \Modules\Backend\Model\Setting::select()
             ->where('section', '=', $section)
             ->all()
         ;
