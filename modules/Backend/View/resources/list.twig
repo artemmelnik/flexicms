@@ -6,8 +6,9 @@
             <div class="ui grid">
                 <div class="sixteen wide column first page-title">
                     <h2 class="ui header">
-                        {{ __('resources.list.title', [resource_type.getAttribute('title')]) }}
-                        <a href="/backend/resource/{{ resource_type.getAttribute('name') }}/create/" class="ui primary button right floated item">
+                        {{ __('resources.list.title', [resource_type.title]) }}
+                        <a href="/backend/resource-type/{{ resource_type.name }}/settings/"><i class="cogs icon"></i></a>
+                        <a href="/backend/resource/{{ resource_type.name }}/create/" class="ui primary button right floated item">
                             {{ __('resources.list.create_button') }}
                         </a>
                     </h2>
@@ -30,15 +31,15 @@
                         {% for resource in resources %}
                             <tr>
                                 <th scope="row">
-                                    {{ resource.getAttribute('id') }}
+                                    {{ resource.id }}
                                 </th>
                                 <td>
-                                    <a href="/backend/resource/{{ resource_type.getAttribute('name') }}/edit/{{ resource.getAttribute('id') }}">
-                                        {{ resource.getAttribute('title') }}
+                                    <a href="/backend/resource/{{ resource_type.name }}/edit/{{ resource.id }}">
+                                        {{ resource.title }}
                                     </a>
                                 </td>
                                 <td>
-                                    {{ resource.getAttribute('date') }}
+                                    {{ resource.date }}
                                 </td>
                             </tr>
                         {% endfor %}
@@ -49,7 +50,7 @@
                         <div class="col">
                             <div class="empty-list-text">
                                 <div class="ui basic segment">
-                                    <p>You do not have resources of this type</p>
+                                    <p>У вас нет ресурсов этого типа</p>
                                 </div>
                             </div>
                         </div>
@@ -59,7 +60,7 @@
                 <div class="four wide column">
                     <div class="ui segments">
                         <div class="ui blue segment">
-                            <h4>Categories</h4>
+                            <h4>{{ __('resources.list.categories.heading') }}</h4>
                         </div>
                         <div class="ui segment">
                             <div class="ui relaxed divided list">
@@ -76,13 +77,13 @@
                                         </div>
                                     {% endfor %}
                                 {% else %}
-                                    <p class="empty-items center">Нет категорий</p>
+                                    <p class="empty-items center">{{ __('resources.list.categories.empty_text') }}</p>
                                 {% endif %}
                             </div>
                         </div>
                         <div class="ui secondary segment">
-                            <a href="/backend/resource/{{ resource_type.getAttribute('id') }}/category/create/" class="ui primary button">
-                                Create
+                            <a href="/backend/resource/{{ resource_type.id }}/category/create/" class="ui primary button">
+                                {{ __('resources.list.categories.create_button') }}
                             </a>
                         </div>
                     </div>

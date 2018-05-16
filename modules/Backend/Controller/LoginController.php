@@ -53,7 +53,7 @@ class LoginController extends Controller
         $user      = $userModel->getUserByParams($params);
 
         if ($user) {
-            if ($user->getAttribute('role') == 'admin') {
+            if ($user->role == 'admin') {
                 Auth::authorize($user);
                 Redirect::go('/backend/login/');
             }

@@ -14,6 +14,6 @@ class HomeController extends FrontendController
      */
     public function index()
     {
-        return View::make('main');
+        return View::make('main', $this->data);
     }
 }

@@ -13,4 +13,9 @@ class Field
     {
         return CustomFieldModel::getFieldByName($id, $name);
     }
+
+    public static function getField($id, $name)
+    {
+        return CustomFieldModel::getFieldBy($id, $name);
+    }
 }

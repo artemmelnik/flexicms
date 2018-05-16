@@ -20,7 +20,7 @@ class Menu extends Model
      */
     public function getList()
     {
-        $query = Query::table(static::$table, __CLASS__)
+        $query = Query::table(static::$table)
             ->select()
             ->orderBy('id', 'desc')
             ->all()

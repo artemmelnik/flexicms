@@ -2,6 +2,7 @@
 namespace Flexi\Template\Extension;
 
 use Flexi;
+use Twig\TwigFilter;
 use Twig_Extension;
 use Twig_SimpleFunction;
 
@@ -27,6 +28,25 @@ class HelperExtension extends Twig_Extension
         return [
             new Twig_SimpleFunction('uniqid', array($this, 'getUniqid'))
         ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getFilters()
+    {
+        return [
+            new TwigFilter('json_decode', array($this, 'jsonDecode')),
+        ];
+    }
+
+    /**
+     * @param string $json
+     * @return mixed
+     */
+    public function jsonDecode(string $json)
+    {
+        return json_decode($json);
     }
 
     /**

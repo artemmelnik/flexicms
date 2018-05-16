@@ -20,11 +20,10 @@ class User extends Model
      */
     public function getUsers()
     {
-        $query = Query::table(static::$table, __CLASS__)
+        $query = Query::table(static::$table)
             ->select()
             ->orderBy('id')
-            ->all()
-        ;
+            ->all();
 
         return $query;
     }
@@ -35,12 +34,11 @@ class User extends Model
      */
     public function getUserByParams(array $params)
     {
-        $query = Query::table(static::$table, __CLASS__)
+        $query = Query::table(static::$table)
             ->select()
             ->where('email', '=', $params['email'])
             ->where('password', '=', md5($params['password']))
-            ->first()
-        ;
+            ->first();
 
         return $query;
     }
@@ -51,10 +49,9 @@ class User extends Model
      */
     public function updateHash($id, $hash)
     {
-        Query::table(static::$table, __CLASS__)
+        Query::table(static::$table)
             ->update(['hash' => $hash])
             ->where('id', '=', $id)
-            ->run('update')
-        ;
+            ->run('update');
     }
 }

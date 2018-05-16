@@ -13,10 +13,10 @@ use Modules\Backend\Model\CustomField as CustomFieldModel;
 class CustomFieldService
 {
     /**
-     * @param Modules\Backend\Model\Resource $resource
+     * @param $resource
      * @return array
      */
-    public function getResourceFields(Modules\Backend\Model\Resource $resource): array
+    public function getResourceFields($resource): array
     {
         $resourceFields = [];
         $groupIds = [];

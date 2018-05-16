@@ -26,7 +26,7 @@ class MenuItem extends Model
      */
     public function getItems(int $menuId, array $params = []): array
     {
-        $query = Query::table(static::$table, __CLASS__)
+        $query = Query::table(static::$table)
             ->select()
             ->where('menu_id', '=', $menuId)
             ->orderBy('position')
@@ -45,7 +45,7 @@ class MenuItem extends Model
 
         if (!empty($items) and isset($items[0])) {
             foreach ($items[0] as $position => $item) {
-                Query::table(static::$table, __CLASS__)
+                Query::table(static::$table)
                     ->update([
                         'position' => $position
                     ])
@@ -61,7 +61,7 @@ class MenuItem extends Model
      */
     public function remove(int $itemId)
     {
-        Query::table(static::$table, __CLASS__)
+        Query::table(static::$table)
             ->where('id', '=', $itemId)
             ->run('delete')
         ;

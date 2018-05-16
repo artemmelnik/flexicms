@@ -1,1 +1,0 @@
-<h1>Hello, im Example Module.</h1>

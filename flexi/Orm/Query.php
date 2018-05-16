@@ -289,23 +289,8 @@ class Query
         // Fetch results.
         $fetched = $this->stmt->all();
 
-        // Do we need to assign results against a model.
-        if ($this->model !== null) {
-            $records = [];
-            foreach ($fetched as $record) {
-                $model = new $this->model;
-                foreach ($record as $attribute => $value) {
-                    $model->$attribute = $value;
-                }
-
-                array_push($records, $model);
-            }
-        } else {
-            $records = $fetched;
-        }
-
         // Fetch results.
-        return $records;
+        return $fetched;
     }
 
     /**
@@ -324,18 +309,8 @@ class Query
         // Don't continue if fetched is null.
         if ($fetched === false) return false;
 
-        // Do we have a model to instantiate?
-        if ($this->model !== null && is_object($fetched)) {
-            $record = new $this->model;
-            foreach ($fetched as $attribute => $value) {
-                $record->$attribute = $value;
-            }
-        } else {
-            $record = $fetched;
-        }
-
         // Return record.
-        return $record;
+        return $fetched;
     }
 
     /**

@@ -1,8 +1,14 @@
 <?php
+/**
+ * This file is part of the FlexiCMS (https://flexicms.org)
+ * Copyright (c) 2017 Artem Melnik (https://artemmelnik.com)
+ */
+
+declare(strict_types=1);
+
 namespace Modules\Backend\Controller;
 
 use Flexi;
-use Flexi\Routing\Controller;
 use Flexi\Template\View;
 use Modules\Backend\Model\ResourceType as ResourceTypeModel;
 
@@ -10,7 +16,7 @@ use Modules\Backend\Model\ResourceType as ResourceTypeModel;
  * Class BackendController
  * @package Modules\Backend\Controller
  */
-class BackendController extends Controller
+class BackendController extends \Controller
 {
     /**
      * BackendController constructor.

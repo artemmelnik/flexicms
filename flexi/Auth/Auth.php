@@ -20,7 +20,7 @@ class Auth implements AuthInterface
     protected static $authorized = false;
 
     /**
-     * @var \Flexi\Orm\Model The authenticated user.
+     * @var object The authenticated user.
      */
     protected static $user;
 
@@ -40,9 +40,7 @@ class Auth implements AuthInterface
         }
 
         // Check if we have a user logged in.
-        if (Session::has('auth.user')
-            && Session::has('auth.authorized')
-        ) {
+        if (Session::has('auth.user') && Session::has('auth.authorized')) {
             static::$authorized = Session::get('auth.authorized');
             static::$user       = Session::get('auth.user');
         }
@@ -61,9 +59,9 @@ class Auth implements AuthInterface
     /**
      * Returns the authenticated user.
      *
-     * @return \Flexi\Orm\Model
+     * @return object
      */
-    public static function user(): Model
+    public static function user(): object
     {
         return static::$user;
     }
@@ -71,10 +69,10 @@ class Auth implements AuthInterface
     /**
      * Authorize a user.
      *
-     * @param  \Flexi\Orm\Model  $user  The user to authorize.
+     * @param  object $user  The user to authorize.
      * @return void
      */
-    public static function authorize(Flexi\Orm\Model $user)
+    public static function authorize($user)
     {
         Session::put('auth.authorized', true);
         Session::put('auth.user', $user);

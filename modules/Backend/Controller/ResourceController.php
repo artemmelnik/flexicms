@@ -3,6 +3,7 @@
 namespace Modules\Backend\Controller;
 
 use Flexi;
+use Modules\Backend\Model\Resource;
 use View;
 use Modules;
 use Flexi\Http\Uri;
@@ -60,14 +61,13 @@ class ResourceController extends BackendController
     {
         I18n::instance()->load('resources/list');
 
+
         $resources = $this->resourceModel->getResources($resourceId);
         $resourceType = $this->resourceTypeModel->getResourceType($resourceId);
 
         $this->setData('resources', $resources);
         $this->setData('resource_type', $resourceType);
-        $this->setData('categories', $this->categoryModel->getCategoriesByResourceType(
-            $resourceType->getAttribute('id'), 'ru')
-        );
+        $this->setData('categories', $this->categoryModel->getCategoriesByResourceType($resourceType->id, 'ru'));
 
         return View::make('resources/list', $this->data);
     }
@@ -100,20 +100,30 @@ class ResourceController extends BackendController
         $resource = $this->resourceModel->getResource($id);
         $customFields = $customFieldService->getResourceFields($resource);
         $inCategories = $this->resourceToCategory->getIdsCategoriesByResourceId($id);
+        $resourceTypeRelations = $this->resourceTypeModel->getResourceTypeRelations((int) $resource->resource_type_id);
+        $resourceRelations = Modules\Backend\Model\ResourceRelation::getRelationByResourceId($id);
+
+        if (!empty($resourceTypeRelations)) {
+            foreach ($resourceTypeRelations as $key => $resourceTypeRelation) {
+                $resourceTypeRelations[$key]->resources = $this->resourceModel->getResources($resourceTypeRelation->id);
+            }
+        }
 
         $image = false;
-        if ($resource->getAttribute('thumbnail')) {
-            $image = $fileModel->getFile($resource->getAttribute('thumbnail'));
+        if ($resource->thumbnail) {
+            $image = $fileModel->getFile($resource->thumbnail);
         }
 
         $this->setData('baseUrl', Uri::base());
         $this->setData('resource', $resource);
+        $this->setData('resourceTypeRelations', $resourceTypeRelations);
+        $this->setData('resourceRelations', $resourceRelations);
         $this->setData('pageTypes', getTypes($name));
         $this->setData('nameResource', $name);
         $this->setData('customFields', $customFields);
         $this->setData('image', $image);
         $this->setData('inCategories', $inCategories);
-        $this->setData('categories', $this->categoryModel->getCategoriesByResourceType($resource->getAttribute('resource_type_id'), 'ru'));
+        $this->setData('categories', $this->categoryModel->getCategoriesByResourceType($resource->resource_type_id, 'ru'));
 
         return View::make('resources/edit', $this->data);
     }
@@ -124,15 +134,17 @@ class ResourceController extends BackendController
 
         if (isset($params['title'])) {
             $resource = new Modules\Backend\Model\Resource;
-            $resource->setAttribute('resource_type_id', $params['resource_type_id']);
-            $resource->setAttribute('title', $params['title']);
-            $resource->setAttribute('content', $params['content']);
-            $resource->setAttribute('segment', Flexi\Helper\Text::transliteration($params['title']));
-            $resource->save();
+            $resource
+                ->setResourceTypeId($params['resource_type_id'])
+                ->setTitle($params['title'])
+                ->setContent($params['content'])
+                ->setSegment(Flexi\Helper\Text::transliteration($params['title']))
+                ->setStatus(Modules\Backend\Model\Resource::STATUS_PUBLISH)
+                ->save();
 
             $resourceType = $this->resourceTypeModel->getResourceType($params['resource_type_id']);
 
-            echo '/Backend/resource/' . $resourceType->getAttribute('name') . '/edit/' . $resource->getAttribute('id');
+            echo '/backend/resource/' . $resourceType->name . '/edit/' . $resource->getId();
             exit;
         }
     }
@@ -178,14 +190,15 @@ class ResourceController extends BackendController
 
         if (isset($params['title'])) {
             $resource = new Modules\Backend\Model\Resource;
-            $resource->setAttribute('id', $params['resource_id']);
-            $resource->setAttribute('title', $params['title']);
-            $resource->setAttribute('content', $params['content']);
-            $resource->setAttribute('status', $params['status']);
-            $resource->setAttribute('type', $params['type']);
+            $resource
+                ->setId($params['resource_id'])
+                ->setTitle($params['title'])
+                ->setContent($params['content'])
+                ->setStatus($params['status'])
+                ->setType($params['type']);
 
             if ($fileId) {
-                $resource->setAttribute('thumbnail', $fileId);
+                $resource->setThumbnail($fileId);
             }
 
             $resource->save();
@@ -195,26 +208,38 @@ class ResourceController extends BackendController
                 foreach ($customFields['fields'] as $fieldId => $value) {
                     $customFieldValueModel->addUpdateFieldValue([
                         'field_id' => $fieldId,
-                        'element_id' => $resource->getAttribute('id'),
+                        'element_id' => $resource->id,
                         'value' => $value
                     ]);
                 }
             }
 
             if (isset($params['categories'])) {
-                $this->resourceToCategory->deleteAll($resource->getAttribute('id'));
+                $this->resourceToCategory->deleteAll($resource->id);
 
                 foreach ($params['categories'] as $id => $value) {
-                    if (!$this->resourceToCategory->is($resource->getAttribute('id'), $id)) {
+                    if (!$this->resourceToCategory->is($resource->id, $id)) {
                         $this->resourceToCategory->add([
-                            'resource_id' => $resource->getAttribute('id'),
+                            'resource_id' => $resource->id,
                             'category_id' => $id
                         ]);
                     }
                 }
             }
 
-            echo $resource->getAttribute('id');
+            if (isset($params['relations']) && !empty($params['relations'])) {
+                foreach ($params['relations'] as $relationId => $relations) {
+                    foreach ($relations as $resourceToId) {
+                        Modules\Backend\Model\ResourceRelation::add([
+                            'resource_id' => $params['resource_id'],
+                            'resource_to_id' => $resourceToId,
+                            'resource_type_id' => $relationId
+                        ]);
+                    }
+                }
+            }
+
+            echo $resource->id;
             exit;
         }
     }

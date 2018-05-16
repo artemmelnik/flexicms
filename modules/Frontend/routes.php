@@ -5,7 +5,12 @@ Route::get('/', [
     'action'     => 'index'
 ]);
 
-Route::get('/(resourceType:any)/show/(segment:any)', [
-    'controller' => 'ResourceController',
-    'action'     => 'show'
-]);
+$resourceModel = new \Modules\Backend\Model\ResourceType();
+$resourceTypes = $resourceModel->getResourcesType();
+
+foreach ($resourceTypes as $resourceType) {
+    Route::get('/' . $resourceType->name . '/(segment:any)', [
+        'controller' => 'ResourceController',
+        'action'     => 'show'
+    ]);
+}

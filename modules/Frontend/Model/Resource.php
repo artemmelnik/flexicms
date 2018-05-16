@@ -17,10 +17,10 @@ class Resource extends Model
     protected static $table = 'resource';
 
     /**
-     * @param string $segment
+     * @param $segment
      * @return bool|Model
      */
-    public function getResourceBySegment(string $segment)
+    public function getResourceBySegment($segment)
     {
         $query = Query::table(self::$table, __CLASS__)
             ->select()
@@ -76,5 +76,68 @@ class Resource extends Model
         $query = $query->all();
 
         return $query;
+    }
+
+    /**
+     * @param array $params
+     * @return array
+     */
+    public function getResourcesByParams(array $params = [])
+    {
+        $sql = '';
+        $sql .= 'SELECT';
+        $sql .= ' r.* ';
+        $sql .= 'FROM ' . static::$table . ' as r ';
+
+        if (isset($params['in_categories'])) {
+            //$sql .= 'JOIN category as c ON r.id = c.resource_id';
+            $sql .= 'JOIN resource_to_category as rtc ON r.id = rtc.resource_id ';
+            $sql .= 'WHERE rtc.category_id IN(' . $params['in_categories'] . ')';
+            $sql .= 'AND r.resource_type_id=' . $params['resource_type_id'];
+        } else {
+            $sql .= 'WHERE r.resource_type_id=' . $params['resource_type_id'];
+        }
+
+        $result = Query::result($sql);
+
+        //$model = __CLASS__;
+
+        /*if ($model !== null) {
+            $records = [];
+            foreach ($result as $record) {
+                $model = new $model;
+                foreach ($record as $attribute => $value) {
+                    $model->$attribute = $value;
+                }
+
+                array_push($records, $model);
+            }
+        } else {
+            $records = $result;
+        }*/
+
+        $records = $result;
+
+        return $records;
+    }
+
+    /**
+     * @param int $resourceId
+     * @return array
+     */
+    public function getResourceRelation(int $resourceId)
+    {
+        $sql = "
+            SELECT
+              *
+            FROM resource as r
+            JOIN resource_relation as rr
+              ON r.id = rr.resource_id
+            WHERE rr.resource_to_id = {$resourceId}
+        ";
+
+        $result = Query::result($sql);
+
+        return $result;
     }
 }

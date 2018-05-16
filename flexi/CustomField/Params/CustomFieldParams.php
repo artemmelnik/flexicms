@@ -43,6 +43,11 @@ class CustomFieldParams
     protected $required;
 
     /**
+     * @var string
+     */
+    protected $extraData;
+
+    /**
      * @var int|null
      */
     protected $status;
@@ -61,6 +66,25 @@ class CustomFieldParams
         $this->type = isset($params['type']) ? $params['type'] : null;
         $this->required = isset($params['required']) ? $params['required'] : null;
         $this->status = isset($params['status']) ? $params['status'] : null;
+
+        $extraData = [];
+        if (isset($params['options']) && !empty($params['options'])) {
+            $optionArray = explode("\n", $params['options']);
+            $options = [];
+
+            foreach ($optionArray as $option) {
+                list($value, $text) = explode(":", $option);
+
+                $options[] = [
+                    'value' => $value,
+                    'text' => $text
+                ];
+            }
+
+            $extraData['options'] = $options;
+        }
+
+        $this->extraData = json_encode($extraData);
     }
 
     /**
@@ -125,5 +149,21 @@ class CustomFieldParams
     public function getId(): int
     {
         return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getExtraData(): string
+    {
+        return $this->extraData;
+    }
+
+    /**
+     * @param string $extraData
+     */
+    public function setExtraData(string $extraData)
+    {
+        $this->extraData = $extraData;
     }
 }

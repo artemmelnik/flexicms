@@ -6,7 +6,7 @@ var resource = {
 
         formData.append('resource_type_id', $('#formResourceTypeId').val());
         formData.append('title', $('#formTitle').val());
-        formData.append('content', $('.redactor-editor').html());
+        formData.append('content', $('#formContent').val());
 
         $(button).addClass('loading');
 
@@ -31,7 +31,7 @@ var resource = {
 
         formData.append('resource_id', $('#formResourceId').val());
         formData.append('title', $('#formTitle').val());
-        formData.append('content', $('#redactor').val());
+        formData.append('content', $('#formContent').val());
         formData.append('status', $('#status').val());
         formData.append('type', $('#type').val());
         formData.append('custom_fields', customFieldsForm.serialize());
@@ -40,6 +40,14 @@ var resource = {
             if ($(this).is(":checked")) {
                 formData.append('categories[' + $(this).data('id') + ']', $(this).val());
             }
+        });
+
+        $('.relations').each(function () {
+            var relationId = $(this).data('relation-id');
+
+            $(this).find('a.ui.label').each(function () {
+                formData.append('relations[' + relationId + '][]', $(this).data('value'));
+            });
         });
 
         if (typeof files !== 'undefined') {

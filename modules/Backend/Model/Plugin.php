@@ -20,11 +20,10 @@ class Plugin extends Model
      */
     public function getPlugins()
     {
-        $query = Query::table(static::$table, __CLASS__)
+        $query = Query::table(static::$table)
             ->select()
             ->orderBy('id')
-            ->all()
-        ;
+            ->all();
 
         return $query;
     }

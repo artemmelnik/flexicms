@@ -1,6 +1,7 @@
 <?php
 namespace Modules\Backend\Controller;
 
+use Flexi\Localization\I18n;
 use \View;
 use Flexi;
 use Modules;
@@ -40,6 +41,9 @@ class CustomFieldController extends BackendController
      */
     public function listingGroup()
     {
+        I18n::instance()
+            ->load('custom_fields/list_group');
+
         $resourceTypeModel = new ResourceTypeModel();
 
         //$this->setData('groupFieldTypes', Flexi\CustomField\Types\TypeGroup::ARRAY_GROUP_TYPES);

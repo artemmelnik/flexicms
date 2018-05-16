@@ -55,18 +55,18 @@
                     </div>
                 {% elseif key == 'resource' %}
                     <div class="ui dropdown item">
-                        <i class="{{ item.classIcon }}" style="margin-right: 5px;"></i> {{ item.title }} <i class="dropdown icon"></i>
+                        <i class="{{ item.classIcon }}" style="margin-right: 5px;"></i> {{ __('dashboard.menu.resource') }} <i class="dropdown icon"></i>
                         <div class="menu">
                             {% for itemResourceType in resourcesType %}
-                                <a class="item" href="/backend/resources/{{ itemResourceType.getAttribute('id') }}">
-                                    <i class="icon-doc icons"></i> {{ itemResourceType.getAttribute('title') }}
+                                <a class="item" href="/backend/resources/{{ itemResourceType.id }}">
+                                    <i class="icon-doc icons"></i> {{ itemResourceType.title }}
                                 </a>
                             {% endfor %}
                         </div>
                     </div>
                 {% else %}
                     <a class="item" href="{{ item.urlPath }}">
-                        <i class="{{ item.classIcon }}"></i> {{ item.title }}
+                        <i class="{{ item.classIcon }}"></i> {{ __('dashboard.menu.'~key) }}
                     </a>
                 {% endif %}
             {% endfor %}
@@ -96,11 +96,13 @@
 <script src="/modules/Backend/View/assets/js/jquery-sortable.js"></script>
 <script src="/modules/Backend/View/assets/js/init.js"></script>
 <script src="/modules/Backend/View/assets/js/resource.js"></script>
+<script src="/modules/Backend/View/assets/js/resource_type.js"></script>
 <script src="/modules/Backend/View/assets/js/category.js"></script>
 <script src="/modules/Backend/View/assets/js/setting.js"></script>
 <script src="/modules/Backend/View/assets/js/menu.js"></script>
 <script src="/modules/Backend/View/assets/js/plugin.js"></script>
 <script src="/modules/Backend/View/assets/js/custom-field.js"></script>
+<script src="/modules/Backend/View/assets/js/functions.js"></script>
 {% block scripts %}{% endblock %}
 </body>
 </html>

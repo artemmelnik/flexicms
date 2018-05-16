@@ -7,7 +7,7 @@
                 <div class="sixteen wide column">
                     <div class="col page-title">
                         <h2 class="ui header">
-                            {{ __('resources.create.heading', [resourceType.getAttribute('title')]) }}
+                            {{ __('resources.create.heading', [resourceType.title]) }}
                         </h2>
                     </div>
                 </div>
@@ -15,20 +15,20 @@
             <div class="ui grid">
                 <div class="twelve wide column">
                     <form id="formPage" class="ui form">
-                        <input type="hidden" name="resource_type_id" id="formResourceTypeId" value="{{ resourceType.getAttribute('id') }}" />
+                        <input type="hidden" name="resource_type_id" id="formResourceTypeId" value="{{ resourceType.id }}" />
                         <div class="field">
                             <label>{{ __('resources.create.label_title') }}</label>
-                            <input type="text" name="title" class="form-control" id="formTitle" placeholder="{{ __('resources.create.placeholder_title', [resourceType.getAttribute('title')]) }}">
+                            <input type="text" name="title" class="form-control" id="formTitle" placeholder="{{ __('resources.create.placeholder_title', [resourceType.title]) }}">
                         </div>
                         <div class="field">
                             <label>{{ __('resources.create.label_content') }}</label>
-                            <textarea name="content" class="redactor"></textarea>
+                            <textarea name="content" id="formContent" class="redactor"></textarea>
                         </div>
                     </form>
                 </div>
                 <div class="four wide column">
                     <div>
-                        <p>{{ __('resources.create.description_form_button', [resourceType.getAttribute('title')]) }}</p>
+                        <p>{{ __('resources.create.description_form_button', [resourceType.title]) }}</p>
                         <button type="submit" class="ui primary button" onclick="resource.add(this)">
                             {{ __('resources.create.form_button') }}
                         </button>

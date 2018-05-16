@@ -26,11 +26,7 @@ class Repository
             static::$stored[$section] = [];
         }
 
-        /**
-         * Store the data.
-         * @var \Flexi\Orm\Model $data
-         */
-        static::$stored[$section][$data->getAttribute('key_field')] = $data;
+        static::$stored[$section][$data->key_field] = $data;
     }
 
     /**
