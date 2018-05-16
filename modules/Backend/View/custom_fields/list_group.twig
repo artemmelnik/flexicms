@@ -7,9 +7,9 @@
             <div class="sixteen wide column">
                 <div class="col page-title">
                     <h2 class="ui header">
-                        Group fields
+                        {{ __('custom_fields.list_group.title') }}
                         <a class="ui primary basic button right floated item btn-create-group-fields">
-                            <i class="plus icon"></i> Add group
+                            <i class="plus icon"></i> {{ __('custom_fields.list_group.add_group_button') }}
                         </a>
                     </h2>
                 </div>
@@ -48,16 +48,12 @@
                                     </div>
                                 </th>
                                 <td>
-                                    <a href="/admin/settings/custom_fields/group/{{ group.id }}">
+                                    <a href="/backend/settings/custom_fields/group/{{ group.id }}">
                                         {{ group.title }}
                                     </a>
                                 </td>
-                                <td>
-                                    {{ group.count_fields }}
-                                </td>
-                                <td>
-                                    {{ group.type|capitalize }}
-                                </td>
+                                <td>{{ group.count_fields }}</td>
+                                <td>{{ group.type|capitalize }}</td>
                                 <td>
                                     {% if group.status %}
                                         Active
@@ -74,7 +70,7 @@
                         <div class="col">
                             <div class="empty-list-text">
                                 <div class="ui basic segment">
-                                    <p>Empty group field list</p>
+                                    <p>{{ __('custom_fields.list_group.no_groups') }}</p>
                                 </div>
                             </div>
                         </div>
@@ -102,8 +98,8 @@
                         <select id="typeGroup" class="ui fluid dropdown" onchange="customField.loadTemplates(this)">
                             {% if groupFieldTypes is not empty %}
                                 {% for groupType in groupFieldTypes %}
-                                    <option value="{{ groupType.getAttribute('name') }}">
-                                        {{ groupType.getAttribute('title') }}
+                                    <option value="{{ groupType.name }}">
+                                        {{ groupType.title }}
                                     </option>
                                 {% endfor %}
                             {% endif %}

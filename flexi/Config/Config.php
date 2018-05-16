@@ -1,4 +1,11 @@
 <?php
+/**
+ * This file is part of the FlexiCMS (https://flexicms.org)
+ * Copyright (c) 2017 Artem Melnik (https://artemmelnik.com)
+ */
+
+declare(strict_types=1);
+
 namespace Flexi\Config;
 
 /**
@@ -7,7 +14,6 @@ namespace Flexi\Config;
  */
 class Config
 {
-
     /**
      * Retrieves a config item.
      *
@@ -46,7 +52,7 @@ class Config
      */
     public static function file($group = 'main')
     {
-        $path = $_SERVER['DOCUMENT_ROOT'] . '/config/' . $group . '.php';
+        $path = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . $group . '.php';
 
         // Check that the file exists before we attempt to load it.
         if (file_exists($path)) {

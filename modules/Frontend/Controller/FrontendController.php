@@ -3,7 +3,8 @@ namespace Modules\Frontend\Controller;
 
 use Controller;
 use Flexi\Config\Config;
-use Modules\Frontend\Classes\Resource;
+use Modules\Frontend;
+use Modules\Backend;
 
 /**
  * Class FrontendController
@@ -18,14 +19,17 @@ class FrontendController extends Controller
     {
         $this->loadThemeFunctions();
 
-        $resourceModel = new \Modules\Backend\Model\ResourceType();
+        $resourceModel = new Backend\Model\ResourceType();
         $resourceTypes = $resourceModel->getResourcesType();
 
-        /**
-         * @var $resourceType \Modules\Backend\Model\ResourceType
-         */
         foreach ($resourceTypes as $resourceType) {
-            $this->setData($resourceType->getAttribute('name'), new Resource($resourceType->getAttribute('id')));
+            $resources = new Frontend\Classes\Resources($resourceType->id);
+
+            if ($resourceType->id == 4) {
+                $this->setData('hotels', $resources->get());
+            }
+
+            $this->setData($resourceType->name, $resources);
         }
     }
 

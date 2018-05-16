@@ -2,6 +2,7 @@
 namespace Flexi\CustomField;
 
 use Flexi\CustomField\Component\InputField;
+use Flexi\CustomField\Component\SelectField;
 use Flexi\CustomField\Component\TextareaField;
 use Flexi\CustomField\Types\TypeCustomField;
 
@@ -29,6 +30,9 @@ class CustomField
                 break;
             case TypeCustomField::TYPE_TEXTAREA:
                 $createField = new TextareaField($field);
+                break;
+            case TypeCustomField::TYPE_SELECT:
+                $createField = new SelectField($field);
                 break;
         }
 

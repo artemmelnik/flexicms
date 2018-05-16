@@ -81,8 +81,7 @@ class SettingController extends BackendController
             ->update([
                 'value' => $theme
             ])
-            ->run('update')
-        ;
+            ->run('update');
 
         exit;
     }

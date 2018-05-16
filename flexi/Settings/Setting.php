@@ -35,7 +35,7 @@ class Setting
         /** @var \Flexi\Orm\Model $item */
         $item = static::item($key, $section);
 
-        return $item ? $item->getAttribute('value') : '';
+        return $item ? $item->value : '';
     }
 
     /**
@@ -46,8 +46,7 @@ class Setting
     {
         $settings = \Modules\Backend\Model\Setting::select()
             ->where('section', '=', $section)
-            ->all()
-        ;
+            ->all();
 
         // Items must be an array.
         if (is_array($settings) && !empty($settings)) {

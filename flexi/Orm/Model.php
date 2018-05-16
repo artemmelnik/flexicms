@@ -1,16 +1,25 @@
 <?php
+/**
+ * This file is part of the FlexiCMS (https://flexicms.org)
+ * Copyright (c) 2017 Artem Melnik (https://artemmelnik.com)
+ */
+
+declare(strict_types=1);
+
 namespace Flexi\Orm;
 
 use Flexi\Database\Database;
+use Flexi\Orm\Exception\ModelException;
 
 /**
  * Class Model
+ * @method array columnMap()
  * @property
  * @property-read string id
  * @property-write
  * @package Flexi\Orm
  */
-class Model
+abstract class Model
 {
     /**
      * @var  string  The table name.
@@ -113,11 +122,26 @@ class Model
      * Saves the record.
      *
      * @return bool
+     * @throws ModelException
      */
     public function save(): bool
     {
         // Get the model attributes.
-        $attributes = $this->attributes();
+        //$attributes = $this->attributes();
+
+        $attributes = [];
+
+        if (method_exists($this, 'columnMap')) {
+            $columnMap = $this->columnMap();
+
+            foreach ($columnMap as $column => $map) {
+                if (empty($this->$map)) continue;
+
+                $attributes[$column] = $this->$map;
+            }
+        } else {
+            throw new ModelException('Missing columnMap');
+        }
 
         // Remove guarded attributes.
         foreach ($this->guarded as $guarded) {
@@ -127,23 +151,41 @@ class Model
         }
 
         // Instantiate query.
-        $query  = static::query();
+        $query = static::query();
 
         // If we have an id then update the record.
-        if ($this->hasAttribute('id')) {
-            $query  = $query->where('id', '=', $this->getAttribute('id'));
+        if (method_exists($this, 'getId') && $this->getId('id')) {
+            $query  = $query->where('id', '=', $this->getId('id'));
             $saved  = $query->edit($attributes);
         } else {
             $saved  = $query->create($attributes);
 
             // If successfully created, add the insert id.
             if ($saved) {
-                $this->setAttribute('id', Database::insertId());
+                if (method_exists($this, 'setId')) {
+                    $this->setId(Database::insertId());
+                }
             }
         }
 
         // Return true if successfully saved.
         return $saved;
+    }
+
+    /**
+     * @param int $id
+     * @return bool|Model
+     */
+    public static function findFirst(int $id)
+    {
+        $query = new Query(static::$table, get_called_class());
+
+        $result = $query
+            ->select()
+            ->where('id', '=', $id)
+            ->first();
+
+        return $result;
     }
 
     /**
@@ -154,6 +196,7 @@ class Model
     public static function all(): array
     {
         $query = static::query();
+
         return $query->all();
     }
 
@@ -166,6 +209,7 @@ class Model
     public static function select(array $fields = []): Query
     {
         $query = static::query();
+
         return $query->select($fields);
     }
 
@@ -180,6 +224,7 @@ class Model
     public static function where(string $column, string $operator = '=', $value): Query
     {
         $query = static::query();
+
         return $query->where($column, $operator, $value);
     }
 
@@ -192,4 +237,6 @@ class Model
     {
         return new Query(static::$table, get_called_class());
     }
+
+    //abstract public function columnMap(): array;
 }

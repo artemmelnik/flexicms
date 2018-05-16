@@ -1,0 +1,84 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+<main>
+    <div class="ui container">
+        <div class="ui grid">
+            <div class="sixteen wide column">
+                <div class="col page-title">
+                    <h2 class="ui header">
+                        Настройки ресурса ({{ resourceType.name }})
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="ui grid">
+            <div class="twelve wide column">
+                <form id="formSettings" class="ui form">
+                    <input type="hidden" name="id" id="formId" value="{{ resourceType.id }}" />
+                    <div class="field">
+                        <label>Заголовок</label>
+                        <input type="text" name="title" class="form-control" id="formTitle" value="{{ resourceType.title }}">
+                    </div>
+                    <div class="field">
+                        <label>Имя</label>
+                        <input type="text" name="name" class="form-control" id="formName" readonly disabled value="{{ resourceType.name }}">
+                    </div>
+                </form>
+
+                <br>
+                <div class="ui segments">
+                    <div class="ui segment">
+                        <h3 class="ui header">Связи</h3>
+                        <form id="resourceTypeRelation" class="ui form">
+                            <input type="hidden" name="resource_type_id" value="{{ resourceType.id }}" />
+                            <div class="field">
+                                <label>Привязать тип ресурса</label>
+                                <select class="ui dropdown" name="resource_type_to_id">
+                                    <option> -- Выбрать -- </option>
+                                    {% for itemResourceType in resourceTypes %}
+                                        <option value="{{ itemResourceType.id }}">{{ itemResourceType.title }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <button type="submit" class="ui button" onclick="resourceType.addRelation(this); return false;">
+                                Добавить связь
+                            </button>
+                        </form>
+
+                        <table class="ui very basic table">
+                            <tbody>
+                            {% for resourceTypeRelation in resourceTypeRelations %}
+                                <tr>
+                                    <td><i class="retweet icon"></i> {{ resourceTypeRelation.title }}</td>
+                                    <td>
+                                        <a>Удалить связь</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="four wide column">
+                <div class="ui segments">
+                    <div class="ui blue segment">
+                        <h4>Настройки</h4>
+                    </div>
+                    <div class="ui form segment">
+                        <div class="field">
+                        </div>
+                    </div>
+                    <div class="ui secondary segment">
+                        <p>Обновить и сохранить</p>
+                        <button type="submit" class="ui primary button" onclick="">
+                            Обновить
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

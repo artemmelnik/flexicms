@@ -12,9 +12,118 @@ use Query;
 class CustomFieldValue extends Model
 {
     /**
+     * @var int
+     */
+    protected $id;
+
+    /**
+     * @var int
+     */
+    protected $fieldId;
+
+    /**
+     * @var int
+     */
+    protected $elementId;
+
+    /**
+     * @var string
+     */
+    protected $value;
+
+    /**
      * @var string
      */
     protected static $table = 'custom_field_value';
+
+    /**
+     * @return array
+     */
+    public function columnMap(): array
+    {
+        return [
+            'id' => 'id',
+            'field_id' => 'fieldId',
+            'element_id' => 'elementId',
+            'value' => 'value'
+        ];
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return (int) $this->id;
+    }
+
+    /**
+     * @param int $id
+     * @return CustomFieldValue
+     */
+    public function setId(int $id): CustomFieldValue
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getFieldId(): int
+    {
+        return $this->fieldId;
+    }
+
+    /**
+     * @param int $fieldId
+     * @return CustomFieldValue
+     */
+    public function setFieldId(int $fieldId): CustomFieldValue
+    {
+        $this->fieldId = $fieldId;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getElementId(): int
+    {
+        return $this->elementId;
+    }
+
+    /**
+     * @param int $elementId
+     * @return CustomFieldValue
+     */
+    public function setElementId(int $elementId): CustomFieldValue
+    {
+        $this->elementId = $elementId;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getValue(): string
+    {
+        return $this->value;
+    }
+
+    /**
+     * @param string $value
+     * @return CustomFieldValue
+     */
+    public function setValue(string $value): CustomFieldValue
+    {
+        $this->value = $value;
+
+        return $this;
+    }
 
     /**
      * @param array $params
@@ -27,15 +136,16 @@ class CustomFieldValue extends Model
         $id = $this->getIdFieldValue($params['element_id'], $params['field_id']);
 
         if ($id) {
-            $customFieldValue->setAttribute('id', $id);
+            $customFieldValue->setId($id);
         }
 
-        $customFieldValue->setAttribute('field_id', $params['field_id']);
-        $customFieldValue->setAttribute('element_id', $params['element_id']);
-        $customFieldValue->setAttribute('value', $params['value']);
-        $customFieldValue->save();
+        $customFieldValue
+            ->setFieldId($params['field_id'])
+            ->setElementId($params['element_id'])
+            ->setValue($params['value'])
+            ->save();
 
-        return $customFieldValue->getAttribute('id');
+        return $customFieldValue->getId();
     }
 
     /**

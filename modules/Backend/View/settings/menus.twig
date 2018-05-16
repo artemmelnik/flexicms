@@ -25,8 +25,8 @@
                 {% if menus is not empty %}
                     <div class="ui vertical pointing menu">
                         {% for menu in menus %}
-                        <a class="item{% if menuId == menu.getAttribute('id') %} active{% endif %}" href="?menu_id={{ menu.getAttribute('id') }}">
-                            {{ menu.getAttribute('name') }}
+                        <a class="item{% if menuId == menu.id %} active{% endif %}" href="?menu_id={{ menu.id }}">
+                            {{ menu.name }}
                         </a>
                         {% endfor %}
                     </div>

@@ -24,12 +24,12 @@
             <div class="sixteen wide column">
                 <form id="settingForm" class="ui form">
                     {% for setting in settings %}
-                        {% if setting.getAttribute('key_field') == 'language' %}
+                        {% if setting.key_field == 'language' %}
                             <div class="field">
                                 <label>
-                                    {{ setting.getAttribute('name') }}
+                                    {{ setting.name }}
                                 </label>
-                                <select name="{{ setting.getAttribute('key_field') }}" class="ui search dropdown">
+                                <select name="{{ setting.key_field }}" class="ui search dropdown">
                                     {% for language in languages %}
                                         <option value="{{ language.key }}"{% if language.key == setting('language') %} selected{% endif %}>
                                             {{ language.title }}
@@ -40,9 +40,9 @@
                         {% else %}
                             <div class="field">
                                 <label>
-                                    {{ setting.getAttribute('name') }}
+                                    {{ setting.name }}
                                 </label>
-                                <input type="text" name="{{ setting.getAttribute('key_field') }}" value="{{ setting.getAttribute('value') }}">
+                                <input type="text" name="{{ setting.key_field }}" value="{{ setting.value }}">
                             </div>
                         {% endif %}
                     {% endfor %}

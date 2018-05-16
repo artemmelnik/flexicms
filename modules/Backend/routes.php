@@ -2,7 +2,8 @@
 
 Route::get('/backend/login/', [
     'controller' => 'LoginController',
-    'action'     => 'form'
+    'action'     => 'form',
+    'important'  => true
 ]);
 
 Route::get('/backend/', [
@@ -95,6 +96,16 @@ Route::post('/backend/resource/update/', [
     'action'     => 'update'
 ]);
 
+Route::get('/backend/resource-type/(name:any)/settings/', [
+    'controller' => 'ResourceTypeController',
+    'action'     => 'settings'
+]);
+
+Route::post('/backend/resource-type/add-relation/', [
+    'controller' => 'ResourceTypeController',
+    'action'     => 'processAddRelation'
+]);
+
 Route::get('/backend/settings/general/', [
     'controller' => 'SettingController',
     'action'     => 'general'
@@ -147,7 +158,8 @@ Route::post('/backend/settings/activateTheme/', [
 
 Route::get('/backend/plugins/', [
     'controller' => 'PluginController',
-    'action'     => 'listPlugins'
+    'action'     => 'listPlugins',
+    'important'  =>  true
 ]);
 
 Route::post('/backend/plugins/ajaxInstall/', [
@@ -203,4 +215,9 @@ Route::get('/backend/resource/(resourceTypeId:numeric)/category/edit/(resourceId
 Route::post('/backend/category/create/', [
     'controller' => 'CategoryController',
     'action'     => 'processCreateCategory'
+]);
+
+Route::post('/backend/resource/addGeoFields/', [
+    'controller' => 'CustomController',
+    'action'     => 'processAddGeoFields'
 ]);

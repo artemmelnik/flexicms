@@ -48,4 +48,12 @@ class Setting extends Model
             }
         }
     }
+
+    /**
+     * @return array
+     */
+    public function columnMap(): array
+    {
+        return [];
+    }
 }

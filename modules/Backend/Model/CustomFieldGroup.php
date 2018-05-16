@@ -16,9 +16,143 @@ class CustomFieldGroup extends Model
     const INACTIVE_STATUS = 0;
 
     /**
+     * @var int
+     */
+    protected $id;
+
+    /**
+     * @var string
+     */
+    protected $title;
+
+    /**
+     * @var string
+     */
+    protected $type;
+
+    /**
+     * @var string
+     */
+    protected $template;
+
+    /**
+     * @var int
+     */
+    protected $status;
+
+    /**
      * @var string
      */
     protected static $table = 'custom_field_group';
+
+    /**
+     * @return array
+     */
+    public function columnMap(): array
+    {
+        return [
+            'id'       => 'id',
+            'title'    => 'title',
+            'type'     => 'type',
+            'template' => 'template',
+            'status'   => 'status'
+        ];
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return (int) $this->id;
+    }
+
+    /**
+     * @param int $id
+     * @return CustomFieldGroup
+     */
+    public function setId(int $id): CustomFieldGroup
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param string $title
+     * @return CustomFieldGroup
+     */
+    public function setTitle(string $title): CustomFieldGroup
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     * @return CustomFieldGroup
+     */
+    public function setType(string $type): CustomFieldGroup
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTemplate(): string
+    {
+        return $this->template;
+    }
+
+    /**
+     * @param string $template
+     * @return CustomFieldGroup
+     */
+    public function setTemplate(string $template): CustomFieldGroup
+    {
+        $this->template = $template;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatus(): int
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param int $status
+     * @return CustomFieldGroup
+     */
+    public function setStatus(int $status): CustomFieldGroup
+    {
+        $this->status = $status;
+
+        return $this;
+    }
 
     /**
      * @param array $params
@@ -31,13 +165,14 @@ class CustomFieldGroup extends Model
         }
 
         $customFieldGroup = new CustomFieldGroup();
-        $customFieldGroup->setAttribute('title', $params['title']);
-        $customFieldGroup->setAttribute('type', $params['type']);
-        $customFieldGroup->setAttribute('template', $params['template']);
-        $customFieldGroup->setAttribute('status', static::ACTIVE_STATUS);
-        $customFieldGroup->save();
+        $customFieldGroup
+            ->setTitle($params['title'])
+            ->setType($params['type'])
+            ->setTemplate($params['template'])
+            ->setStatus(static::ACTIVE_STATUS)
+            ->save();
 
-        return $customFieldGroup->getAttribute('id');
+        return $customFieldGroup->getId();
     }
 
     /**
@@ -53,14 +188,14 @@ class CustomFieldGroup extends Model
         ;
     }
 
-    public function getFieldGroupByResource(Modules\Backend\Model\Resource $resource)
+    public function getFieldGroupByResource($resource)
     {
         $resourceTypeModel = new Modules\Backend\Model\ResourceType();
 
-        $resourceType = $resourceTypeModel->getResourceType($resource->getAttribute('resource_type_id'));
+        $resourceType = $resourceTypeModel->getResourceType($resource->resource_type_id);
 
-        $template = $resource->getAttribute('type');
-        $type = $resourceType->getAttribute('name');
+        $template = $resource->type;
+        $type = $resourceType->name;
 
         $sql = "
             SELECT

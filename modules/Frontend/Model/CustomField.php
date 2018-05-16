@@ -25,6 +25,7 @@ class CustomField extends Model
     {
         $sql = "
             SELECT
+              cf.id,
               cf.name,
               cfv.value
             FROM custom_field as cf
@@ -37,6 +38,25 @@ class CustomField extends Model
         $result = Query::result($sql);
 
         return isset($result[0]) ? $result[0]->value : '';
+    }
+
+    public static function getFieldBy(int $elementId, string $name)
+    {
+        $sql = "
+            SELECT
+              cf.id,
+              cf.name,
+              cfv.value
+            FROM custom_field as cf
+            JOIN custom_field_value as cfv
+              ON cf.id=cfv.field_id
+            WHERE cf.name = '{$name}'
+              AND cfv.element_id = {$elementId};
+        ";
+
+        $result = Query::result($sql);
+
+        return isset($result[0]) ? $result[0] : null;
     }
 
     /**

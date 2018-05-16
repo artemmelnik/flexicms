@@ -3,6 +3,7 @@
 {% set name = '' %}
 {% set type = '' %}
 {% set description = '' %}
+{% set extraData = '' %}
 {% set required = 0 %}
 
 {% if field %}
@@ -11,6 +12,7 @@
     {% set name = field.name %}
     {% set type = field.type %}
     {% set description = field.description %}
+    {% set extraData = field.extra_data|json_decode %}
     {% set required = field.required %}
 {% endif %}
 
@@ -46,6 +48,14 @@
             <label>Description</label>
             <input type="text" name="fields[{{ fieldId }}][description]" value="{{ description }}" placeholder="Description field...">
         </div>
+
+        {% if type == 'select' %}
+        <div class="field field-{{ fieldId }}-options">
+            <label>Options</label>
+            <textarea name="fields[{{ fieldId }}][options]">{% for optionItem in extraData.options %}{{ optionItem.value }}:{{ optionItem.text }}{% endfor %}</textarea>
+        </div>
+        {% endif %}
+
         <div class="field">
             <div class="ui checkbox">
                 <input type="checkbox" name="fields[{{ fieldId }}][required]"{% if required %} checked{% endif %}>

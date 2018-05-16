@@ -11,9 +11,110 @@ use Query;
 class File extends Model
 {
     /**
+     * @var int
+     */
+    protected $id;
+
+    /**
+     * @var string
+     */
+    protected $name;
+
+    /**
+     * @var string
+     */
+    protected $link;
+
+    /**
+     * @var string
+     */
+    protected $type;
+
+    /**
      * @var string
      */
     protected static $table = 'file';
+
+    /**
+     * @return array
+     */
+    public function columnMap(): array
+    {
+        return [
+            'id' => 'id',
+            'name' => 'name',
+            'link' => 'link',
+            'type' => 'type'
+        ];
+    }
+
+    /**
+     * @param int $id
+     * @return File
+     */
+    public function setId(int $id): File
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     * @return File
+     */
+    public function setName(string $name): File
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLink(): string
+    {
+        return $this->link;
+    }
+
+    /**
+     * @param string $link
+     * @return File
+     */
+    public function setLink(string $link): File
+    {
+        $this->link = $link;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     * @return File
+     */
+    public function setType(string $type): File
+    {
+        $this->type = $type;
+
+        return $this;
+    }
 
     /**
      * @param array $params
@@ -22,12 +123,13 @@ class File extends Model
     public function addFile(array $params)
     {
         $file = new File;
-        $file->setAttribute('name', $params['name']);
-        $file->setAttribute('link', $params['link']);
-        $file->setAttribute('type', $params['type']);
-        $file->save();
+        $file
+            ->setName($params['name'])
+            ->setLink($params['link'])
+            ->setType($params['type'])
+            ->save();
 
-        return $file->getAttribute('id');
+        return $file->getId();
     }
 
     /**
@@ -39,9 +141,16 @@ class File extends Model
         $query = Query::table(static::$table)
             ->select()
             ->where('id', '=', $id)
-            ->first()
-        ;
+            ->first();
 
         return $query;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return (int) $this->id;
     }
 }
