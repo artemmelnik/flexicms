@@ -12,13 +12,13 @@ function path($section)
     switch (strtolower($section))
     {
         case 'config':
-            return $_SERVER['DOCUMENT_ROOT'] . 'config';
+            return $_SERVER['DOCUMENT_ROOT'] . '/config';
         case 'modules':
-            return $_SERVER['DOCUMENT_ROOT'] . 'modules';
+            return $_SERVER['DOCUMENT_ROOT'] . '/modules';
         case 'content':
-            return $_SERVER['DOCUMENT_ROOT'] . 'content';
+            return $_SERVER['DOCUMENT_ROOT'] . '/content';
         default:
-            return $_SERVER['DOCUMENT_ROOT'];
+            return $_SERVER['DOCUMENT_ROOT'] . '/';
     }
 }
 
