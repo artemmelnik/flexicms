@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'baseUrl'        => '//' . $_SERVER['HTTP_HOST'],
-    'defaultLang'     => 'en',
-    'defaultTimezone' => 'America/Chicago',
-    'defaultTheme'    => 'default'
+    'base_url'         => '//' . $_SERVER['HTTP_HOST'],
+    'default_lang'     => 'en',
+    'default_timezone' => 'America/Chicago',
+    'default_theme'    => 'default'
 ];
