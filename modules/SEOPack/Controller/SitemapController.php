@@ -21,13 +21,13 @@ class SitemapController extends \Controller
         $pages = $pageModel->getPages();
 
         $sitemap = new Sitemap;
-        $sitemap->addItem(Config::item('baseUrl'));
+        $sitemap->addItem(Config::item('base_url'));
 
         /**
          * @var PageModel $page
          */
         foreach ($pages as $page) {
-            $sitemap->addItem(Config::item('baseUrl') . '/page/' . $page->getAttribute('segment'));
+            $sitemap->addItem(Config::item('base_url') . '/page/' . $page->getAttribute('segment'));
         }
 
         header('Content-Type: application/xml');

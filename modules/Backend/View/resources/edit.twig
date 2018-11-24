@@ -8,11 +8,11 @@
                     <div class="col page-title">
                         <h2 class="ui header">
                             {{ resource.title }}
-                            <div class="sub header grey">
+                            <!--<div class="sub header grey">
                                 <a href="{{ baseUrl }}/{{ nameResource }}/{{ resource.segment }}" target="_blank">
                                     {{ baseUrl }}/{{ nameResource }}/{{ resource.segment }}
                                 </a>
-                            </div>
+                            </div>-->
                         </h2>
                     </div>
                 </div>
@@ -51,6 +51,38 @@
                                             {% if customFields %}
                                                 {% for field in group.fields %}
                                                     {{ field.html|raw }}
+
+                                                    {% if field.type == 'multifile' and field.value != '' %}
+                                                        {% set isOtherFile = 0 %}
+                                                        {% for id in json_decode(field.value) %}
+                                                            {% set file = file_object(id) %}
+                                                            {% if file.type == 'image/png' or file.type == 'image/jpeg' %}
+                                                            {% else %}
+                                                                {% set isOtherFile = 1 %}
+                                                            {% endif %}
+                                                        {% endfor %}
+
+                                                        {% if isOtherFile == 1 %}
+                                                            {% for id in json_decode(field.value) %}
+                                                                {% set file = file_object(id) %}
+                                                                <p class="js-image-{{ id }}"><i class="file outline icon"></i> {{ file.name }}  <a onclick="resource.remove({{ field.id }}, {{ resource.id }}, {{ id }})">Удалить</a></p>
+                                                            {% endfor %}
+                                                        {% else %}
+                                                            <ul class="ui tiny images" id="sort_images" style="padding: 0;">
+                                                                {% for id in json_decode(field.value) %}
+                                                                    {% set file = file_object(id) %}
+                                                                    <li class="js-image-{{ id }} js-custom-image js-custom-image-{{ id }}" data-id="{{ id }}" data-field-id="{{ field.id }}">
+                                                                        <a class="remove-image" onclick="resource.remove({{ field.id }}, {{ resource.id }}, {{ id }})">
+                                                                            <span class="lnr lnr-cross"></span>
+                                                                        </a>
+                                                                        <img class="ui image rounded" src="{{ file(id) }}">
+                                                                    </li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        {% endif %}
+
+                                                        {% set isOtherFile = 0 %}
+                                                    {% endif %}
                                                 {% endfor %}
                                             {% else %}
                                                 <p>There are no fields in this group.</p>
@@ -93,8 +125,9 @@
                             <div class="field">
                                 <label>{{ __('resources.edit.label_status') }}</label>
                                 <select id="status" class="ui search dropdown">
-                                    <option value="publish"{% if resource.status == 'publish' %} selected{% endif %}>Опубликовано</option>
-                                    <option value="draft"{% if resource.status == 'draft' %} selected{% endif %}>В корзине</option>
+                                    <option value="publish"{% if resource.status == 'publish' %} selected{% endif %}>Активная</option>
+                                    <option value="top"{% if resource.status == 'top' %} selected{% endif %}>Топ</option>
+                                    <option value="draft"{% if resource.status == 'draft' %} selected{% endif %}>Архивная</option>
                                 </select>
                             </div>
                         </div>
@@ -105,24 +138,6 @@
                             </button>
                         </div>
                     </div>
-
-                    {% if categories is not empty %}
-                    <div class="ui segments">
-                        <div class="ui blue segment">
-                            <h4>Categories</h4>
-                        </div>
-                        <div class="ui form segment">
-                            {% for category in categories %}
-                                <div class="field">
-                                    <div class="ui checkbox">
-                                        <input type="checkbox" name="category[{{ category.id }}]" data-id="{{ category.id }}" class="js-category"{% if category.id in inCategories|keys %} checked{% endif %} tabindex="0">
-                                        <label>{{ category.name }}</label>
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                    {% endif %}
 
                     <div class="ui segments">
                         <div class="ui blue segment">

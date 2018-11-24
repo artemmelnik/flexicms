@@ -2,3 +2,5 @@
 composer.lock
 config
 vendor
+node_modules
+content/uploads

@@ -84,6 +84,10 @@ class CustomFieldParams
             $extraData['options'] = $options;
         }
 
+        if (isset($params['is_multiple'])) {
+            $extraData['is_multiple'] = $params['is_multiple'];
+        }
+
         $this->extraData = json_encode($extraData);
     }
 

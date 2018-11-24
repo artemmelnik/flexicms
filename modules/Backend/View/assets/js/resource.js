@@ -50,6 +50,19 @@ var resource = {
             });
         });
 
+        if ($('.js-custom-field-file').length > 0) {
+            var item;
+            $('.js-custom-field-file').each(function () {
+                item = $(this)[0].files;
+                formData.append('custom_fields_files[id]', $(this).attr('data-id'));
+
+                for (var index in item) {
+                    formData.append('custom_fields_files[' + index + ']', item[index]);
+                    formData.append('custom_fields_files[' + index + '][id]', $(this).attr('data-id'));
+                }
+            });
+        }
+
         if (typeof files !== 'undefined') {
             $.each(files, function(key, value){
                 formData.append(key, value);
@@ -73,5 +86,25 @@ var resource = {
                 window.location.reload();
             }
         });
-    }
+    },
+
+    remove: function (fieldId, elementId, fileId) {
+        var isRemove = confirm('Вы точно хотите удалить этот файл?');
+
+        if (isRemove) {
+            $.ajax({
+                url: '/backend/custom_field/remove_file/',
+                type: this.ajaxMethod,
+                data: {
+                    fieldId: fieldId,
+                    elementId: elementId,
+                    fileId: fileId
+                },
+                success: function(result){
+                    $('#post_field_'+fieldId).val(result);
+                    $('.js-image-' + fileId).remove();
+                }
+            });
+        }
+    },
 };

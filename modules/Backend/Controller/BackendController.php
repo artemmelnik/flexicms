@@ -10,6 +10,7 @@ namespace Modules\Backend\Controller;
 
 use Flexi;
 use Flexi\Template\View;
+use Modules\Backend\Model\Resource;
 use Modules\Backend\Model\ResourceType as ResourceTypeModel;
 
 /**
@@ -42,6 +43,11 @@ class BackendController extends \Controller
      */
     public function dashboard()
     {
+        $this->setData('count_pages', Resource::count(1));
+        $this->setData('count_posts', Resource::count(2));
+        $this->setData('count_categories', Resource::count(4));
+        $this->setData('count_products', Resource::count(3));
+
         return View::make('dashboard', $this->data);
     }
 

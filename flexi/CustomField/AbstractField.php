@@ -59,5 +59,5 @@ abstract class AbstractField
     /**
      * @return string
      */
-    abstract protected function buildTemplate();
+    abstract public function buildTemplate();
 }

@@ -1,0 +1,18 @@
+<header>
+    <a class="main-logo" href="/"></a>
+    <ul class="header-links">
+        <li class="header-links--hidden">
+            <a href="/">Главная</a>
+        </li>
+        {% for item in menu_items(1) %}
+            <li>
+                <a {% if _server.REQUEST_URI == item.link %}class="active" {% endif %}href="{{ item.link }}">{{ item.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <a class="main-burger">
+        <span class="main-burger--bar main-burger--bar-1"></span>
+        <span class="main-burger--bar main-burger--bar-2"></span>
+        <span class="main-burger--bar main-burger--bar-3"></span>
+    </a>
+</header>

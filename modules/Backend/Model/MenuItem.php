@@ -15,9 +15,54 @@ class MenuItem extends Model
     const FIELD_LINK = 'link';
 
     /**
+     * @var int
+     */
+    protected $id;
+
+    /**
+     * @var int
+     */
+    protected $menuId;
+
+    /**
+     * @var string
+     */
+    protected $name;
+
+    /**
+     * @var int
+     */
+    protected $parent;
+
+    /**
+     * @var int
+     */
+    protected $position;
+
+    /**
+     * @var string
+     */
+    protected $link;
+
+    /**
      * @var string
      */
     protected static $table = 'menu_item';
+
+    /**
+     * @return array
+     */
+    public function columnMap(): array
+    {
+        return [
+            'id'       => 'id',
+            'menu_id'  => 'menuId',
+            'name'     => 'name',
+            'parent'   => 'parent',
+            'position' => 'position',
+            'link'     => 'link',
+        ];
+    }
 
     /**
      * @param int $menuId
@@ -65,5 +110,119 @@ class MenuItem extends Model
             ->where('id', '=', $itemId)
             ->run('delete')
         ;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return (int) $this->id;
+    }
+
+    /**
+     * @param int $id
+     * @return $this
+     */
+    public function setId(int $id): MenuItem
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMenuId(): int
+    {
+        return (int) $this->menuId;
+    }
+
+    /**
+     * @param int $menuId
+     * @return MenuItem
+     */
+    public function setMenuId(int $menuId): MenuItem
+    {
+        $this->menuId = $menuId;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     * @return MenuItem
+     */
+    public function setName(string $name): MenuItem
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getParent(): int
+    {
+        return (int) $this->parent;
+    }
+
+    /**
+     * @param int $parent
+     * @return MenuItem
+     */
+    public function setParent(int $parent): MenuItem
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPosition(): int
+    {
+        return (int) $this->position;
+    }
+
+    /**
+     * @param int $position
+     * @return MenuItem
+     */
+    public function setPosition(int $position): MenuItem
+    {
+        $this->position = $position;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLink(): string
+    {
+        return $this->link;
+    }
+
+    /**
+     * @param string $link
+     * @return MenuItem
+     */
+    public function setLink(string $link): MenuItem
+    {
+        $this->link = $link;
+
+        return $this;
     }
 }

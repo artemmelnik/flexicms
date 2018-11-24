@@ -24,6 +24,7 @@
                             {% endfor %}
                         </div>
                         <input type="hidden" name="resource_type_id" id="formResourceTypeId" value="{{ resourceTypeId }}" />
+                        <input type="hidden" name="category_id" id="formCategoryId" value="{{ categoryId }}" />
                         {% for key,language in languages %}
                             <div class="ui tab{% if key == 0 %} active{% endif %}" data-tab="{{ language.code }}">
                                 <div class="field">
@@ -58,7 +59,7 @@
                         </div>
                         <div class="ui secondary segment">
                             <p>Save and update</p>
-                            <button type="submit" class="ui primary button" onclick="category.add(this)">
+                            <button type="submit" class="ui primary button" onclick="category.update(this)">
                                 Update
                             </button>
                         </div>

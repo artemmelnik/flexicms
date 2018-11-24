@@ -2,6 +2,7 @@
 namespace Flexi\CustomField;
 
 use Flexi\CustomField\Component\InputField;
+use Flexi\CustomField\Component\MultiFileField;
 use Flexi\CustomField\Component\SelectField;
 use Flexi\CustomField\Component\TextareaField;
 use Flexi\CustomField\Types\TypeCustomField;
@@ -33,6 +34,9 @@ class CustomField
                 break;
             case TypeCustomField::TYPE_SELECT:
                 $createField = new SelectField($field);
+                break;
+            case TypeCustomField::TYPE_MULTI_FILE:
+                $createField = new MultiFileField($field);
                 break;
         }
 

@@ -89,13 +89,15 @@ class SettingController extends BackendController
     public function ajaxMenuAdd()
     {
         $params = Input::post();
+
         if (isset($params['name']) && strlen($params['name']) > 0) {
             $menu = new \Modules\Backend\Model\Menu;
-            $menu->setAttribute('name', $params['name']);
+            $menu->setName((string) $params['name']);
             $menu->save();
 
-            echo $menu->getAttribute('id');
+            echo $menu->getId();
         }
+
         exit;
     }
 
@@ -104,15 +106,18 @@ class SettingController extends BackendController
         $params = Input::post();
         if (isset($params['menu_id']) && strlen($params['menu_id']) > 0) {
             $menuItem = new \Modules\Backend\Model\MenuItem;
-            $menuItem->setAttribute('menu_id', $params['menu_id']);
-            $menuItem->setAttribute('name', \Modules\Backend\Model\MenuItem::NEW_MENU_ITEM_NAME);
-            $menuItem->setAttribute('link', '#');
+            $menuItem
+                ->setMenuId((int) $params['menu_id'])
+                ->setName(\Modules\Backend\Model\MenuItem::NEW_MENU_ITEM_NAME)
+                ->setLink('#');
+
             $menuItem->save();
 
             echo \View::make('settings/menu_item', [
                 'item' => $menuItem
             ])->render();
         }
+
         exit;
     }
 
@@ -129,26 +134,29 @@ class SettingController extends BackendController
     public function ajaxMenuUpdateItem()
     {
         $params = Input::post();
+
         if (isset($params['item_id']) && strlen($params['item_id']) > 0) {
             $menuItem = new \Modules\Backend\Model\MenuItem;
-            $menuItem->setAttribute('id', $params['item_id']);
+            $menuItem->setId((int) $params['item_id']);
 
             if ($params['field'] == \Modules\Backend\Model\MenuItem::FIELD_NAME) {
-                $menuItem->setAttribute(\Modules\Backend\Model\MenuItem::FIELD_NAME, $params['value']);
+                $menuItem->setName($params['value']);
             }
 
             if ($params['field'] == \Modules\Backend\Model\MenuItem::FIELD_LINK) {
-                $menuItem->setAttribute(\Modules\Backend\Model\MenuItem::FIELD_LINK, $params['value']);
+                $menuItem->setLink($params['value']);
             }
 
             $menuItem->save();
         }
+
         exit;
     }
 
     public function ajaxMenuRemoveItem()
     {
         $params = Input::post();
+
         if (isset($params['item_id']) && strlen($params['item_id']) > 0) {
             $menuItemModel = new MenuItemModel();
             $menuItemModel->remove($params['item_id']);

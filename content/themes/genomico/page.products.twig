@@ -1,0 +1,47 @@
+{% extends "layouts/page.layout.twig" %}
+
+{% block content %}
+    <div class="container">
+        <div class="main-header--section">
+            <span class="main-header--section--circle">
+                <i class="main-header--section--line"></i>
+            </span>
+            <h1 class="main-header--section--name">{{ page.title() }}</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div class="products-grid">
+            {% for category in category.get(3) %}
+                <div class="product-grid">
+                    <div class="product-grid-img--wrapper">
+                        <img src="{{ category.thumbnail() }}" class="product-grid-img--preview">
+
+                        {% if (category.id() == 9) %}
+                            <a href="https://www.thermofisher.com" target="_blank">
+                                <img src="{{ asset('img/thermo-fisher_logo.png') }}" class="product-grid-img--logo">
+                            </a>
+                        {% endif %}
+                        {% if (category.id() == 8) %}
+                            <a href="http://www.bioneer.com" target="_blank">
+                                <img src="{{ asset('img/bioneer_logo.png') }}" class="product-grid-img--logo">
+                            </a>
+                        {% endif %}
+                        {% if (category.id() == 5) %}
+                            <a href="http://www.onelambda.com" target="_blank">
+                                <img src="{{ asset('img/one-lambda_logo.jpg') }}" class="product-grid-img--logo">
+                            </a>
+                        {% endif %}
+
+                    </div>
+                    <div class="product-grid--content">
+                        <h3>{{ category.field('header') }}</h3>
+                        <p>{{ category.field('description') }}</p>
+                        <a href="/category/{{ category.segment() }}" class="main-button main-button--blue main-button--medium main-button--main main-button--center main-button--margin-top--25 main-button--margin-top--20m">
+                            Подробнее
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

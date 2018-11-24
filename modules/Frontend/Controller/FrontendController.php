@@ -25,10 +25,6 @@ class FrontendController extends Controller
         foreach ($resourceTypes as $resourceType) {
             $resources = new Frontend\Classes\Resources($resourceType->id);
 
-            if ($resourceType->id == 4) {
-                $this->setData('hotels', $resources->get());
-            }
-
             $this->setData($resourceType->name, $resources);
         }
     }

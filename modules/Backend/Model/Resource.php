@@ -298,4 +298,13 @@ class Resource extends Model
             ->where('id', '=', $id)
             ->first();
     }
+
+    public static function count($resourceTypeId)
+    {
+        $sql = "SELECT COUNT(id) as count FROM resource WHERE resource_type_id = {$resourceTypeId}";
+
+        $result = Query::result($sql);
+
+        return isset($result[0]) ? $result[0]->count : 0;
+    }
 }

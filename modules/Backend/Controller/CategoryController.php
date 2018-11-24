@@ -47,9 +47,15 @@ class CategoryController extends BackendController
     {
         $languageModel = new Model\Language();
 
-        $this->setData('languages', $languageModel->getLanguages());
-        $this->setData('category', $this->categoryModel->getCategoryById($categoryId));
-        $this->setData('categories', $this->categoryModel->getCategoriesByResourceType($resourceTypeId, 'ru'));
+        $languages  = $languageModel->getLanguages();
+        $category   = $this->categoryModel->getCategoryById($categoryId);
+        $categories = $this->categoryModel->getCategoriesByResourceType($resourceTypeId, 'ru');
+
+        $this->setData('categoryId', $categoryId);
+        $this->setData('resourceTypeId', $resourceTypeId);
+        $this->setData('languages', $languages);
+        $this->setData('category', $category);
+        $this->setData('categories', $categories);
 
         return View::make('categories/edit', $this->data);
     }
@@ -59,6 +65,19 @@ class CategoryController extends BackendController
         $params = Flexi\Http\Input::post();
 
         $categoryId = $this->categoryModel->add($params);
+
+        echo json_encode([
+            'redirect_uri' => '/backend/resource/' . $params['resource_type_id'] . '/category/edit/' . $categoryId
+        ]);
+
+        exit;
+    }
+
+    public function processUpdateCategory()
+    {
+        $params = Flexi\Http\Input::post();
+
+        $categoryId = $this->categoryModel->update($params);
 
         echo json_encode([
             'redirect_uri' => '/backend/resource/' . $params['resource_type_id'] . '/category/edit/' . $categoryId

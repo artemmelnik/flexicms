@@ -1,0 +1,127 @@
+{% extends "layouts/main.layout.twig" %}
+
+{% block content %}
+    <div class="main-banner-mobile">
+        <img src="{{ asset('img/banner_mobile.svg') }}">
+    </div>
+    <div class="parallax">
+        <img class="parallax-img parallax-img--banner" src="{{ asset('img/banner_background.svg') }}">
+        <img class="parallax-img parallax-img--parallax" src="{{ asset('img/banner_middle.svg') }}" data-parallax="20">
+        <img class="parallax-img parallax-img--parallax" src="{{ asset('img/banner_front.svg') }}" data-parallax="40">
+    </div>
+    <img src="{{ asset('img/main-logo_d.svg') }}" class="main-logo-mobile">
+    <div class="container">
+        <h1 class="main-header main-header--center">
+            Передовые решения
+            для молекулярно-диагностической
+            лаборатории
+        </h1>
+    </div>
+    <a href="/page/products" class="main-button main-button--blue main-button--medium main-button--center">
+        Продукция
+    </a>
+    <i class="line-vert line-vert--blue"></i>
+    <div class="container">
+        <h2 class="header-section header--center margin-top--25 margin-bottom--25">Новости</h2>
+        <div class="news-wrapper">
+            {% for post in post.orderBy('status').get(3) %}
+                <div class="news{% if post.status() == 'top' %} news--top{% endif %}">
+                    <div class="news-img">
+                        <div class="news-img--wrapper">
+                            <img class="news-img--main" src="{{ post.thumbnail() }}">
+                        </div>
+                        <img class="news-img--i" src="{{ asset('img/news-top.svg') }}">
+                    </div>
+                    <div class="news-content">
+                        <span>{{ post.date() }}</span>
+                        <i></i>
+                        <p>
+                            {{ post.content()|raw }}
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <a href="/page/news" class="main-button main-button--blue main-button--large main-button--center main-button--margin-top--100 main-button--margin-top--40m">
+            Все новости
+        </a>
+    </div>
+    <div class="products-wrapper">
+        {% set position = 'left' %}
+
+        {% for category in category.get() %}
+            {% if position == 'left' %}
+                <div class="product product--left">
+                    <div class="product-img--wrapper">
+                        <div class="product-img product-img--left">
+                            {% if (category.id() == 9) %}
+                                <a href="https://www.thermofisher.com" target="_blank">
+                                    <img src="{{ asset('img/thermo-fisher_logo.png') }}" class="product-img--logo product-img--logo--left">
+                                </a>
+                            {% endif %}
+                            {% if (category.id() == 8) %}
+                                <a href="http://www.bioneer.com" target="_blank">
+                                    <img src="{{ asset('img/bioneer_logo.png') }}" class="product-img--logo product-img--logo--left">
+                                </a>
+                            {% endif %}
+                            {% if (category.id() == 5) %}
+                                <a href="http://www.onelambda.com" target="_blank">
+                                    <img src="{{ asset('img/one-lambda_logo.jpg') }}" class="product-img--logo product-img--logo--left">
+                                </a>
+                            {% endif %}
+
+                            <img class="product-img--preview product-img--preview--left" src="{{ category.thumbnail() }}">
+                        </div>
+                    </div>
+                    <div class="product-content--wrapper product-content--wrapper--left">
+                        <div class="product-content product-content--left">
+                            <h2 class="product-hedaer">{{ category.field('header') }}</h2>
+                            <p>{{ category.field('description') }}</p>
+                            <a href="/category/{{ category.segment() }}" class="main-button main-button--blue main-button--medium main-button--left main-button--center-m main-button--margin-top--50 main-button--margin-top--20m">
+                                Подробнее
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                {% set position = 'right' %}
+            {% else %}
+                <div class="product product--right">
+                    <div class="product-content--wrapper product-content--wrapper--right">
+                        <div class="product-content product-content--right">
+                            <h2 class="product-hedaer">{{ category.field('header') }}</h2>
+                            <p>{{ category.field('description') }}</p>
+                            <a href="/category/{{ category.segment() }}" class="main-button main-button--blue main-button--medium main-button--right main-button--center-m main-button--margin-top--50 main-button--margin-top--20m">
+                                Подробнее
+                            </a>
+                        </div>
+                    </div>
+                    <div class="product-img--wrapper">
+                        <div class="product-img product-img--right">
+
+                            {% if (category.id() == 9) %}
+                                <a href="https://www.thermofisher.com" target="_blank">
+                                    <img src="{{ asset('img/thermo-fisher_logo.png') }}" class="product-img--logo product-img--logo--right">
+                                </a>
+                            {% endif %}
+                            {% if (category.id() == 8) %}
+                                <a href="http://www.bioneer.com" target="_blank">
+                                    <img src="{{ asset('img/bioneer_logo.png') }}" class="product-img--logo product-img--logo--right">
+                                </a>
+                            {% endif %}
+                            {% if (category.id() == 5) %}
+                                <a href="http://www.onelambda.com" target="_blank">
+                                    <img src="{{ asset('img/one-lambda_logo.jpg') }}" class="product-img--logo product-img--logo--right">
+                                </a>
+                            {% endif %}
+
+                            <img class="product-img--preview product-img--preview--right" src="{{ category.thumbnail() }}">
+                        </div>
+                    </div>
+                </div>
+
+                {% set position = 'left' %}
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}

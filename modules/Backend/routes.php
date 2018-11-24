@@ -212,9 +212,19 @@ Route::get('/backend/resource/(resourceTypeId:numeric)/category/edit/(resourceId
     'action'     => 'edit'
 ]);
 
+Route::post('/backend/custom_field/remove_file/', [
+    'controller' => 'ResourceController',
+    'action'     => 'updateValueFile'
+]);
+
 Route::post('/backend/category/create/', [
     'controller' => 'CategoryController',
     'action'     => 'processCreateCategory'
+]);
+
+Route::post('/backend/category/update/', [
+    'controller' => 'CategoryController',
+    'action'     => 'processUpdateCategory'
 ]);
 
 Route::post('/backend/resource/addGeoFields/', [

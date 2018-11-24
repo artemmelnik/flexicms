@@ -1,0 +1,139 @@
+{% extends "layouts/page.layout.twig" %}
+
+{% block content %}
+    <div class="product-banner">
+        <img src="{{ asset('img/one-lambda_banner.jpeg') }}">
+    </div>
+    <div class="container">
+        <div class="main-header--section">
+              <span class="main-header--section--circle">
+                <i class="main-header--section--line"></i>
+              </span>
+            <h1 class="main-header--section--name">{{ category.title() }}</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div class="main-content">
+            {{ category.content()|raw }}
+        </div>
+        {% if category.field('brochure') != '' %}
+            {% for fileId in json_decode(category.field('brochure')) %}
+                <a href="{{ file(fileId) }}" class="link--download link--download--margin-top-50 link--download--margin-bottom-50">
+                    <img src="{{ asset('img/download-icon.svg') }}">
+                    <p>Скачать брошюру</p>
+                </a>
+            {% endfor %}
+        {% endif %}
+
+    </div>
+
+    {% set products = category.relation('product') %}
+
+    {% if products is iterable %}
+        {% for product in products %}
+            {% if product.status() != 'draft' %}
+                <div class="product-item--wrapper">
+                    <div class="container">
+                        <div class="product-item">
+                            <div class="product-item--preview">
+                                <img src="{{ product.thumbnail() }}" class="product-item--preview--img">
+
+                                {% if product.field('instruction') != '' %}
+                                    {% for fileId in json_decode(product.field('instruction')) %}
+                                        <a href="{{ file(fileId) }}" class="link--download link--download--margin-top-25 link--download--margin-bottom-25 hide-mobile">
+                                            <img src="{{ asset('img/download-icon.svg') }}">
+                                            <p>Инструкция</p>
+                                        </a>
+                                    {% endfor %}
+                                {% endif %}
+
+                                {% if product.field('register') != '' %}
+                                    {% for fileId in json_decode(product.field('register')) %}
+                                        <a href="{{ file(fileId) }}" class="link--download link--download--margin-top-25 hide-mobile">
+                                            <img src="{{ asset('img/download-icon.svg') }}">
+                                            <p>Регистрационное<br/>удостоверение</p>
+                                        </a>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                            <div class="product-item--desc">
+                                <div class="product-item--content">
+                                    <h3>{{ product.title() }}</h3>
+                                    <a href="/content/uploads/docs/example.docx" class="link--download link--download--margin-top-25 link--download--margin-bottom-25 hide-desktop">
+                                        <img src="img/download-icon.svg">
+                                        <p>Инструкция</p>
+                                    </a>
+                                    <a href="/content/uploads/docs/example.docx" class="link--download link--download--margin-top-25 link--download--margin-bottom-25 hide-desktop">
+                                        <img src="{{ asset('img/download-icon.svg') }}">
+                                        <p>Регистрационное<br/>удостоверение</p>
+                                    </a>
+                                    {{ product.content()|raw }}
+                                </div>
+                                <div class="product-item--info">
+                                    {% set order_info = product.field('order_info')|split('\n') %}
+                                    <h3>Информация для заказа:</h3>
+                                    {% for key,text in order_info %}
+                                        <p>{{ text }}</p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        {% set product = products %}
+
+        {% if product.status() != 'draft' %}
+            <div class="product-item--wrapper">
+                <div class="container">
+                    <div class="product-item">
+                        <div class="product-item--preview">
+                            <img src="{{ product.thumbnail() }}" class="product-item--preview--img">
+
+                            {% if product.field('instruction') != '' %}
+                                {% for fileId in json_decode(product.field('instruction')) %}
+                                    <a href="{{ file(fileId) }}" class="link--download link--download--margin-top-25 link--download--margin-bottom-25 hide-mobile">
+                                        <img src="{{ asset('img/download-icon.svg') }}">
+                                        <p>Инструкция</p>
+                                    </a>
+                                {% endfor %}
+                            {% endif %}
+
+                            {% if product.field('register') != '' %}
+                                {% for fileId in json_decode(product.field('register')) %}
+                                    <a href="{{ file(fileId) }}" class="link--download link--download--margin-top-25 hide-mobile">
+                                        <img src="{{ asset('img/download-icon.svg') }}">
+                                        <p>Регистрационное<br/>удостоверение</p>
+                                    </a>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="product-item--desc">
+                            <div class="product-item--content">
+                                <h3>{{ product.title() }}</h3>
+                                <a href="/content/uploads/docs/example.docx" class="link--download link--download--margin-top-25 link--download--margin-bottom-25 hide-desktop">
+                                    <img src="img/download-icon.svg">
+                                    <p>Инструкция</p>
+                                </a>
+                                <a href="/content/uploads/docs/example.docx" class="link--download link--download--margin-top-25 link--download--margin-bottom-25 hide-desktop">
+                                    <img src="{{ asset('img/download-icon.svg') }}">
+                                    <p>Регистрационное<br/>удостоверение</p>
+                                </a>
+                                {{ product.content()|raw }}
+                            </div>
+                            <div class="product-item--info">
+                                {% set order_info = product.field('order_info')|split('\n') %}
+                                <h3>Информация для заказа:</h3>
+                                {% for key,text in order_info %}
+                                    <p>{{ text }}</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}

@@ -64,10 +64,11 @@ class ResourceController extends BackendController
 
         $resources = $this->resourceModel->getResources($resourceId);
         $resourceType = $this->resourceTypeModel->getResourceType($resourceId);
+        $categories = $this->categoryModel->getCategoriesByResourceType($resourceType->id, 'ru');
 
         $this->setData('resources', $resources);
         $this->setData('resource_type', $resourceType);
-        $this->setData('categories', $this->categoryModel->getCategoriesByResourceType($resourceType->id, 'ru'));
+        $this->setData('categories', $categories);
 
         return View::make('resources/list', $this->data);
     }
@@ -155,7 +156,7 @@ class ResourceController extends BackendController
         $files = Flexi\Http\Input::files();
 
         $fileId = 0;
-        if (!empty($files)) {
+        if (!empty($files) && !isset($files['custom_fields_files'])) {
             $fileModel = new Modules\Backend\Model\File;
 
             $uploadFile = $files[0];
@@ -203,28 +204,78 @@ class ResourceController extends BackendController
 
             $resource->save();
 
+            $customFieldValueModel = new Modules\Backend\Model\CustomFieldValue();
+
             if (isset($customFields['fields'])) {
                 $customFieldValueModel = new Modules\Backend\Model\CustomFieldValue();
                 foreach ($customFields['fields'] as $fieldId => $value) {
                     $customFieldValueModel->addUpdateFieldValue([
                         'field_id' => $fieldId,
-                        'element_id' => $resource->id,
+                        'element_id' => $resource->getId(),
                         'value' => $value
                     ]);
                 }
             }
 
-            if (isset($params['categories'])) {
-                $this->resourceToCategory->deleteAll($resource->id);
+            // Update files
+            if (isset($files['custom_fields_files'])) {
+                $json = [];
+                $fieldFiles = $files['custom_fields_files'];
+                $uploadsDir = path_content('uploads') . '/' . date('Y-m') . '/';
 
-                foreach ($params['categories'] as $id => $value) {
-                    if (!$this->resourceToCategory->is($resource->id, $id)) {
-                        $this->resourceToCategory->add([
-                            'resource_id' => $resource->id,
-                            'category_id' => $id
+                $fileModel = new Modules\Backend\Model\File;
+
+                if (!file_exists($uploadsDir)) {
+                    mkdir($uploadsDir);
+                }
+
+                foreach ($fieldFiles['name'] as $key => $fieldFileName) {
+                    $name = uniqid() . '-' . time();
+                    $uploadFile = [
+                        'name' => $fieldFileName,
+                        'type' => $fieldFiles['type'][$key],
+                        'tmp_name' => $fieldFiles['tmp_name'][$key],
+                        'error' => $fieldFiles['error'][$key],
+                        'size' => $fieldFiles['size'][$key]
+                    ];
+
+                    $file = new Flexi\Helper\ImageUploader($uploadFile);
+                    $file->sendTo = $uploadsDir;
+                    $file->imageName = $name;
+
+                    $upload = $file->uploadImage();
+
+                    if ($upload->isUploaded) {
+                        $params['image'] = $upload->uploadedName;
+
+                        $fileId = $fileModel->addFile([
+                            'name' => $upload->uploadedName,
+                            'link' => '/content/uploads/' . date('Y-m') . '/' . $upload->uploadedName,
+                            'type' => $uploadFile['type']
                         ]);
+
+                        $json[] = $fileId;
                     }
                 }
+
+                $fieldId = (int) $params['custom_fields_files'][$key]['id'];
+
+                $currentFieldValue = Modules\Backend\Model\CustomFieldValue::getByFieldId($fieldId, $resource->getId());
+
+                $currentValue = [];
+                if (isset($currentFieldValue->value)) {
+                    $currentValue = json_decode($currentFieldValue->value, true);
+                }
+
+                if (!empty($currentValue) && is_array($currentValue)) {
+                    $json = array_merge($json, $currentValue);
+                }
+
+                $customFieldValueModel->addUpdateFieldValue([
+                    'field_id' => $params['custom_fields_files'][$key]['id'],
+                    'element_id' => $resource->getId(),
+                    'value' => json_encode($json, true)
+                ]);
             }
 
             if (isset($params['relations']) && !empty($params['relations'])) {
@@ -239,8 +290,46 @@ class ResourceController extends BackendController
                 }
             }
 
-            echo $resource->id;
+            echo $resource->getId();
             exit;
         }
+    }
+
+    public function updateValueFile()
+    {
+        $params = Flexi\Http\Input::post();
+
+        $fieldId = $params['fieldId'];
+        $elementId = $params['elementId'];
+        $fileId = $params['fileId'];
+
+        $customFieldValueModel = new Modules\Backend\Model\CustomFieldValue();
+
+        $currentFieldValue = Modules\Backend\Model\CustomFieldValue::getByFieldId($fieldId, $elementId);
+
+        $currentValue = [];
+        if (isset($currentFieldValue->value)) {
+            $currentValue = json_decode($currentFieldValue->value, true);
+        }
+
+        if (!empty($currentValue) && is_array($currentValue)) {
+            foreach ($currentValue as $key => $value) {
+                if ($value == $fileId) {
+                    unset($currentValue[$key]);
+                }
+            }
+        }
+
+        $currentValue = array_values($currentValue);
+
+        $customFieldValueModel->addUpdateFieldValue([
+            'field_id' => $fieldId,
+            'element_id' => $elementId,
+            'value' => json_encode($currentValue)
+        ]);
+
+        echo json_encode($currentValue);
+
+        exit;
     }
 }
