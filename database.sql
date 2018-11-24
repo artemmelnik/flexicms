@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.8
+-- version 4.8.2
 -- https://www.phpmyadmin.net/
 --
 -- Хост: zzema.mysql.ukraine.com.ua
--- Время создания: Апр 05 2018 г., 11:53
+-- Время создания: Ноя 24 2018 г., 17:21
 -- Версия сервера: 5.7.16-10-log
--- Версия PHP: 7.0.27
+-- Версия PHP: 7.0.32
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,35 +19,8 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- База данных: `zzema_demoflexi`
+-- База данных: `zzema_dstart`
 --
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `category`
---
-
-CREATE TABLE `category` (
-  `id` int(11) NOT NULL,
-  `parent_id` int(11) NOT NULL,
-  `resource_type_id` int(11) NOT NULL,
-  `image` varchar(255) NOT NULL,
-  `date_added` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `category_description`
---
-
-CREATE TABLE `category_description` (
-  `category_id` int(11) NOT NULL,
-  `language` varchar(2) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `description` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -62,6 +35,7 @@ CREATE TABLE `custom_field` (
   `label` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
   `type` varchar(15) NOT NULL DEFAULT 'text',
+  `extra_data` text NOT NULL,
   `required` tinyint(1) NOT NULL DEFAULT '0',
   `status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -134,7 +108,6 @@ CREATE TABLE `language` (
 --
 
 INSERT INTO `language` (`id`, `code`, `name`) VALUES
-(1, 'en', 'English'),
 (2, 'ru', 'Русский');
 
 -- --------------------------------------------------------
@@ -147,6 +120,13 @@ CREATE TABLE `menu` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `menu`
+--
+
+INSERT INTO `menu` (`id`, `name`) VALUES
+(1, 'Главное меню');
 
 -- --------------------------------------------------------
 
@@ -189,27 +169,20 @@ CREATE TABLE `resource` (
   `thumbnail` int(11) NOT NULL DEFAULT '0',
   `segment` varchar(255) NOT NULL,
   `type` varchar(155) NOT NULL DEFAULT 'basic',
-  `status` enum('publish','draft') NOT NULL DEFAULT 'draft',
+  `status` enum('publish','draft','top') NOT NULL DEFAULT 'draft',
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Дамп данных таблицы `resource`
---
-
-INSERT INTO `resource` (`id`, `resource_type_id`, `title`, `content`, `thumbnail`, `segment`, `type`, `status`, `date`) VALUES
-(1, 2, 'Hello World', 'Hello', 0, 'hello-world', 'basic', 'publish', '2018-04-04 22:09:27'),
-(2, 1, 'About', '<h1>Heading</h1><p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here,\r\n    content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various\r\n    versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>\r\n<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here,\r\n    content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various\r\n    versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p><p></p><h2>Heading</h2><p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p><p></p>', 0, 'about', 'basic', 'publish', '2018-04-05 11:19:03');
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `resource_to_category`
+-- Структура таблицы `resource_relation`
 --
 
-CREATE TABLE `resource_to_category` (
+CREATE TABLE `resource_relation` (
   `resource_id` int(11) NOT NULL,
-  `category_id` int(11) NOT NULL
+  `resource_to_id` int(11) NOT NULL,
+  `resource_type_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -229,8 +202,19 @@ CREATE TABLE `resource_type` (
 --
 
 INSERT INTO `resource_type` (`id`, `title`, `name`) VALUES
-(1, 'Page', 'page'),
-(2, 'Post', 'post');
+(1, 'Страница', 'page'),
+(2, 'Новость', 'post');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `resource_type_relation`
+--
+
+CREATE TABLE `resource_type_relation` (
+  `resource_type_id` int(11) NOT NULL,
+  `resource_type_to_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -254,8 +238,8 @@ INSERT INTO `setting` (`id`, `name`, `key_field`, `value`, `section`) VALUES
 (1, 'Name site', 'name_site', 'Your first site on FlexiCMS', 'general'),
 (2, 'Description', 'description', 'Our task as a species is as much as possible the spread of beauty on the Internet.', 'general'),
 (3, 'Admin email', 'admin_email', 'admin@admin.test', 'general'),
-(4, 'Language', 'language', 'en', 'general'),
-(5, 'Active theme', 'active_theme', 'default', 'theme');
+(4, 'Language', 'language', 'ru', 'general'),
+(5, 'Active theme', 'active_theme', 'genomico', 'theme');
 
 -- --------------------------------------------------------
 
@@ -282,12 +266,6 @@ INSERT INTO `user` (`id`, `email`, `password`, `role`, `hash`, `date_reg`) VALUE
 --
 -- Индексы сохранённых таблиц
 --
-
---
--- Индексы таблицы `category`
---
-ALTER TABLE `category`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Индексы таблицы `custom_field`
@@ -368,12 +346,6 @@ ALTER TABLE `user`
 --
 
 --
--- AUTO_INCREMENT для таблицы `category`
---
-ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT для таблицы `custom_field`
 --
 ALTER TABLE `custom_field`
@@ -407,7 +379,7 @@ ALTER TABLE `language`
 -- AUTO_INCREMENT для таблицы `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT для таблицы `menu_item`
@@ -425,13 +397,13 @@ ALTER TABLE `plugin`
 -- AUTO_INCREMENT для таблицы `resource`
 --
 ALTER TABLE `resource`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `resource_type`
 --
 ALTER TABLE `resource_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT для таблицы `setting`
