@@ -1,0 +1,44 @@
+{% extends "layouts/page.layout.twig" %}
+
+{% block content %}
+    <div class="container">
+        <div class="main-header--section">
+                <span class="main-header--section--circle">
+                  <i class="main-header--section--line"></i>
+                </span>
+            <h1 class="main-header--section--name">{{ page.title() }}</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div class="news-wrapper">
+            {% set i = 1 %}
+            {% set hidden = '' %}
+            {% for post in post.orderBy('status').get() %}
+
+                {% if i > 3 %}
+                    {% set hidden = 'news-hidden' %}
+                {% endif %}
+
+                <div class="news news-item-{{ i }}{% if post.status() == 'top' %} news--top {% endif %}{{ hidden }}">
+                    <div class="news-img">
+                        <div class="news-img--wrapper">
+                            <img class="news-img--main" src="{{ post.thumbnail() }}">
+                        </div>
+                        <img class="news-img--i" src="{{ asset('img/news-top.svg') }}">
+                    </div>
+                    <div class="news-content">
+                            <span>
+                                {{ post.date() }}
+                            </span>
+                        <i></i>
+                        <p>{{ post.content()|raw }}</p>
+                    </div>
+                </div>
+                {% set i = i+1 %}
+            {% endfor %}
+        </div>
+        <a href="javascript:void(0)" class="main-button main-button--blue main-button--large main-button--center main-button--margin-top--50" onclick="$('.news-hidden').removeClass('news-hidden'); $(this).remove()">
+            Больше новостей
+        </a>
+    </div>
+{% endblock %}

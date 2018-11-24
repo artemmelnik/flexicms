@@ -1,0 +1,31 @@
+{% extends "layouts/page.layout.twig" %}
+
+{% block content %}
+    <div class="container">
+        <div class="main-header--section">
+            <span class="main-header--section--circle">
+              <i class="main-header--section--line"></i>
+            </span>
+            <h1 class="main-header--section--name">{{ page.title() }}</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div class="main-content">
+            {{ page.content()|raw }}
+        </div>
+        <div class="about-products--grid">
+            <div class="about-product--grid">
+                <img src="{{ asset('img/bioneer_logo.png') }}" class="about-product--grid--img">
+                <a href="http://www.bioneer.com" target="_blank" class="about-product--grid--link">bioneer.com</a>
+            </div>
+            <div class="about-product--grid">
+                <img src="{{ asset('img/one-lambda_logo.jpg') }}" class="about-product--grid--img">
+                <a href="http://www.onelambda.com" target="_blank" class="about-product--grid--link">onelambda.com</a>
+            </div>
+            <div class="about-product--grid">
+                <img src="{{ asset('img/thermo-fisher_logo.png') }}" class="about-product--grid--img">
+                <a href="https://www.thermofisher.com" target="_blank" class="about-product--grid--link">thermofisher.com</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

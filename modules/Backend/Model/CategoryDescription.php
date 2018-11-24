@@ -145,4 +145,20 @@ class CategoryDescription extends Model
 
         return $categoryDescription->save();
     }
+
+    /**
+     * @param array $params
+     * @return \Flexi\Orm\Query
+     */
+    public static function update(array $params)
+    {
+        return \Query::table(static::$table)
+            ->update([
+                'name' => $params['name'],
+                'description' => $params['description']
+            ])
+            ->where('category_id', '=', $params['category_id'])
+            ->where('language', '=', $params['language'])
+            ->run('update');
+    }
 }

@@ -46,6 +46,16 @@ class Resources
         return $this;
     }
 
+    public function orderBy($field, $order = 'desc')
+    {
+        $this->params['order_by'] = [
+            'field' => $field,
+            'order' => $order
+        ];
+
+        return $this;
+    }
+
     /**
      * @param int $categoryId
      * @return $this
@@ -78,10 +88,6 @@ class Resources
     {
         $resources = [];
 
-        /*$result = $this
-            ->resourceModel
-            ->getResources($this->resourceTypeId, $this->params);*/
-
         $result = $this
             ->resourceModel
             ->getResourcesByParams($this->params);
@@ -89,7 +95,7 @@ class Resources
         if (!empty($result) && $result !== null) {
             $count = 0;
             foreach ($result as $item) {
-                if ($number !== 0 && $count > $number) {
+                if ($number !== 0 && $count >= $number) {
                     break;
                 }
 

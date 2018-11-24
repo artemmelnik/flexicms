@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Modules\Frontend\Classes;
 
+use Modules\Backend\Model\ResourceType;
 use Modules\Frontend;
 use Intervention\Image\ImageManagerStatic as Image;
 use Twig_Compiler;
@@ -35,7 +36,7 @@ class Resource
     /**
      * @return int
      */
-    public function getId()
+    public function id()
     {
         return (int) $this->resource->id;
     }
@@ -43,7 +44,7 @@ class Resource
     /**
      * @return int
      */
-    public function getResourceTypeId()
+    public function resourceTypeId()
     {
         return $this->resource->resource_type_id;
     }
@@ -51,7 +52,7 @@ class Resource
     /**
      * @return string
      */
-    public function getTitle()
+    public function title()
     {
         return $this->resource->title;
     }
@@ -59,7 +60,7 @@ class Resource
     /**
      * @return string
      */
-    public function getContent()
+    public function content()
     {
         return $this->resource->content;
     }
@@ -67,7 +68,7 @@ class Resource
     /**
      * @return string|null
      */
-    public function getThumbnail()
+    public function thumbnail2()
     {
         $fileModel = new Frontend\Model\File;
 
@@ -85,9 +86,61 @@ class Resource
     }
 
     /**
+     * @param null $size
+     * @return string|null
+     */
+    public function thumbnail($size = null)
+    {
+        $fileModel = new Frontend\Model\File;
+
+        $file = $fileModel->getFileById((int) $this->resource->thumbnail);
+
+        if ($size !== null) {
+            return $this->resize($size, $file);
+        }
+
+        if ($file !== null) {
+            return $file->link;
+        }
+
+        return null;
+    }
+
+    private function resize($size, $file)
+    {
+        if ($file->link == '') {
+            return null;
+        }
+
+        if ($size !== null) {
+            $fileLinkParts = explode('/',  $file->link);
+            $newName = $size . '-' . end($fileLinkParts);
+
+            array_pop($fileLinkParts);
+            array_push($fileLinkParts, $newName);
+
+            $newImageLink = $_SERVER['DOCUMENT_ROOT'] . implode('/', $fileLinkParts);
+
+            if (file_exists($newImageLink)) {
+                return implode('/', $fileLinkParts);
+            } else {
+                $image = Image::make($_SERVER['DOCUMENT_ROOT'] . $file->link)->resize((int) $size, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+
+                $image->save($newImageLink);
+
+                return implode('/', $fileLinkParts);
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * @return string
      */
-    public function getSegment()
+    public function segment()
     {
         return $this->resource->segment;
     }
@@ -95,7 +148,7 @@ class Resource
     /**
      * @return string
      */
-    public function getType()
+    public function type()
     {
         return $this->resource->type;
     }
@@ -103,7 +156,7 @@ class Resource
     /**
      * @return string
      */
-    public function getStatus()
+    public function status()
     {
         return $this->resource->status;
     }
@@ -111,7 +164,7 @@ class Resource
     /**
      * @return string
      */
-    public function getDate()
+    public function date()
     {
         return $this->resource->date;
     }
@@ -120,16 +173,42 @@ class Resource
      * @param string $name
      * @return string
      */
-    public function getField(string $name)
+    public function field(string $name)
     {
-        return Field::get($this->getId(), $name);
+        return Field::get($this->id(), $name);
     }
 
-    public function getCategories()
+    public function relation($name)
+    {
+        $resourceModel     = new Frontend\Model\Resource();
+        $resourceTypeModel = new ResourceType();
+
+        $resourceType = $resourceTypeModel->getResourceTypeByName($name);
+        $relations    = $resourceModel->getResourcesRelationByType($this->id(), (int) $resourceType->id);
+
+
+        $relation = [];
+
+        if (count($relations) == 0) {
+            return null;
+        }
+
+        if (count($relations) == 1) {
+            $relation = new Resource($relations[0]);
+        } else {
+            foreach ($relations as $item) {
+                $relation[] = new Resource($item);
+            }
+        }
+
+        return $relation;
+    }
+
+    public function categories()
     {
         $categoryModel = new Frontend\Model\Category();
 
-        return $categoryModel->getCategoriesByResourceId($this->getId());
+        return $categoryModel->getCategoriesByResourceId($this->id());
     }
 
     /**

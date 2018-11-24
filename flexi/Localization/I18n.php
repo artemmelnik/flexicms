@@ -108,13 +108,14 @@ class I18n
         $activeLanguage = \Setting::value('language');
 
         if ($activeLanguage == '') {
-            $activeLanguage = Config::item('defaultLang');
+            $activeLanguage = Config::item('default_lang');
         }
 
         /** @var Module $module */
         $module = \DI::instance()->get('module');
 
         $moduleModuleName = $module->module;
+
         if ($moduleName !== '') {
             $moduleModuleName = $moduleName;
         }

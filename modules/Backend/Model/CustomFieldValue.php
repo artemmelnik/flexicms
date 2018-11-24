@@ -125,6 +125,14 @@ class CustomFieldValue extends Model
         return $this;
     }
 
+    public static function getByFieldId(int $fieldId, int $elementId)
+    {
+        return Query::table(static::$table)
+            ->where('field_id', '=', $fieldId)
+            ->where('element_id', '=', $elementId)
+            ->first();
+    }
+
     /**
      * @param array $params
      * @return int
@@ -146,6 +154,24 @@ class CustomFieldValue extends Model
             ->save();
 
         return $customFieldValue->getId();
+    }
+
+    public function getFieldValueByElementId($elementId)
+    {
+        return Query::table(static::$table)
+            ->where('element_id', '=', $elementId)
+            ->all();
+    }
+
+    public function clearValue($elementId, $fieldId)
+    {
+        Query::table(static::$table)
+            ->update([
+                'value' => ''
+            ])
+            ->where('field_id', '=', $fieldId)
+            ->where('element_id', '=', $elementId)
+            ->run('update');
     }
 
     /**

@@ -184,6 +184,37 @@ class Category extends Model
     }
 
     /**
+     * @param array $params
+     * @return int
+     */
+    public function update(array $params)
+    {
+        $category = new Category();
+        $category
+            ->setId((int) $params['category_id'])
+            ->setParentId((int) $params['parent'])
+            ->setResourceTypeId((int) $params['resource_type_id'])
+            ->setImage(0);
+
+        $category->save();
+
+        $categoryId = $category->getId();
+
+        if (isset($params['name']) && isset($params['description'])) {
+            foreach ($params['name'] as $code => $name) {
+                CategoryDescription::update([
+                    'category_id' => $categoryId,
+                    'language' => $code,
+                    'name' => $name,
+                    'description' => $params['description'][$code]
+                ]);
+            }
+        }
+
+        return $categoryId;
+    }
+
+    /**
      * @param int $id
      * @return array
      */

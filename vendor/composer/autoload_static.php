@@ -8,6 +8,7 @@ class ComposerStaticInitf18486ed4d0525b56e8fea339bf0d377
 {
     public static $files = array (
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
+        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '36389227dc6e38db545088f4ae2c20ef' => __DIR__ . '/../..' . '/flexi/Functions/functions.php',
         '4961e09f281be4ed056047a0e2eb4be3' => __DIR__ . '/../..' . '/flexi/Functions/localization.php',
@@ -22,6 +23,7 @@ class ComposerStaticInitf18486ed4d0525b56e8fea339bf0d377
         'S' => 
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Polyfill\\Ctype\\' => 23,
         ),
         'P' => 
         array (
@@ -54,6 +56,10 @@ class ComposerStaticInitf18486ed4d0525b56e8fea339bf0d377
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
+        'Symfony\\Polyfill\\Ctype\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
         ),
         'Psr\\Http\\Message\\' => 
         array (

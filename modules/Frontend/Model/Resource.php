@@ -98,34 +98,48 @@ class Resource extends Model
             $sql .= 'WHERE r.resource_type_id=' . $params['resource_type_id'];
         }
 
+        if (isset($params['order_by'])) {
+            $sql .= ' ORDER BY ' . $params['order_by']['field'] . ' ' . $params['order_by']['order'];
+        }
+
         $result = Query::result($sql);
 
-        //$model = __CLASS__;
-
-        /*if ($model !== null) {
-            $records = [];
-            foreach ($result as $record) {
-                $model = new $model;
-                foreach ($record as $attribute => $value) {
-                    $model->$attribute = $value;
-                }
-
-                array_push($records, $model);
-            }
-        } else {
-            $records = $result;
-        }*/
-
-        $records = $result;
-
-        return $records;
+        return $result;
     }
 
     /**
      * @param int $resourceId
+     * @param int $resourceTypeId
      * @return array
      */
-    public function getResourceRelation(int $resourceId)
+    public function getResourceRelation(int $resourceId, int $resourceTypeId = 0)
+    {
+        $sql = "
+            SELECT
+              r.*
+            FROM resource as r
+            JOIN resource_relation as rr
+              ON r.id = rr.resource_id
+            WHERE rr.resource_to_id = {$resourceId}
+        ";
+
+        if ($resourceTypeId) {
+            $sql .= " AND r.resource_type_id = {$resourceTypeId}";
+        }
+
+        $sql .= " ORDER BY sort_order ASC";
+
+        $result = Query::result($sql);
+
+        return $result;
+    }
+
+    /**
+     * @param int $resourceId
+     * @param int $resourceTypeId
+     * @return array
+     */
+    public function getResourcesRelationByType(int $resourceId, int $resourceTypeId)
     {
         $sql = "
             SELECT
@@ -134,6 +148,7 @@ class Resource extends Model
             JOIN resource_relation as rr
               ON r.id = rr.resource_id
             WHERE rr.resource_to_id = {$resourceId}
+              AND r.resource_type_id = {$resourceTypeId}
         ";
 
         $result = Query::result($sql);

@@ -24,7 +24,8 @@ class FileExtension extends Twig_Extension
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction('file', array($this, 'getFileLink'))
+            new Twig_SimpleFunction('file', array($this, 'getFileLink')),
+            new Twig_SimpleFunction('file_object', array($this, 'getFile')),
         ];
     }
 
@@ -42,5 +43,21 @@ class FileExtension extends Twig_Extension
         }
 
         return $file->link;
+    }
+
+    /**
+     * @param int $id
+     * @return array|null|string
+     */
+    public function getFile(int $id)
+    {
+        $fileModel = new \Modules\Frontend\Model\File;
+        $file = $fileModel->getFileById((int) $id);
+
+        if ($file === null) {
+            return '';
+        }
+
+        return $file;
     }
 }

@@ -95,12 +95,12 @@ class Module
 
     public function url()
     {
-        return Config::item('baseUrl') . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . $this->module . DIRECTORY_SEPARATOR;
+        return Config::item('base_url') . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . $this->module . DIRECTORY_SEPARATOR;
     }
 
     public static function getUrlByName($name)
     {
-        return Config::item('baseUrl') . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . $name . DIRECTORY_SEPARATOR;
+        return Config::item('base_url') . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . $name . DIRECTORY_SEPARATOR;
     }
 
     /**
@@ -136,7 +136,7 @@ class Module
             $theme = Config::item('defaultTheme');
         }
 
-        return Config::item('baseUrl') . DIRECTORY_SEPARATOR . 'content' . DIRECTORY_SEPARATOR . 'themes' .  DIRECTORY_SEPARATOR . $theme . DIRECTORY_SEPARATOR;
+        return Config::item('base_url') . DIRECTORY_SEPARATOR . 'content' . DIRECTORY_SEPARATOR . 'themes' .  DIRECTORY_SEPARATOR . $theme . DIRECTORY_SEPARATOR;
     }
 
     /**

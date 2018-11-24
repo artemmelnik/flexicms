@@ -17,13 +17,14 @@
             <br>
             <div class="ui grid"></div>
             <div class="ui grid">
-                <div class="twelve wide column">
+                <div class="sixteen wide column">
                 {% if resources is not empty %}
                     <table class="ui very basic table">
                         <thead>
                             <tr>
                                 <th><i class="ui help circle outline icon help-element" data-content="Unique identificator"></i></th>
                                 <th>{{ __('resources.list.table_title') }}</th>
+                                <th>Статус</th>
                                 <th>{{ __('resources.list.table_date') }}</th>
                             </tr>
                         </thead>
@@ -37,6 +38,19 @@
                                     <a href="/backend/resource/{{ resource_type.name }}/edit/{{ resource.id }}">
                                         {{ resource.title }}
                                     </a>
+                                </td>
+                                <td>
+                                    {% if resource.status == 'top' %}
+                                        <span style="color: green"><i class="rocket icon"></i> {{ resource.status|title }}</span>
+                                    {% endif %}
+
+                                    {% if resource.status == 'draft' %}
+                                        <span style="color: grey">В архиве</span>
+                                    {% endif %}
+
+                                    {% if resource.status == 'publish' %}
+                                        <span style="color: #4183c4">Опубликовано</span>
+                                    {% endif %}
                                 </td>
                                 <td>
                                     {{ resource.date }}
@@ -58,35 +72,7 @@
                     {% endif %}
                 </div>
                 <div class="four wide column">
-                    <div class="ui segments">
-                        <div class="ui blue segment">
-                            <h4>{{ __('resources.list.categories.heading') }}</h4>
-                        </div>
-                        <div class="ui segment">
-                            <div class="ui relaxed divided list">
-                                {% if categories %}
-                                    {% for category in categories %}
-                                        <div class="item">
-                                            <i class="folder outline aligned icon"></i>
-                                            <div class="content">
-                                                <a href="/backend/resource/{{ category.resource_type_id }}/category/edit/{{ category.id }}" class="header">
-                                                    {{ category.name }}
-                                                </a>
-                                                <div class="description">Count: 0</div>
-                                            </div>
-                                        </div>
-                                    {% endfor %}
-                                {% else %}
-                                    <p class="empty-items center">{{ __('resources.list.categories.empty_text') }}</p>
-                                {% endif %}
-                            </div>
-                        </div>
-                        <div class="ui secondary segment">
-                            <a href="/backend/resource/{{ resource_type.id }}/category/create/" class="ui primary button">
-                                {{ __('resources.list.categories.create_button') }}
-                            </a>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>

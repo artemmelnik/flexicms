@@ -46,6 +46,12 @@ class View implements ResponderInterface
 
         $this->twig = new Twig_Environment($loader);
 
+        $this->twig->addGlobal('_session', $_SESSION);
+        $this->twig->addGlobal('_cookie', $_COOKIE);
+        $this->twig->addGlobal('_post', $_POST);
+        $this->twig->addGlobal('_get', $_GET);
+        $this->twig->addGlobal('_server', $_SERVER);
+
         $this->twig->addExtension(new Flexi\Template\Extension\AssetExtension());
         $this->twig->addExtension(new Flexi\Template\Extension\SettingExtension());
         $this->twig->addExtension(new Flexi\Template\Extension\ResourceExtension());
@@ -54,6 +60,7 @@ class View implements ResponderInterface
         $this->twig->addExtension(new Flexi\Template\Extension\FileExtension());
         $this->twig->addExtension(new Flexi\Template\Extension\CustomFieldExtension());
         $this->twig->addExtension(new Flexi\Template\Extension\MenuExtension());
+
     }
 
     /**

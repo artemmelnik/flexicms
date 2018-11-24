@@ -908,7 +908,7 @@ function twig_escape_filter(Twig_Environment $env, $string, $strategy = 'html', 
 
     switch ($strategy) {
         case 'html':
-            // see http://php.net/htmlspecialchars
+            // see https://secure.php.net/htmlspecialchars
 
             // Using a static variable to avoid initializing the array
             // each time the function is called. Moving the declaration on the
@@ -948,7 +948,7 @@ function twig_escape_filter(Twig_Environment $env, $string, $strategy = 'html', 
 
         case 'js':
             // escape all non-alphanumeric characters
-            // into their \xHH or \uHHHH representations
+            // into their \x or \uHHHH representations
             if ('UTF-8' !== $charset) {
                 $string = iconv($charset, 'UTF-8', $string);
             }
@@ -960,9 +960,23 @@ function twig_escape_filter(Twig_Environment $env, $string, $strategy = 'html', 
             $string = preg_replace_callback('#[^a-zA-Z0-9,\._]#Su', function ($matches) {
                 $char = $matches[0];
 
-                // \xHH
-                if (!isset($char[1])) {
-                    return '\\x'.strtoupper(substr('00'.bin2hex($char), -2));
+                /*
+                 * A few characters have short escape sequences in JSON and JavaScript.
+                 * Escape sequences supported only by JavaScript, not JSON, are ommitted.
+                 * \" is also supported but omitted, because the resulting string is not HTML safe.
+                 */
+                static $shortMap = array(
+                    '\\' => '\\\\',
+                    '/' => '\\/',
+                    "\x08" => '\b',
+                    "\x0C" => '\f',
+                    "\x0A" => '\n',
+                    "\x0D" => '\r',
+                    "\x09" => '\t',
+                );
+
+                if (isset($shortMap[$char])) {
+                    return $shortMap[$char];
                 }
 
                 // \uHHHH
@@ -1029,8 +1043,8 @@ function twig_escape_filter(Twig_Environment $env, $string, $strategy = 'html', 
                 /**
                  * This function is adapted from code coming from Zend Framework.
                  *
-                 * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
-                 * @license   http://framework.zend.com/license/new-bsd New BSD License
+                 * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (https://www.zend.com)
+                 * @license   https://framework.zend.com/license/new-bsd New BSD License
                  */
                 /*
                  * While HTML supports far more named entities, the lowest common denominator

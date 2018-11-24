@@ -26,7 +26,8 @@ class HelperExtension extends Twig_Extension
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction('uniqid', array($this, 'getUniqid'))
+            new Twig_SimpleFunction('uniqid', array($this, 'getUniqid')),
+            new Twig_SimpleFunction('json_decode', array($this, 'jsonDecode')),
         ];
     }
 

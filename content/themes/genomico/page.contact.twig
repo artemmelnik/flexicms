@@ -1,0 +1,44 @@
+{% extends "layouts/page.layout.twig" %}
+
+{% block content %}
+    <div class="container">
+        <div class="main-header--section">
+              <span class="main-header--section--circle">
+                <i class="main-header--section--line"></i>
+              </span>
+            <h1 class="main-header--section--name">Контакты</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div class="contacts-wrapper">
+            <div class="adress">
+                <h2>
+                    Главный офис
+                </h2>
+                <p>{{ page.field('address') }}</p>
+                <p>Телефон: <a href="tel:{{ page.field('phone') }}">{{ page.field('phone') }}</a></p>
+                <p>E-mail: <a href="mailto:{{ page.field('email') }}">{{ page.field('email') }}</a></p>
+
+                {% if page.field('requisite') != '' %}
+                    {% for fileId in json_decode(page.field('requisite')) %}
+                        <a href="{{ file(fileId) }}" class="link--download link--download--margin-top-25">
+                            <img src="{{ asset('img/download-icon.svg') }}">
+                            <p>Скачать реквизиты</p>
+                        </a>
+                    {% endfor %}
+                {% endif %}
+
+                <div id="map-office" class="adress-map"></div>
+            </div>
+            <div class="adress">
+                <h2>
+                    Склад
+                </h2>
+                <p>{{ page.field('address_warehouse') }}</p>
+                <p>Телефон: <a href="tel:{{ page.field('phone_warehouse') }}">{{ page.field('phone_warehouse') }}</a></p>
+                <p>E-mail: <a href="mailto:{{ page.field('email_warehouse') }}">{{ page.field('email_warehouse') }}</a></p>
+                <div id="map-stock" class="adress-map adress-map--margin-top-150"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

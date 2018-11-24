@@ -10,9 +10,8 @@ namespace Modules\Frontend\Controller;
 
 use Flexi\Http\Redirect;
 use Flexi\Template\View;
-use Modules\Backend\Model\ResourceType;
-use Modules\Frontend\Classes\Resources;
-use Modules\Frontend\Model;
+use Modules\Backend;
+use Modules\Frontend;
 
 /**
  * Class ResourceController
@@ -21,12 +20,12 @@ use Modules\Frontend\Model;
 class ResourceController extends FrontendController
 {
     /**
-     * @var Model\Resource
+     * @var Frontend\Model\Resource
      */
     protected $resourceModel;
 
     /**
-     * @var ResourceType
+     * @var Backend\Model\ResourceType
      */
     protected $resourceTypeModel;
 
@@ -35,8 +34,8 @@ class ResourceController extends FrontendController
      */
     public function __construct()
     {
-        $this->resourceModel = new Model\Resource();
-        $this->resourceTypeModel = new ResourceType();
+        $this->resourceModel     = new Frontend\Model\Resource();
+        $this->resourceTypeModel = new Backend\Model\ResourceType();
 
         parent::__construct();
     }
@@ -51,7 +50,7 @@ class ResourceController extends FrontendController
             $segment = '/';
         }
 
-        /** @var Model\Resource $resource */
+        /** @var Frontend\Model\Resource $resource */
         $resource = $this->resourceModel->getResourceBySegment($segment);
 
         if (empty($resource)) {
@@ -70,7 +69,7 @@ class ResourceController extends FrontendController
         }
 
         $this->setData('type', $resourceType);
-        $this->setData($resourceType->name, new \Modules\Frontend\Classes\Resource($resource));
+        $this->setData($resourceType->name, new Frontend\Classes\Resource($resource));
 
         if ($resourceType->name == 'hotel') {
             $rooms = $this->resourceModel->getResourceRelation((int) $resource->id);
