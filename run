@@ -1,0 +1,11 @@
+#!/usr/bin/env php
+<?php
+
+require 'vendor/autoload.php';
+
+$application = new \Symfony\Component\Console\Application();
+
+$application->add(new \Console\Commands\StartDevServer());
+$application->add(new \Console\Commands\ImportDatabase());
+
+$application->run();

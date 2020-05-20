@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'host'     => 'localhost',
-    'db_name'  => 'db',
+    'host'     => '127.0.0.1',
+    'db_name'  => 'flexicms',
     'username' => 'root',
     'password' => '',
     'charset'  => 'utf8',

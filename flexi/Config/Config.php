@@ -52,7 +52,13 @@ class Config
      */
     public static function file($group = 'main')
     {
-        $path = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . $group . '.php';
+        $rootPath = $_SERVER['DOCUMENT_ROOT'];
+
+        if ($rootPath === '') {
+            $rootPath = $_SERVER['PWD'] ?? '';
+        }
+
+        $path = $rootPath . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . $group . '.php';
 
         // Check that the file exists before we attempt to load it.
         if (file_exists($path)) {

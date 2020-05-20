@@ -7,9 +7,11 @@ namespace Composer\Autoload;
 class ComposerStaticInitf18486ed4d0525b56e8fea339bf0d377
 {
     public static $files = array (
-        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
+        '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
+        '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         '36389227dc6e38db545088f4ae2c20ef' => __DIR__ . '/../..' . '/flexi/Functions/functions.php',
         '4961e09f281be4ed056047a0e2eb4be3' => __DIR__ . '/../..' . '/flexi/Functions/localization.php',
         '7cf5543fc386d3540044060a7884d222' => __DIR__ . '/../..' . '/flexi/Functions/menus.php',
@@ -22,13 +24,18 @@ class ComposerStaticInitf18486ed4d0525b56e8fea339bf0d377
         ),
         'S' => 
         array (
+            'Symfony\\Polyfill\\Php73\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Polyfill\\Ctype\\' => 23,
+            'Symfony\\Contracts\\Service\\' => 26,
+            'Symfony\\Component\\Console\\' => 26,
         ),
         'P' => 
         array (
             'Psr\\Http\\Message\\' => 17,
+            'Psr\\Container\\' => 14,
             'Plugin\\' => 7,
+            'PhpOption\\' => 10,
         ),
         'M' => 
         array (
@@ -46,12 +53,24 @@ class ComposerStaticInitf18486ed4d0525b56e8fea339bf0d377
         array (
             'Flexi\\' => 6,
         ),
+        'D' => 
+        array (
+            'Dotenv\\' => 7,
+        ),
+        'C' => 
+        array (
+            'Console\\' => 8,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
         'Twig\\' => 
         array (
             0 => __DIR__ . '/..' . '/twig/twig/src',
+        ),
+        'Symfony\\Polyfill\\Php73\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php73',
         ),
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
@@ -61,13 +80,29 @@ class ComposerStaticInitf18486ed4d0525b56e8fea339bf0d377
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
         ),
+        'Symfony\\Contracts\\Service\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/service-contracts',
+        ),
+        'Symfony\\Component\\Console\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/console',
+        ),
         'Psr\\Http\\Message\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
+        'Psr\\Container\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/container/src',
+        ),
         'Plugin\\' => 
         array (
             0 => __DIR__ . '/../..' . '/content/plugins',
+        ),
+        'PhpOption\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption',
         ),
         'Modules\\' => 
         array (
@@ -85,6 +120,14 @@ class ComposerStaticInitf18486ed4d0525b56e8fea339bf0d377
         array (
             0 => __DIR__ . '/../..' . '/flexi',
         ),
+        'Dotenv\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
+        ),
+        'Console\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/console',
+        ),
     );
 
     public static $prefixesPsr0 = array (
@@ -97,12 +140,17 @@ class ComposerStaticInitf18486ed4d0525b56e8fea339bf0d377
         ),
     );
 
+    public static $classMap = array (
+        'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitf18486ed4d0525b56e8fea339bf0d377::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitf18486ed4d0525b56e8fea339bf0d377::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInitf18486ed4d0525b56e8fea339bf0d377::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitf18486ed4d0525b56e8fea339bf0d377::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -7,11 +7,32 @@ HMVC Flexible site management system
 3. Create a database and import into it dump flexicms.sql
 4. In the files (/config/database.php) we specify the connection parameters.
 
-```git clone https://github.com/artemmelnik/flexicms.git name_project```
+```
+git clone https://github.com/artemmelnik/flexicms.git name_project
+```
 
 Next...
 
-```composer update``` or ```php composer.phar update```
+```
+composer update
+```
+
+OR
+```
+php composer.phar update
+```
+
+Import db
+
+```
+php run db:import
+```
+
+Start dev server
+
+```
+php run server:start
+```
 
 Example /config/database.php
 ```
