@@ -1,41 +1,45 @@
 # HMVC FlexiCMS
-HMVC Flexible site management system
 
-# Installation
-1. We clone the repository.
-2. Extract the files to the root directory of the site.
-3. Create a database and import into it dump flexicms.sql
-4. In the files (/config/database.php) we specify the connection parameters.
+Гибкая CMS на базе HMVC и Twig.
 
+## Что изменено (рефакторинг)
+
+- Улучшены консольные команды:
+  - `server:start` теперь поддерживает параметры `--host` и `--port`, выводит понятные сообщения и корректный код завершения.
+  - `db:import` разбит на небольшие методы (подключение, поиск SQL-файлов, импорт файла), добавлена базовая обработка ошибок и более прозрачный вывод.
+
+## Требования
+
+- PHP 7.4+
+- MySQL / MariaDB
+- Composer
+
+## Понятный план запуска (локально)
+
+### 1) Клонировать проект
+
+```bash
+git clone https://github.com/artemmelnik/flexicms.git my-flexicms
+cd my-flexicms
 ```
-git clone https://github.com/artemmelnik/flexicms.git name_project
-```
 
-Next...
+### 2) Установить зависимости
 
-```
+```bash
 composer update
 ```
 
-OR
-```
+Если Composer не установлен глобально:
+
+```bash
 php composer.phar update
 ```
 
-Import db
+### 3) Настроить подключение к базе
 
-```
-php run db:import
-```
+Создайте/обновите файл `config/database.php`:
 
-Start dev server
-
-```
-php run server:start
-```
-
-Example /config/database.php
-```
+```php
 <?php
 return [
     'host'     => 'localhost',
@@ -46,13 +50,37 @@ return [
 ];
 ```
 
-Insert admin
+### 4) Импортировать структуру и данные БД
 
-Email: admin@admin.com
-Password: 1111
-
+```bash
+php run db:import
 ```
+
+### 5) Запустить локальный сервер
+
+Быстрый запуск:
+
+```bash
+php run server:start
+```
+
+С указанием хоста и порта:
+
+```bash
+php run server:start --host=127.0.0.1 --port=8080
+```
+
+После запуска откройте в браузере адрес, который выведет команда (например, `http://127.0.0.1:8000`).
+
+## Доступ в админку
+
+Если в вашей базе нет администратора, добавьте его вручную:
+
+```sql
 INSERT INTO user
 (email, password, role, hash)
-VALUES ('admin@admin.com', 'b59c67bf196a4758191e42f76670ceba', 'admin', 'new')
+VALUES ('admin@admin.com', 'b59c67bf196a4758191e42f76670ceba', 'admin', 'new');
 ```
+
+- Email: `admin@admin.com`
+- Password: `1111`

@@ -4,6 +4,7 @@ namespace Console\Commands;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class StartDevServer extends Command
@@ -12,17 +13,23 @@ class StartDevServer extends Command
 
     protected function configure()
     {
-        $this->setDescription('Dev server.');
+        $this
+            ->setDescription('Start local PHP development server.')
+            ->addOption('host', null, InputOption::VALUE_OPTIONAL, 'Server host', '127.0.0.1')
+            ->addOption('port', null, InputOption::VALUE_OPTIONAL, 'Server port', '8000');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln(['Dev server is running...']);
+        $host = (string) $input->getOption('host');
+        $port = (string) $input->getOption('port');
 
-        $result = shell_exec('php -S localhost:8000');
+        $output->writeln(sprintf('Starting dev server at http://%s:%s', $host, $port));
+        $output->writeln('Press Ctrl+C to stop server.');
 
-        $output->writeln([
-            $result
-        ]);
+        $address = sprintf('%s:%s', $host, $port);
+        passthru(sprintf('php -S %s index.php', escapeshellarg($address)), $statusCode);
+
+        return $statusCode === 0 ? Command::SUCCESS : Command::FAILURE;
     }
 }
