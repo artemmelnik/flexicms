@@ -4,6 +4,7 @@ namespace Console\Commands;
 
 use Flexi\Config\Config;
 use PDO;
+use PDOException;
 use RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -54,12 +55,25 @@ class ImportDatabase extends Command
             $config['charset']
         );
 
-        return new PDO($dsn, $config['username'], $config['password']);
+        $pdo = new PDO($dsn, $config['username'], $config['password']);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        return $pdo;
     }
 
     private function getSqlFiles()
     {
-        $sqlFiles = array_values(array_filter(scandir(self::SQL_DIR_PATH), function ($item) {
+        if (!is_dir(self::SQL_DIR_PATH)) {
+            throw new RuntimeException(sprintf('SQL directory "%s" does not exist.', self::SQL_DIR_PATH));
+        }
+
+        $scannedFiles = scandir(self::SQL_DIR_PATH);
+
+        if ($scannedFiles === false) {
+            throw new RuntimeException(sprintf('Cannot read SQL directory "%s".', self::SQL_DIR_PATH));
+        }
+
+        $sqlFiles = array_values(array_filter($scannedFiles, function ($item) {
             return $item !== '.' && $item !== '..' && pathinfo($item, PATHINFO_EXTENSION) === 'sql';
         }));
 
@@ -75,6 +89,11 @@ class ImportDatabase extends Command
     private function importFile(PDO $pdo, $filePath)
     {
         $lines = file($filePath);
+
+        if ($lines === false) {
+            throw new RuntimeException(sprintf('Cannot read SQL file "%s".', $filePath));
+        }
+
         $statement = '';
 
         foreach ($lines as $line) {
@@ -87,9 +106,22 @@ class ImportDatabase extends Command
             $statement .= $line;
 
             if (substr($trimmedLine, -1) === ';') {
-                $pdo->exec($statement);
+                $this->executeStatement($pdo, $statement, $filePath);
                 $statement = '';
             }
+        }
+
+        if (trim($statement) !== '') {
+            $this->executeStatement($pdo, $statement, $filePath);
+        }
+    }
+
+    private function executeStatement(PDO $pdo, $statement, $filePath)
+    {
+        try {
+            $pdo->exec($statement);
+        } catch (PDOException $exception) {
+            throw new RuntimeException(sprintf('Error in file "%s": %s', $filePath, $exception->getMessage()), 0, $exception);
         }
     }
 }
