@@ -3,6 +3,8 @@
 namespace Console\Commands;
 
 use Flexi\Config\Config;
+use PDO;
+use RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -15,10 +17,33 @@ class ImportDatabase extends Command
 
     protected function configure()
     {
-        $this->setDescription('Import database.');
+        $this->setDescription('Import SQL files from databases/sql directory.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $output->writeln('Start import.');
+
+        try {
+            $pdo = $this->createConnection();
+            $sqlFiles = $this->getSqlFiles();
+
+            foreach ($sqlFiles as $sqlFile) {
+                $output->writeln(sprintf('Importing: %s', $sqlFile));
+                $this->importFile($pdo, sprintf('%s/%s', self::SQL_DIR_PATH, $sqlFile));
+            }
+        } catch (\Throwable $exception) {
+            $output->writeln(sprintf('<error>Import failed: %s</error>', $exception->getMessage()));
+
+            return Command::FAILURE;
+        }
+
+        $output->writeln('Done.');
+
+        return Command::SUCCESS;
+    }
+
+    private function createConnection()
     {
         $config = Config::group('database');
 
@@ -29,44 +54,42 @@ class ImportDatabase extends Command
             $config['charset']
         );
 
-        $pdo = new \PDO($dsn, $config['username'], $config['password']);
+        return new PDO($dsn, $config['username'], $config['password']);
+    }
 
-        $output->writeln([
-            'Start import.'
-        ]);
+    private function getSqlFiles()
+    {
+        $sqlFiles = array_values(array_filter(scandir(self::SQL_DIR_PATH), function ($item) {
+            return $item !== '.' && $item !== '..' && pathinfo($item, PATHINFO_EXTENSION) === 'sql';
+        }));
 
-        $sql = scandir(self::SQL_DIR_PATH);
+        sort($sqlFiles);
 
-        foreach ($sql as $table) {
-            if ($table === '.' || $table === '..') {
+        if (empty($sqlFiles)) {
+            throw new RuntimeException('No SQL files found in databases/sql directory.');
+        }
+
+        return $sqlFiles;
+    }
+
+    private function importFile(PDO $pdo, $filePath)
+    {
+        $lines = file($filePath);
+        $statement = '';
+
+        foreach ($lines as $line) {
+            $trimmedLine = trim($line);
+
+            if ($trimmedLine === '' || strpos($trimmedLine, '--') === 0) {
                 continue;
             }
 
-            $lines = file(self::SQL_DIR_PATH . '/' . $table);
+            $statement .= $line;
 
-            $tempLine = '';
-
-            foreach ($lines as $line) {
-                if (strpos($line, '--') === 0 || $line === '') {
-                    continue;
-                }
-
-                $tempLine .= $line;
-
-                if (substr(trim($line), -1, 1) === ';') {
-                    // Perform the query
-
-                    $sth = $pdo->prepare($tempLine);
-
-                    $sth->execute([]);
-
-                    $tempLine = '';
-                }
-
-                echo $line;
+            if (substr($trimmedLine, -1) === ';') {
+                $pdo->exec($statement);
+                $statement = '';
             }
         }
-
-        $output->writeln(['Done.']);
     }
 }
